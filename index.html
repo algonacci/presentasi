@@ -4,26 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Presentasi</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
   </head>
-  <body>
-    <h1>Hello</h1>
-    <p>
+  <body
+    x-data="{ search: '', presentations: [
+    { name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
+    { name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic' },
+    { name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' }
+  ], get filtered() {
+    return this.presentations.filter(p => 
+      p.name.toLowerCase().includes(this.search.toLowerCase()) ||
+      p.tags.toLowerCase().includes(this.search.toLowerCase())
+    )
+  }}"
+  >
+    <h1 style="text-align: center">Hello</h1>
+    <p style="text-align: center">
       Ini web tempat kumpulan slide presentasi punya
-      <a href="https://x.com/algonacci" target="_blank">Eric</a>
-      .
+      <a href="https://x.com/algonacci" target="_blank">Eric</a>.
     </p>
-    <ul>
-      <li>
-        <a href="./from-text-to-sql-agent" target="_blank">
-          From Text to SQL Agent
-        </a>
-      </li>
-      <li>
-        <a href="./MCP" target="_blank"> MCP </a>
-      </li>
-      <li>
-        <a href="./Build_Your_Own_MCP/" target="_blank"> Build Your Own MCP </a>
-      </li>
-    </ul>
+    <input
+      type="text"
+      x-model="search"
+      placeholder="Cari presentasi..."
+      style="width: 80%; padding: 6px; margin: 10px auto; display: block"
+    />
+    <table
+      style="
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        font-size: 14px;
+      "
+    >
+      <thead>
+        <tr style="background: #f0f0f0">
+          <th style="padding: 8px; text-align: left; border: 1px solid #ddd">
+            Nama
+          </th>
+          <th style="padding: 8px; text-align: left; border: 1px solid #ddd">
+            Tags
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template x-for="p in filtered" :key="p.url">
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd">
+              <a
+                :href="p.url"
+                target="_blank"
+                x-text="p.name"
+                style="text-decoration: none; color: #0066cc"
+              ></a>
+            </td>
+            <td
+              style="padding: 8px; border: 1px solid #ddd"
+              x-text="p.tags"
+            ></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
   </body>
 </html>
