@@ -1,0 +1,241 @@
+---
+title: "Model Context<br>Protocol"
+subtitle: "Standardized AI Integration"
+author: Eric Julianto
+format:
+    revealjs:
+        theme: styles.css
+        slide-number: c/t
+        chalkboard:
+            buttons: true
+            theme: whiteboard
+        transition: slide
+        background-transition: fade
+        code-copy: true
+        code-fold: false
+        code-overflow: wrap
+        smaller: true
+        incremental: false
+        preview-links: auto
+        logo: "logo.png"
+        footer: ""
+        margin: 0.1
+        fig-responsive: true
+        highlight-style: github
+        html-math-method: katex
+---
+
+#
+
+![](./memes/hello-hello-everybody.jpg){width=300 style="margin: 20px auto; display: block;"}
+
+---
+
+## About Me {.smaller}
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](profile.jpg){width=200 style="border-radius: 50%; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;"}
+
+<div style="font-size: 0.9em; line-height: 1.8;">
+
+**x.com**/algonacci
+
+**github.com**/algonacci
+
+**linkedin.com**/eric-julianto
+
+**instagram.com**/eric.juliantooo
+
+</div>
+:::
+
+::: {.column width="70%"}
+<div style="padding-left: 30px;">
+
+**Work Experience**
+
+<style>
+.compact-list li { margin-bottom: 0.3em; line-height: 1.2; }
+.compact-list .period { font-size: 0.85em; color: #666; display: block; margin-top: -0.2em; }
+</style>
+
+<div class="compact-list">
+
+- Research Analyst at Braincore
+<span class="period">(Dec 21 - Now)</span>
+
+- Machine Learning Mentor at Bangkit Academy
+<span class="period">(Feb 23 - Jan 24)</span>
+
+- SEO Intern at Dibilabs by Dibimbing.id
+<span class="period">(Mar 23 - Jun 23)</span>
+
+- AI Developer Intern at ZettaByte
+<span class="period">(May 22 - Aug 22)</span>
+
+</div>
+
+**Education**
+
+- Hospitality & Tourism at Universitas Bunda Mulia
+- Computer Science at Universitas Esa Unggul
+
+</div>
+:::
+::::
+
+
+#   
+
+![](./memes/nice-to-meet-you.jpg){width=300 style="margin: 20px auto; display: block;"}
+
+# Model Context Protocol (MCP) {.center .smaller}
+
+**Standardized AI Integration**
+
+Connecting AI models with tools and data sources seamlessly
+
+---
+
+## What is MCP? {.smaller}
+
+:::: {.columns}
+::: {.column width="40%"}
+
+![modelcontextprotocol.io](https://upload.wikimedia.org/wikipedia/commons/f/fe/Model_Context_Protocol_logo.svg){width=200 style="margin: 20px auto 0 auto; display: block; text-align: center;"}
+
+:::
+::: {.column width="60%"}
+
+**Model Context Protocol (MCP)**
+
+Open standard untuk menghubungkan AI models dengan:
+
+- External tools & APIs
+
+- Data sources & databases
+
+- Local system resources
+
+- Other AI applications
+
+:::
+::::
+
+
+# MCP Architecture {.center}
+
+<div style="text-align: center;">
+
+![MCP Architecture](./images/mcp-simple-diagram.jpg){width=800 style="margin: 20px auto; display: block;"}
+
+</div>
+
+---
+
+## How MCP Works {.smaller}
+
+1. **Connection** - AI model connects via MCP server
+2. **Tool Discovery** - MCP server exposes available tools/resources
+3. **Request** - Model requests tool execution with parameters
+4. **Execution** - Server executes tool and returns results
+5. **Context Update** - Results become part of model context
+
+---
+
+## MCP Architecture {.smaller}
+
+**Components:**
+
+- **Client**: AI model/application
+
+- **Server**: Provides tools and resources
+
+- **Transport**: Communication protocol (stdio, HTTP, WebSocket)
+
+- **Protocol**: Standard message format
+
+---
+
+## MCP Features {.smaller}
+
+- **Transport Flexibility:** stdio, HTTP, WebSocket
+
+- **Tool Registry:** Dynamic tool discovery
+
+- **Resource Access:** Files, APIs, databases
+
+- **Security:** Sandboxed execution, permission-based
+
+---
+
+## Why MCP Matters {.smaller}
+
+- **Standardization:** One protocol for all AI integrations
+
+- **Interoperability:** Switch between models tanpa mengubah integration code
+
+- **Security:** Sandboxed tool execution
+
+- **Scalability:** Server can manage multiple clients
+
+#
+
+![](./memes/demo.jpg){width=500 style="margin: 20px auto; display: block;"}
+
+<div style="text-align: center; margin-top: 20px; font-size: 1.5em; font-weight: bold;">
+Demo Time
+</div>
+
+---
+
+## Key Takeaways {.smaller}
+
+- **1. Standardization is Key** - MCP provides universal protocol untuk AI integrations
+
+- **2. Flexibility & Interoperability** - Switch models tanpa mengubah integration code
+
+- **3. Security by Design** - Sandboxed execution dengan permission-based access
+
+
+#
+
+![](./memes/materi-selesai.png){width=400 style="margin: 20px auto; display: block;"}
+
+---
+
+## Resources {.smaller}
+
+:::: {.columns}
+::: {.column width="60%"}
+**Official Documentation:**
+```
+https://modelcontextprotocol.io/
+```
+
+**GitHub:**
+```
+https://github.com/modelcontextprotocol
+```
+
+**Specification:**
+```
+https://spec.modelcontextprotocol.io/
+```
+:::
+
+
+::::
+
+
+<div style="text-align: center;">
+
+## Q&A {.smaller}
+
+![](./memes/any-question.png){width=300 style="margin: 20px auto; display: block;"}
+
+### Thank you for listening!
+
+</div>
