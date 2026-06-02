@@ -70,6 +70,23 @@
     margin: 0 auto;
 }
 
+.reveal .dataset-slide .columns {
+    align-items: flex-start;
+}
+
+.reveal .dataset-citation {
+    font-size: 0.62em;
+    line-height: 1.25;
+    color: #4a4a4a;
+    margin-top: 0.55em;
+    padding-top: 0.35em;
+    border-top: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.reveal .dataset-citation p {
+    margin: 0;
+}
+
 .reveal .slide-logo {
     max-height: 58px !important;
     max-width: 140px !important;

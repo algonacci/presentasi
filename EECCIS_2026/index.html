@@ -231,7 +231,7 @@ Eric Julianto · Dian Alhusari · Safrizal Ardana Ardiyansa · Wahyu Purnama Mag
 <p><img data-src="framework.png" style="width:60.0%"></p>
 </div></div>
 </section>
-<section id="dataset" class="slide level2 smaller center">
+<section id="dataset" class="slide level2 smaller dataset-slide center">
 <h2>Dataset</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -282,6 +282,9 @@ Eric Julianto · Dian Alhusari · Safrizal Ardana Ardiyansa · Wahyu Purnama Mag
 <h3 id="total">Total</h3>
 <p><strong>665,822 measurement points</strong> spanning ~85 hours of operation.</p>
 </div></div>
+<div class="dataset-citation">
+<p>Source dataset from Braun et al.&nbsp;(2022), <em>Journal of Power Sources</em>, describing “fresh and pre-aged lithium-ion battery single cells operated under well-defined laboratory conditions.” <a href="https://doi.org/10.1016/j.jpowsour.2022.231828">doi:10.1016/j.jpowsour.2022.231828</a></p>
+</div>
 </section>
 <section id="dataset-split" class="slide level2 smaller center">
 <h2>Dataset Split</h2>
@@ -669,9 +672,9 @@ Eric Julianto · Dian Alhusari · Safrizal Ardana Ardiyansa · Wahyu Purnama Mag
 </div><div class="column" style="width:45%;">
 <h3 id="feature-ranking">Feature Ranking</h3>
 <ol type="1">
-<li><strong>Voltage (<span class="math inline">\(V\)</span>)</strong> — dominant predictor, directly correlated with SoC via OCV.</li>
-<li><strong>Temperature (<span class="math inline">\(T\)</span>)</strong> — corrective role across the 25–40°C range.</li>
-<li><strong>Current (<span class="math inline">\(I\)</span>) and <span class="math inline">\(Q_{cum}\)</span></strong> — provide charging / discharging context.</li>
+<li><strong>Cumulative charge (<span class="math inline">\(Q_{cum}\)</span>)</strong> — dominant predictor, encoding the battery’s running charge history.</li>
+<li><strong>Voltage (<span class="math inline">\(V\)</span>)</strong> — strong electrochemical indicator, linked to SoC through the OCV relationship.</li>
+<li><strong>Temperature (<span class="math inline">\(T\)</span>)</strong> and <strong>Current (<span class="math inline">\(I\)</span>)</strong> — secondary context for thermal and operating-state corrections.</li>
 </ol>
 </div></div>
 </section>
@@ -688,8 +691,8 @@ Eric Julianto · Dian Alhusari · Safrizal Ardana Ardiyansa · Wahyu Purnama Mag
 </div><div class="column" style="width:45%;">
 <h3 id="observations">Observations</h3>
 <ul>
-<li>Both models prioritize <strong>voltage</strong> as the top predictor.</li>
-<li>Secondary-feature ordering differs — reflecting the distinct mechanisms of <strong>bagging (RF)</strong> vs <strong>boosting (XGB)</strong>.</li>
+<li>Both models assign the strongest influence to <strong>cumulative charge (<span class="math inline">\(Q_{cum}\)</span>)</strong>.</li>
+<li><strong>Voltage</strong> remains the next key signal, while <strong>temperature</strong> and <strong>current</strong> act as supporting context.</li>
 <li>Models learn <strong>physically meaningful relationships</strong>, not noise.</li>
 </ul>
 </div></div>

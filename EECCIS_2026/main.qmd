@@ -101,7 +101,7 @@ Game-theoretic feature attribution.
 
 ---
 
-## Dataset {.smaller}
+## Dataset {.smaller .dataset-slide}
 
 :::: {.columns}
 ::: {.column width="55%"}
@@ -124,6 +124,10 @@ Commercial Li-ion pouch cells, high-precision cycler, public dataset.
 **665,822 measurement points** spanning ~85 hours of operation.
 :::
 ::::
+
+::: {.dataset-citation}
+Source dataset from Braun et al. (2022), *Journal of Power Sources*, describing "fresh and pre-aged lithium-ion battery single cells operated under well-defined laboratory conditions." [doi:10.1016/j.jpowsour.2022.231828](https://doi.org/10.1016/j.jpowsour.2022.231828)
+:::
 
 ---
 
@@ -376,9 +380,9 @@ $R^2$ increases from **~0.42--0.50** to **~0.98--0.99** after GA tuning, with **
 :::
 ::: {.column width="45%"}
 ### Feature Ranking
-1. **Voltage ($V$)** — dominant predictor, directly correlated with SoC via OCV.
-2. **Temperature ($T$)** — corrective role across the 25–40°C range.
-3. **Current ($I$) and $Q_{cum}$** — provide charging / discharging context.
+1. **Cumulative charge ($Q_{cum}$)** — dominant predictor, encoding the battery's running charge history.
+2. **Voltage ($V$)** — strong electrochemical indicator, linked to SoC through the OCV relationship.
+3. **Temperature ($T$)** and **Current ($I$)** — secondary context for thermal and operating-state corrections.
 :::
 ::::
 
@@ -392,8 +396,8 @@ $R^2$ increases from **~0.42--0.50** to **~0.98--0.99** after GA tuning, with **
 :::
 ::: {.column width="45%"}
 ### Observations
-- Both models prioritize **voltage** as the top predictor.
-- Secondary-feature ordering differs — reflecting the distinct mechanisms of **bagging (RF)** vs **boosting (XGB)**.
+- Both models assign the strongest influence to **cumulative charge ($Q_{cum}$)**.
+- **Voltage** remains the next key signal, while **temperature** and **current** act as supporting context.
 - Models learn **physically meaningful relationships**, not noise.
 :::
 ::::
