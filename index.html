@@ -11,9 +11,10 @@
   </head>
   <body
     x-data="{ search: '', presentations: [
-    { name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
+    { name: 'EECCIS 2026', url: './EECCIS_2026', tags: 'soc, conference, ub, malang' },
+    { name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' },
     { name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic' },
-    { name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' }
+    { name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
   ], get filtered() {
     return this.presentations.filter(p => 
       p.name.toLowerCase().includes(this.search.toLowerCase()) ||
