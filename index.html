@@ -11,10 +11,17 @@
   </head>
   <body
     x-data="{ search: '', presentations: [
-    { name: 'EECCIS 2026', url: './EECCIS_2026', tags: 'soc, conference, ub, malang' },
-    { name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' },
-    { name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic' },
-    { name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
+{ name: 'SIML 2026: GA-Driven Recurrent Modeling for Indonesian Banking Stocks Forecasting: LSTM and Bi-LSTM with Explainable AI and Statistical Validation', url: './SIML_2', tags: 'stock forecasting, lstm, bilstm, macroeconomic features, genetic algorithm, wilcoxon test, dm test, ums, solo' },
+
+{ name: 'SIML 2026: Foundational Text-to-SQL Pipeline: Modular Design and Inference Benchmarking', url: './SIML_1', tags: 'text-to-sql, llm, modular pipeline, execution accuracy, spider dataset, conference, ums, solo' },
+
+{ name: 'EECCIS 2026: Explainable Metaheuristic-Optimized Machine Learning Models for Battery State-of-Charge Estimation', url: './EECCIS_2026', tags: 'battery management system, explainable ai, genetic algorithm, shap, state of charge, conference, ub, malang' },
+
+{ name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' },
+
+{ name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic' },
+
+{ name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
   ], get filtered() {
     return this.presentations.filter(p => 
       p.name.toLowerCase().includes(this.search.toLowerCase()) ||

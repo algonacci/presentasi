@@ -1,0 +1,166 @@
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+/* Import Latin Modern fonts (actual LaTeX fonts) */
+@import url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css');
+
+/* Set Computer Modern as main font family */
+.reveal {
+    font-family: "Computer Modern Serif", serif;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-size: 36px;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    font-family: "Computer Modern Serif", serif;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.reveal p {
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.reveal h1 {
+    font-size: 1.85em;
+}
+
+.reveal h2 {
+    font-size: 1.4em;
+    margin-bottom: 0.3em;
+}
+
+.reveal h3 {
+    font-size: 0.98em;
+    margin-bottom: 0.22em;
+}
+
+.reveal ul,
+.reveal ol,
+.reveal li,
+.reveal table,
+.reveal blockquote,
+.reveal .callout {
+    font-size: 0.94em;
+}
+
+.reveal .smaller {
+    font-size: 0.98em;
+}
+
+.reveal table th,
+.reveal table td {
+    padding: 0.2em 0.34em;
+}
+
+.reveal .pipeline-overview-slide .columns {
+    align-items: center;
+}
+
+.reveal .pipeline-overview-slide .column:first-child {
+    text-align: center;
+}
+
+.reveal .pipeline-overview-slide img {
+    display: block;
+    margin: 0 auto;
+    max-height: 400px;
+    width: auto !important;
+}
+
+.reveal .pipeline-overview-slide h2 {
+    font-size: 1.22em;
+    margin-bottom: 0.2em;
+}
+
+.reveal .pipeline-overview-slide h3 {
+    font-size: 0.88em;
+    margin-bottom: 0.16em;
+}
+
+.reveal .pipeline-overview-slide p,
+.reveal .pipeline-overview-slide ul,
+.reveal .pipeline-overview-slide ol,
+.reveal .pipeline-overview-slide li {
+    font-size: 0.82em;
+    line-height: 1.26;
+}
+
+.reveal .slide-logo {
+    max-height: 58px !important;
+    max-width: 140px !important;
+    height: auto !important;
+    width: auto !important;
+    top: auto !important;
+    bottom: 18px;
+    right: 20px;
+}
+
+.reveal #title-slide h1.title {
+    font-size: 1.38em;
+    line-height: 1.12;
+    max-width: 86%;
+    margin: 0 auto 0.22em auto;
+    text-wrap: balance;
+}
+
+.reveal #title-slide p.subtitle {
+    font-size: 0.84em;
+    line-height: 1.18;
+    max-width: 82%;
+    margin: 0.45em auto 1.1em auto;
+}
+
+.reveal #title-slide .quarto-title-authors {
+    margin-top: 0.8em;
+    font-size: 0.72em;
+}
+
+.reveal #title-slide .date,
+.reveal #title-slide .quarto-title-affiliation {
+    font-size: 0.7em;
+}
+
+.reveal section p,
+.reveal section li {
+    line-height: 1.3;
+}
+
+.reveal code {
+    font-family: "Computer Modern Typewriter", monospace;
+    letter-spacing: -0.05em;
+}
+
+.reveal pre code {
+    font-family: "Computer Modern Typewriter", monospace;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+}
+
+/* PlantUML specific styling */
+#fig-plantuml img {
+    image-rendering: crisp-edges;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+#fig-plantuml img:hover {
+    transform: scale(1.02);
+}
+
+/* Use specific white logo on dark/inverse slides */
+.reveal.has-dark-background .slide-logo {
+    content: url('logo-white.png') !important;
+}
