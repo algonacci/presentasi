@@ -1,0 +1,28 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam dpi 150
+skinparam defaultFontSize 16
+skinparam defaultTextAlignment center
+skinparam rectangle {
+    fontColor white
+    fontStyle bold
+}
+
+rectangle "Raw Data" as A #2f80ed
+rectangle "Feature\nEngineering" as B #2d3436
+rectangle "Train / Test\nSplit" as C #2d3436
+rectangle "Model\nTraining" as D #f2994a
+rectangle "Evaluation" as E #2d3436
+rectangle "Explainability" as F #2d3436
+rectangle "Predict" as G #219653
+
+' Row 1: left to right
+A -right-> B
+B -right-> C
+C -right-> D
+
+' Row 2: right to left (zigzag)
+D -down-> E
+E -left-> F
+F -left-> G
+@enduml

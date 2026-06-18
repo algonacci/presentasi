@@ -1,0 +1,25 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam dpi 150
+skinparam defaultFontSize 14
+skinparam defaultTextAlignment center
+skinparam rectangle {
+    fontColor white
+    fontStyle bold
+}
+
+rectangle "Current\nx Time" as A #2d3436
+rectangle "Charge\nDelta Q" as B #2d3436
+rectangle "Accumulate" as C #2d3436
+rectangle "Divide by\nCapacity" as D #2d3436
+rectangle "Subtract\nfrom 100%" as E #2d3436
+rectangle "SOC_true" as G #219653
+rectangle "OCV\nVoltage" as F #f2994a
+
+A -right-> B
+B -right-> C
+C -right-> D
+D -right-> E
+E -right-> G
+F -down-> E : calibrate
+@enduml
