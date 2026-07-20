@@ -8,27 +8,53 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <style>
+      body { font-family: system-ui, sans-serif; }
+      select { padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
   </head>
   <body
-      x-data="{ search: '', presentations: [
-{ name: 'IGNITE UNJ 2026: Exploring Intelligent Technologies — Machine Learning for Intelligent Vehicles', url: './IGNITE_UNJ_2026', tags: 'ml, soc, xgboost, random forest, shap, yolo, intelligent vehicles, workshop, unj, batavia' },
+      x-data="{ search: '', year: '', month: '', presentations: [
+{ name: 'INFINITYS 2026: An Intelligent Recruitment System Using RAG and Cross-Encoder Reranking for Automated Resume Screening', url: './INFINITYS_2026', tags: 'rag, cross-encoder, reranking, resume screening, cv, recruitment, conference, itb, binus, solo', createdAt: '2026-07-20' },
 
-{ name: 'SIML 2026: GA-Driven Recurrent Modeling for Indonesian Banking Stocks Forecasting: LSTM and Bi-LSTM with Explainable AI and Statistical Validation', url: './SIML_2', tags: 'stock forecasting, lstm, bilstm, macroeconomic features, genetic algorithm, wilcoxon test, dm test, ums, solo' },
+{ name: 'IGNITE UNJ 2026: Exploring Intelligent Technologies — Machine Learning for Intelligent Vehicles', url: './IGNITE_UNJ_2026', tags: 'ml, soc, xgboost, random forest, shap, yolo, intelligent vehicles, workshop, unj, batavia', createdAt: '2026-06-22' },
 
-{ name: 'SIML 2026: Foundational Text-to-SQL Pipeline: Modular Design and Inference Benchmarking', url: './SIML_1', tags: 'text-to-sql, llm, modular pipeline, execution accuracy, spider dataset, conference, ums, solo' },
+{ name: 'SIML 2026: GA-Driven Recurrent Modeling for Indonesian Banking Stocks Forecasting: LSTM and Bi-LSTM with Explainable AI and Statistical Validation', url: './SIML_2', tags: 'stock forecasting, lstm, bilstm, macroeconomic features, genetic algorithm, wilcoxon test, dm test, ums, solo', createdAt: '2026-06-09' },
 
-{ name: 'EECCIS 2026: Explainable Metaheuristic-Optimized Machine Learning Models for Battery State-of-Charge Estimation', url: './EECCIS_2026', tags: 'battery management system, explainable ai, genetic algorithm, shap, state of charge, conference, ub, malang' },
+{ name: 'SIML 2026: Foundational Text-to-SQL Pipeline: Modular Design and Inference Benchmarking', url: './SIML_1', tags: 'text-to-sql, llm, modular pipeline, execution accuracy, spider dataset, conference, ums, solo', createdAt: '2026-06-09' },
 
-{ name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial' },
+{ name: 'EECCIS 2026: Explainable Metaheuristic-Optimized Machine Learning Models for Battery State-of-Charge Estimation', url: './EECCIS_2026', tags: 'battery management system, explainable ai, genetic algorithm, shap, state of charge, conference, ub, malang', createdAt: '2026-06-02' },
 
-{ name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic' },
+{ name: 'Build Your Own MCP', url: './Build_Your_Own_MCP', tags: 'mcp, claude, anthropic, tutorial', createdAt: '2026-02-28' },
 
-{ name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql' },
-  ], get filtered() {
-    return this.presentations.filter(p => 
-      p.name.toLowerCase().includes(this.search.toLowerCase()) ||
-      p.tags.toLowerCase().includes(this.search.toLowerCase())
-    )
+{ name: 'MCP', url: './MCP', tags: 'mcp, claude, anthropic', createdAt: '2026-02-28' },
+
+{ name: 'From Text to SQL Agent', url: './from-text-to-sql-agent', tags: 'sql, ai, agent, text-to-sql, nl2sql', createdAt: '2026-01-26' },
+  ],
+  get years() {
+    return [...new Set(this.presentations.map(p => p.createdAt.slice(0,4)))].sort().reverse()
+  },
+  get months() {
+    const months = [
+      { label: 'Jan', value: '01' }, { label: 'Feb', value: '02' },
+      { label: 'Mar', value: '03' }, { label: 'Apr', value: '04' },
+      { label: 'May', value: '05' }, { label: 'Jun', value: '06' },
+      { label: 'Jul', value: '07' }, { label: 'Aug', value: '08' },
+      { label: 'Sep', value: '09' }, { label: 'Oct', value: '10' },
+      { label: 'Nov', value: '11' }, { label: 'Dec', value: '12' },
+    ]
+    const available = new Set(this.presentations
+      .filter(p => !this.year || p.createdAt.startsWith(this.year))
+      .map(p => p.createdAt.slice(5,7)))
+    return months.filter(m => available.has(m.value))
+  },
+  get filtered() {
+    return this.presentations.filter(p => {
+      const matchSearch = !this.search || p.name.toLowerCase().includes(this.search.toLowerCase()) || p.tags.toLowerCase().includes(this.search.toLowerCase())
+      const matchYear = !this.year || p.createdAt.startsWith(this.year)
+      const matchMonth = !this.month || p.createdAt.slice(5,7) === this.month
+      return matchSearch && matchYear && matchMonth
+    })
   }}"
   >
     <h1 style="text-align: center">Hello</h1>
@@ -36,16 +62,34 @@
       Ini web tempat kumpulan slide presentasi punya
       <a href="https://x.com/algonacci" target="_blank">Eric</a>.
     </p>
-    <input
-      type="text"
-      x-model="search"
-      placeholder="Cari presentasi..."
-      style="width: 80%; padding: 6px; margin: 10px auto; display: block"
-    />
+    <div style="width: 80%; margin: 10px auto; display: flex; gap: 8px; flex-wrap: wrap">
+      <input
+        type="text"
+        x-model="search"
+        placeholder="Cari presentasi..."
+        style="flex: 1; min-width: 200px; padding: 6px; border: 1px solid #ccc; border-radius: 4px"
+      />
+      <select x-model="year" @change="month=''">
+        <option value="">Semua Tahun</option>
+        <template x-for="y in years" :key="y">
+          <option :value="y" x-text="y"></option>
+        </template>
+      </select>
+      <select x-model="month">
+        <option value="">Semua Bulan</option>
+        <template x-for="m in months" :key="m.value">
+          <option :value="m.value" x-text="m.label"></option>
+        </template>
+      </select>
+      <button
+        @click="search=''; year=''; month=''"
+        style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer"
+      >Reset</button>
+    </div>
     <table
       style="
         width: 80%;
-        margin: 0 auto;
+        margin: 10px auto;
         border-collapse: collapse;
         font-size: 14px;
       "
@@ -54,6 +98,9 @@
         <tr style="background: #f0f0f0">
           <th style="padding: 8px; text-align: left; border: 1px solid #ddd">
             Nama
+          </th>
+          <th style="padding: 8px; text-align: left; border: 1px solid #ddd; width: 100px">
+            Tanggal
           </th>
           <th style="padding: 8px; text-align: left; border: 1px solid #ddd">
             Tags
@@ -71,6 +118,7 @@
                 style="text-decoration: none; color: #0066cc"
               ></a>
             </td>
+            <td style="padding: 8px; border: 1px solid #ddd; white-space: nowrap" x-text="p.createdAt"></td>
             <td
               style="padding: 8px; border: 1px solid #ddd"
               x-text="p.tags"
