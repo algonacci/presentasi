@@ -1,0 +1,551 @@
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+/* Import Latin Modern fonts (actual LaTeX fonts) */
+@import url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css');
+
+/* ===================================================================
+   INCOSST 2026 brand palette
+   Sampled from the official conference slide template.
+   =================================================================== */
+:root {
+    --incosst-navy: #051892;
+    --incosst-blue: #0A5DD5;
+    --incosst-blue-mid: #2570F2;
+    --incosst-sky: #3C9EE3;
+    --incosst-offwhite: #F8FBFF;
+    --incosst-ink: #0B1B3A;
+}
+
+/* Set Computer Modern as main font family */
+.reveal {
+    font-family: "Computer Modern Serif", serif;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    font-family: "Computer Modern Serif", serif;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+/* Slide titles sit under the partner logo bar, so keep them compact —
+   the stock size rendered at 100px and pushed dense slides
+   (methodology, efficiency) past the 700px layout height.
+   Quarto ships `.reveal .slides section.smaller h1 { font-size: calc(3.57143em) }`,
+   which outranks a plain `.reveal h1`, so match that specificity here. */
+.reveal h1 {
+    font-size: 1.5em;
+    margin-bottom: 0.4em;
+}
+
+.reveal h2 {
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+.reveal .slides section.smaller h1,
+.reveal .slides section h1 {
+    font-size: 1.5em;
+    margin-bottom: 0.4em;
+}
+
+.reveal .slides section.smaller h2,
+.reveal .slides section h2 {
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+/* Section-header slides carry no body copy, so give them a larger title. */
+.reveal .slides section.has-dark-background h1 {
+    font-size: 1.9em;
+}
+
+.reveal h3 {
+    font-size: 0.88em;
+    margin-bottom: 0.3em;
+}
+
+.reveal .cover-title {
+    font-size: 1.9em;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 11em;
+    margin: 0 auto 0.35em auto;
+    text-wrap: balance;
+}
+
+.reveal .cover-subtitle {
+    font-size: 0.9em;
+    line-height: 1.2;
+    max-width: 14em;
+    margin: 0 auto 0.8em auto;
+    text-wrap: balance;
+}
+
+.reveal .closing-title {
+    font-size: 1.9em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.2em;
+    text-align: center;
+}
+
+.reveal .closing-subtitle {
+    font-size: 0.9em;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* The `center` div wraps the closing content — centre it explicitly, since
+   Quarto's .center only sets alignment on the section itself. */
+.reveal .slides section .center {
+    text-align: center;
+}
+
+.reveal .slide-callout {
+    font-size: 0.9em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0.45em;
+}
+
+.reveal p {
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.reveal ul,
+.reveal ol {
+    display: block;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+.reveal ul li,
+.reveal ol li {
+    margin-bottom: 0.38em;
+    line-height: 1.35;
+}
+
+.reveal ul li:last-child,
+.reveal ol li:last-child {
+    margin-bottom: 0;
+}
+
+.reveal .columns ul,
+.reveal .columns ol {
+    margin-top: 0.25em;
+}
+
+.reveal .slides,
+.reveal .slides section,
+.reveal .slide-background,
+.reveal .progress,
+.reveal .controls,
+.reveal .fragment {
+    transition: none !important;
+    animation: none !important;
+}
+
+.reveal table {
+    font-size: 0.82em;
+}
+
+.reveal .smaller table {
+    font-size: 0.76em;
+}
+
+.reveal code {
+    font-family: "Computer Modern Typewriter", monospace;
+    letter-spacing: -0.05em;
+}
+
+.reveal pre code {
+    font-family: "Computer Modern Typewriter", monospace;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+}
+
+/* ===================================================================
+   Figures
+   Every figure is capped in *vh* so it can never push a slide past the
+   700px layout box — that was the overflow cause on dense slides.
+   =================================================================== */
+.reveal .slides section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Side-by-side X-ray pair. */
+.reveal .xray-pair {
+    display: inline-block;
+    width: 48%;
+    max-width: 48%;
+    height: auto;
+    margin: 0 0.5% !important;
+    border-radius: 6px;
+    border: 2px solid var(--incosst-blue);
+    background: #000;
+}
+
+/* Wide figures (feature maps, augmentation strip, learning curves).
+   Sized by width — a `vh` max-height collapses to 0 inside reveal's
+   scaled, auto-height slide box. */
+.reveal .figure-wide {
+    width: 78%;
+    max-width: 78%;
+    height: auto;
+    max-height: 380px;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(5, 24, 146, 0.18);
+}
+
+/* Inside a column the width is already bounded, so fill it and drop the
+   height cap — keeping one would letterbox the image inside its own box. */
+.reveal .column .figure-wide {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+}
+
+/* Tall figures (the vertical workflow diagram). Constrain by *height*:
+   the slide box is 700px tall, so a portrait aspect ratio has to be capped
+   there or it pushes the slide past the layout height. */
+.reveal .figure-tall,
+.reveal .column .figure-tall {
+    height: 480px;
+    width: auto;
+    max-width: 100%;
+}
+
+/* Figure captions. */
+.reveal .figure-caption {
+    font-size: 0.42em;
+    line-height: 1.35;
+    text-align: center;
+    color: var(--incosst-ink);
+    opacity: 0.75;
+    margin-top: 0.5em;
+    text-wrap: balance;
+}
+
+.reveal .slides section.has-dark-background .figure-caption {
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+/* PlantUML specific styling */
+#fig-plantuml img {
+    image-rendering: crisp-edges;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+#fig-plantuml img:hover {
+    transform: scale(1.02);
+}
+
+/* ===================================================================
+   INCOSST branding: partner logo bar + conference footer
+   =================================================================== */
+
+/* Suppress the old single-logo corner mark in favour of the logo bar */
+.reveal .slide-logo {
+    display: none !important;
+}
+
+/* ---- Branded cover: style Quarto's own title slide ---------------- */
+.reveal #title-slide {
+    text-align: center;
+}
+
+.reveal #title-slide .title {
+    font-size: 1.55em;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    max-width: 15em;
+    margin: 0 auto 0.3em auto;
+    text-wrap: balance;
+}
+
+.reveal #title-slide .subtitle {
+    font-size: 0.78em;
+    line-height: 1.3;
+    color: #ffffff;
+    opacity: 0.95;
+    max-width: 22em;
+    margin: 0 auto 0.9em auto;
+    text-wrap: balance;
+}
+
+.reveal #title-slide .quarto-title-authors,
+.reveal #title-slide .author,
+.reveal #title-slide .quarto-title-affiliation,
+.reveal #title-slide .institute,
+.reveal #title-slide .date {
+    color: #ffffff;
+    opacity: 0.95;
+}
+
+.reveal #title-slide .quarto-title-authors,
+.reveal #title-slide .author {
+    font-size: 0.62em;
+    padding-top: 0.5em;
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+    max-width: 18em;
+    margin: 0 auto;
+}
+
+.reveal #title-slide .quarto-title-affiliation,
+.reveal #title-slide .institute {
+    font-size: 0.55em;
+}
+
+.reveal #title-slide .date {
+    font-size: 0.52em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-top: 0.7em;
+}
+
+/* Partner logo strip (Poltek SCI | IEEE Indonesia Section | Pelita),
+   pinned top-centre on every slide as in the official template. */
+.reveal::before {
+    content: "";
+    position: fixed;
+    top: 1.6vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(38vw, 420px);
+    aspect-ratio: 1860 / 224;
+    background: url('images/incosst-logos.png') no-repeat center / contain;
+    z-index: 40;
+    pointer-events: none;
+}
+
+/* The deck's base theme is light, so tint the logo bar to brand navy by
+   default and only fall back to the white asset on dark slides. Reveal sets
+   `has-dark-background` on the deck for the current slide; it does NOT set
+   `has-light-background` on untinted slides, so defaulting to navy is what
+   keeps the bar visible on the plain white ones.
+   The asset is white-on-transparent, so tint via a solid mask rather than
+   filter chains (which drift toward magenta on pure white). */
+.reveal::before {
+    background: var(--incosst-navy);
+    -webkit-mask: url('images/incosst-logos.png') no-repeat center / contain;
+    mask: url('images/incosst-logos.png') no-repeat center / contain;
+}
+
+/* Dark slides: use the white artwork directly, no mask tint. */
+.reveal.has-dark-background::before {
+    background: url('images/incosst-logos.png') no-repeat center / contain;
+    -webkit-mask: none;
+    mask: none;
+}
+
+/* Conference URL, bottom-centre. */
+.reveal::after {
+    content: "incosst.polteksci.ac.id";
+    position: fixed;
+    bottom: 1.4vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Computer Modern Serif", serif;
+    font-size: 0.42em;
+    letter-spacing: 0.01em;
+    color: var(--incosst-ink);
+    opacity: 0.75;
+    z-index: 40;
+    pointer-events: none;
+}
+
+.reveal.has-dark-background::after {
+    color: #ffffff;
+    opacity: 0.85;
+}
+
+/* Keep slide content clear of the logo bar and footer. */
+.reveal .slides section {
+    padding-top: 1.2vh;
+}
+
+/* Dense slides: tighten tables and lists so they fit without scaling down. */
+.reveal .smaller table {
+    font-size: 0.66em;
+}
+
+.reveal .smaller table th,
+.reveal .smaller table td {
+    padding: 0.18em 0.4em;
+}
+
+.reveal .smaller ul li,
+.reveal .smaller ol li {
+    margin-bottom: 0.28em;
+    line-height: 1.28;
+}
+
+/* Brand-blue accents on light slides.
+   Scoped to the slide element (not `.reveal`) so a dark slide's own content
+   can never inherit navy-on-navy text. */
+.reveal .slides section:not(.has-dark-background) h1,
+.reveal .slides section:not(.has-dark-background) h2 {
+    color: var(--incosst-navy);
+}
+
+.reveal .slides section:not(.has-dark-background) strong {
+    color: var(--incosst-blue);
+}
+
+/* Dark slides: force every text element white, including headings and
+   bold runs that the brand-accent rules above would otherwise tint. */
+.reveal .slides section.has-dark-background,
+.reveal .slides section.has-dark-background h1,
+.reveal .slides section.has-dark-background h2,
+.reveal .slides section.has-dark-background h3,
+.reveal .slides section.has-dark-background p,
+.reveal .slides section.has-dark-background li,
+.reveal .slides section.has-dark-background td,
+.reveal .slides section.has-dark-background th,
+.reveal .slides section.has-dark-background strong,
+.reveal .slides section.has-dark-background em,
+.reveal .slides section.has-dark-background blockquote {
+    color: #ffffff !important;
+}
+
+.reveal:not(.has-dark-background) blockquote {
+    border-left: 4px solid var(--incosst-sky);
+    background: var(--incosst-offwhite);
+    padding: 0.5em 0.9em;
+}
+
+/* Table headers in brand blue; header text (and any bold inside) stays white. */
+.reveal .slides section:not(.has-dark-background) table thead th {
+    background: var(--incosst-blue);
+    border-color: var(--incosst-blue) !important;
+}
+
+.reveal .slides section table thead th,
+.reveal .slides section table thead th strong,
+.reveal .slides section:not(.has-dark-background) table thead th,
+.reveal .slides section:not(.has-dark-background) table thead th strong {
+    color: #ffffff !important;
+}
+
+.reveal .slides section:not(.has-dark-background) table tbody tr:nth-child(even) {
+    background: rgba(10, 93, 213, 0.07);
+}
+
+/* Body text in tables stays near-black for legibility on the zebra tint. */
+.reveal .slides section:not(.has-dark-background) table tbody td {
+    color: var(--incosst-ink);
+}
+
+/* Callout pill, brand gradient. The `strong` inside must stay white — the
+   brand-accent rule would otherwise tint it blue against the blue pill. */
+.reveal .slide-callout {
+    display: inline-block;
+    background: linear-gradient(100deg, var(--incosst-navy), var(--incosst-blue) 55%, var(--incosst-sky));
+    color: #ffffff !important;
+    padding: 0.4em 1.1em;
+    border-radius: 999px;
+}
+
+.reveal .slide-callout,
+.reveal .slide-callout strong,
+.reveal .slide-callout em,
+.reveal .slides section:not(.has-dark-background) .slide-callout strong {
+    color: #ffffff !important;
+}
+
+/* Cover + closing slides: diagonal brand gradient echoing the template. */
+.reveal .slide-background.cover-bg .slide-background-content,
+.reveal .slide-background.closing-bg .slide-background-content {
+    background: linear-gradient(115deg,
+            var(--incosst-navy) 0%,
+            var(--incosst-blue) 52%,
+            var(--incosst-sky) 100%);
+}
+
+.reveal .cover-title,
+.reveal .closing-title {
+    color: #ffffff;
+}
+
+.reveal .cover-eyebrow {
+    display: inline-block;
+    font-size: 0.5em;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #ffffff;
+    opacity: 0.85;
+    margin-bottom: 0.6em;
+}
+
+.reveal .cover-authors {
+    font-size: 0.58em;
+    line-height: 1.5;
+    color: #ffffff;
+    opacity: 0.95;
+}
+
+.reveal .cover-rule {
+    width: 4.5em;
+    height: 3px;
+    background: #ffffff;
+    opacity: 0.6;
+    margin: 0.9em auto 1em auto;
+}
+
+/* White text on dark background slides */
+.reveal.has-dark-background,
+.reveal.has-dark-background h1,
+.reveal.has-dark-background h2,
+.reveal.has-dark-background h3,
+.reveal.has-dark-background h4,
+.reveal.has-dark-background h5,
+.reveal.has-dark-background h6,
+.reveal.has-dark-background p,
+.reveal.has-dark-background li,
+.reveal.has-dark-background td,
+.reveal.has-dark-background th,
+.reveal.has-dark-background blockquote,
+.reveal.has-dark-background .incremental {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background a {
+    color: #90caf9 !important;
+}
+
+.reveal.has-dark-background strong {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background table {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background table th,
+.reveal.has-dark-background table td {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
