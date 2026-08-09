@@ -1,0 +1,244 @@
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+/* Import Latin Modern fonts (actual LaTeX fonts) */
+@import url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css');
+
+/* Set Computer Modern as main font family */
+.reveal {
+    font-family: "Computer Modern Serif", serif;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    font-family: "Computer Modern Serif", serif;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.reveal h1 {
+    font-size: 1.28em;
+    margin-bottom: 0.45em;
+}
+
+.reveal h2 {
+    font-size: 1.02em;
+    margin-bottom: 0.35em;
+}
+
+.reveal h3 {
+    font-size: 0.88em;
+    margin-bottom: 0.3em;
+}
+
+/* Quarto marks every level-1 section .title-slide and blows its h1 up to
+   2.5em, which outranks `.reveal h1` above. Scale slide titles back to
+   ~50px so a two-word title fits on one line. The em base differs between
+   normal (40px) and .smaller (28px) sections, hence the two values.
+   The real cover (#title-slide) keeps its full size. */
+.reveal .slides section.title-slide:not(#title-slide) h1,
+.reveal[data-navigation-mode="linear"] .slides section.title-slide:not(#title-slide) h1 {
+    font-size: 1.25em;
+    margin-bottom: 0.45em;
+}
+
+.reveal .slides section.smaller h1,
+.reveal[data-navigation-mode="linear"] .slides section.smaller h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.45em;
+}
+
+.reveal .slides section.smaller h2 {
+    font-size: 1.4em;
+    margin-bottom: 0.35em;
+}
+
+.reveal .slides section.smaller h3 {
+    font-size: 1.15em;
+    margin-bottom: 0.3em;
+}
+
+.reveal .cover-title {
+    font-size: 1.9em;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 11em;
+    margin: 0 auto 0.35em auto;
+    text-wrap: balance;
+}
+
+.reveal .cover-subtitle {
+    font-size: 0.9em;
+    line-height: 1.2;
+    max-width: 14em;
+    margin: 0 auto 0.8em auto;
+    text-wrap: balance;
+}
+
+.reveal .closing-title {
+    font-size: 1.4em;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.2em;
+}
+
+.reveal .closing-subtitle {
+    font-size: 0.9em;
+    line-height: 1.2;
+}
+
+.reveal .slide-callout {
+    font-size: 0.9em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0.45em;
+}
+
+.reveal p {
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.reveal ul,
+.reveal ol {
+    display: block;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+.reveal ul li,
+.reveal ol li {
+    margin-bottom: 0.38em;
+    line-height: 1.35;
+}
+
+.reveal ul li:last-child,
+.reveal ol li:last-child {
+    margin-bottom: 0;
+}
+
+.reveal .columns ul,
+.reveal .columns ol {
+    margin-top: 0.25em;
+}
+
+.reveal .slides,
+.reveal .slides section,
+.reveal .slide-background,
+.reveal .progress,
+.reveal .controls,
+.reveal .fragment {
+    transition: none !important;
+    animation: none !important;
+}
+
+.reveal table {
+    font-size: 0.82em;
+}
+
+.reveal .smaller table {
+    font-size: 0.76em;
+}
+
+/* Model names and "98.3 ± 0.3" cells read as single units -- never wrap them. */
+.reveal table th,
+.reveal table td {
+    white-space: nowrap;
+}
+
+
+.reveal code {
+    font-family: "Computer Modern Typewriter", monospace;
+    letter-spacing: -0.05em;
+}
+
+.reveal pre code {
+    font-family: "Computer Modern Typewriter", monospace;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+}
+
+/* PlantUML specific styling */
+#fig-plantuml img {
+    image-rendering: crisp-edges;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+#fig-plantuml img:hover {
+    transform: scale(1.02);
+}
+
+/* Use specific white logo on dark/inverse slides */
+.reveal.has-dark-background .slide-logo {
+    content: url('logo-white.png') !important;
+}
+
+/* White text on dark background slides */
+.reveal.has-dark-background,
+.reveal.has-dark-background h1,
+.reveal.has-dark-background h2,
+.reveal.has-dark-background h3,
+.reveal.has-dark-background h4,
+.reveal.has-dark-background h5,
+.reveal.has-dark-background h6,
+.reveal.has-dark-background p,
+.reveal.has-dark-background li,
+.reveal.has-dark-background td,
+.reveal.has-dark-background th,
+.reveal.has-dark-background blockquote,
+.reveal.has-dark-background .incremental {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background a {
+    color: #90caf9 !important;
+}
+
+.reveal.has-dark-background strong {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background table {
+    color: #ffffff !important;
+}
+
+.reveal.has-dark-background table th,
+.reveal.has-dark-background table td {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Cover author block: the full 11-author list plus six affiliations is far
+   longer than a short byline, so cap the size and let it wrap on its own
+   lines instead of crowding the title. */
+.reveal #title-slide .quarto-title-authors,
+.reveal #title-slide .quarto-title-author-name {
+    font-size: 0.5em;
+    line-height: 1.45;
+    max-width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+}
+
+.reveal #title-slide .quarto-title-affiliation {
+    font-size: 0.42em;
+    line-height: 1.4;
+    max-width: 32em;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.85;
+    text-wrap: balance;
+}
