@@ -220,23 +220,29 @@
     border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Cover author block: the full 11-author list plus six affiliations is far
-   longer than a short byline, so cap the size and let it wrap on its own
-   lines instead of crowding the title. */
-.reveal #title-slide .quarto-title-authors,
+/* Cover author block: the full 11-author list plus six affiliations is
+   longer than a short byline, so let it wrap onto its own lines instead of
+   crowding the title. Size only the leaf elements — setting font-size on
+   both the wrapper and the name would compound and shrink it twice. */
+.reveal #title-slide .quarto-title-authors {
+    font-size: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .reveal #title-slide .quarto-title-author-name {
-    font-size: 0.5em;
-    line-height: 1.45;
-    max-width: 30em;
+    font-size: 0.78em;
+    line-height: 1.5;
+    max-width: 24em;
     margin-left: auto;
     margin-right: auto;
     text-wrap: balance;
 }
 
 .reveal #title-slide .quarto-title-affiliation {
-    font-size: 0.42em;
-    line-height: 1.4;
-    max-width: 32em;
+    font-size: 0.62em;
+    line-height: 1.45;
+    max-width: 28em;
     margin-left: auto;
     margin-right: auto;
     opacity: 0.85;
