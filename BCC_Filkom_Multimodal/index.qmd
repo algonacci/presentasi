@@ -1,0 +1,908 @@
+---
+title: "Multimodal AI in Practice"
+subtitle: "Dari demo yang jalan ke sistem yang bisa di-ship"
+author: "Eric Julianto"
+institute: "Braincore × BCC FILKOM UB"
+format:
+    revealjs:
+        theme: white
+        width: 1280
+        height: 720
+        css: custom.css
+        resources: [logo-white.png]
+        slide-number: c/t
+        chalkboard:
+            buttons: true
+            theme: whiteboard
+        transition: slide
+        background-transition: fade
+        code-copy: true
+        code-fold: false
+        code-overflow: wrap
+        smaller: true
+        incremental: false
+        preview-links: auto
+        logo: "logo.png"
+        footer: ""
+        margin: 0.1
+        fig-responsive: true
+        highlight-style: github
+        html-math-method: katex
+---
+
+## About Me {.smaller}
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](profile.jpg){width=200 style="border-radius: 50%; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;"}
+
+<div style="font-size: 0.9em; line-height: 1.8;">
+
+**x.com**/algonacci
+
+**github.com**/algonacci
+
+**linkedin.com**/eric-julianto
+
+**instagram.com**/eric.juliantooo
+
+</div>
+:::
+
+::: {.column width="70%"}
+<div style="padding-left: 30px;">
+
+**Work Experience**
+
+<style>
+.compact-list li { margin-bottom: 0.3em; line-height: 1.2; }
+.compact-list .period { font-size: 0.85em; color: #666; display: block; margin-top: -0.2em; }
+</style>
+
+<div class="compact-list">
+
+- Research Analyst at Braincore
+<span class="period">(Dec 21 - Now)</span>
+
+- Machine Learning Mentor at Bangkit Academy
+<span class="period">(Feb 23 - Jan 24)</span>
+
+- SEO Intern at Dibilabs by Dibimbing.id
+<span class="period">(Mar 23 - Jun 23)</span>
+
+- AI Developer Intern at ZettaByte
+<span class="period">(May 22 - Aug 22)</span>
+
+</div>
+
+**Education**
+
+- Hospitality & Tourism at Universitas Bunda Mulia
+- Computer Science at Universitas Esa Unggul
+
+</div>
+:::
+::::
+
+## Sesi Hari Ini {#sesi}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+### Sesi 1 — Teori
+
+1. Masalah nyata: invoice → JSON
+2. Multimodal AI 101
+3. Anatomi aplikasi
+4. Use case industri
+5. Produksi vs prototype
+6. Evaluasi & karier
+
+:::
+::: {.column width="50%"}
+
+### Sesi 2 — Praktik
+
+- Mini **document intelligence**
+- Image/PDF → API → JSON
+- Validasi pakai **Pydantic**
+- Fallback kalau API mati
+
+:::
+::::
+
+::: {.callout-tip}
+### Kontrak hari ini
+Multimodal AI **bukan** "kasih gambar ke LLM". Produk yang berguna adalah **sistem**.
+:::
+
+## Satu Kalimat yang Akan Diulang {#kontrak}
+
+::: {.callout-warning}
+### Ingat
+**"It works" ≠ "it works in production"**
+:::
+
+Alurnya:
+
+ingestion → preprocess → model → structured output → validation → app logic → eval → observability → human fallback
+
+::: {.callout-note}
+### Goal
+Paham konsepnya, lalu bikin versi kecil yang **bisa divalidasi program**.
+:::
+
+# Masalah Nyata {#sec-demo background-color="#2c3e50"}
+Mulai dari output, bukan definisi
+
+## User Upload Invoice {#invoice}
+
+Sistem harus mengembalikan ini:
+
+```json
+{
+  "supplier": "PT ABC",
+  "invoice_number": "INV-2026-0914",
+  "invoice_date": "2026-09-14",
+  "subtotal": 15000000,
+  "tax": 1500000,
+  "total": 16500000,
+  "items": [
+    { "description": "Product A", "quantity": 10, "unit_price": 500000 }
+  ]
+}
+```
+
+::: {.callout-note}
+### Perhatikan tipenya
+Tanggal ISO. Uang **integer** (rupiah). Line item nested. Finance code tidak butuh puisi.
+:::
+
+## "Itu Kan Cuma OCR" {#bukan-ocr}
+
+OCR kasih **karakter**.
+
+Pekerjaan ini juga butuh:
+
+- layout visual (angka mana yang total?)
+- tabel dan alignment baris
+- relasi field (`subtotal + tax = total`)
+- ambiguitas (`"15.7 jt"` vs `15700000`)
+- validasi schema
+- keputusan saat model ragu
+
+::: {.callout-tip}
+### Kenapa mulai di sini
+Nilai bisnisnya jelas: kertas tidak terstruktur → record terstruktur.
+:::
+
+## Demo: Happy Path vs Fallback {#demo}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+### Kalau API hidup
+
+image / PDF → model → JSON → Pydantic → OK / tolak
+
+:::
+::: {.column width="50%"}
+
+### Kalau jaringan mati
+
+1. Rekaman layar
+2. `samples/fallback_invoice.json`
+3. Lanjut seolah API sudah return
+
+:::
+::::
+
+::: {.callout-important}
+### Lesson pertama
+Talk produksi punya fallback. Demo yang nunggu API key di proyektor **bukan** produksi.
+:::
+
+## Pipeline yang Sebenarnya {#pipeline-bocor}
+
+```
+layout + teks + tabel + konteks + keraguan
+        → pemahaman multimodal
+        → field terstruktur
+        → cek
+        → aplikasi
+```
+
+Itu yang dimaksud **multimodal AI in practice**.
+
+# Multimodal AI 101 {#sec-101 background-color="#2c3e50"}
+Modalitas cuma jenis input
+
+## Jenis Input {#modalitas .smaller}
+
+| Modalitas | Bentuk | Contoh tugas |
+|:---|:---|:---|
+| **Teks** | token | chat, klasifikasi tiket |
+| **Gambar** | piksel / patch | inspeksi part, baca UI |
+| **Audio** | waveform | transkrip, deteksi emosi |
+| **Video** | frame + waktu | "defect muncul jam berapa?" |
+| **Dokumen** | halaman + teks + layout | invoice, kontrak, form |
+
+::: {.callout-note}
+### Dokumen
+Bukan "gambar biasa". **Layout** adalah channel ekstra.
+:::
+
+## Text-only vs Multimodal {#vs}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+### Text-only
+
+- prompt masuk, token keluar
+- tidak melihat halaman
+- gagal kalau makna ada di posisi, screenshot, atau nada
+
+:::
+::: {.column width="50%"}
+
+### Multimodal
+
+- lebih dari satu sinyal dalam satu keputusan
+- bisa *ground* "total" ke sebuah sel
+- tetap butuh schema, kalau tidak dia akan ngobrol
+
+:::
+::::
+
+::: {.callout-tip}
+### Kenapa peduli
+Demo kampus = chat. Kerjaan berbayar = **file masuk, record keluar**.
+:::
+
+## Mental Model {#mental}
+
+```{mermaid}
+flowchart TD
+    T[Teks] --> M[Model multimodal]
+    I[Gambar] --> M
+    A[Audio] --> M
+    V[Video] --> M
+    D[Dokumen] --> M
+    M --> O[Teks bebas atau output terstruktur]
+
+    style M fill:#fff3e0
+    style O fill:#c8e6c9
+```
+
+## Istilah yang Cukup untuk Hari Ini {#istilah .smaller}
+
+| Istilah | Arti kerja |
+|:---|:---|
+| **VLM** | Vision-language model: token gambar/halaman + teks → generasi |
+| **Encoder** | Ubah modalitas jadi vektor |
+| **Embeddings** | Vektor itu, untuk search / kemiripan |
+| **Tokens** | Potongan yang di-attend model (teks *atau* patch visual) |
+| **Structured output** | JSON / tool call yang bisa di-parse program |
+
+Hari ini **tidak** menurunkan arsitektur transformer.
+
+## Empat Bentuk yang Sama {#empat-bentuk}
+
+- **Gambar + pertanyaan** → "helm-nya sudah benar?"
+- **Dokumen + schema** → JSON invoice
+- **Audio + transkrip + label** → topik + sentimen
+- **Video + waktu** → daftar event + timestamp
+
+## Kapan *Tidak* Pakai VLM {#kapan-tidak}
+
+Lewati VLM kalau:
+
+- regex / template sudah extract 99%
+- cukup CV klasik (threshold, YOLO, OCR engine)
+- modalitas kedua **tidak mengubah keputusan**
+- file tidak boleh disimpan / dievaluasi secara legal
+
+::: {.callout-warning}
+### Tes mode
+**Apakah modalitas kedua mengubah jawaban?** Kalau tidak, jangan bayar.
+:::
+
+# Anatomi Aplikasi {#sec-anatomy background-color="#2c3e50"}
+Model cuma satu kotak
+
+## Happy Path {#happy}
+
+```{mermaid}
+flowchart LR
+    In[Input] --> Pre[Preprocess]
+    Pre --> Mod[Model multimodal]
+    Mod --> Out[Structured output]
+    Out --> Val[Validasi]
+    Out --> Logic[App logic]
+    Out --> DB[(Database)]
+    Out --> UI[UI / API]
+```
+
+::: {.callout-note}
+### Pesan inti
+**Model bukan aplikasinya.**
+:::
+
+## Input {#input}
+
+File, gambar, PDF, audio, video, prompt user, timestamp, tenant ID.
+
+Juga: **file rusak, scan 80MB, `.heic`, PDF berpassword.**
+
+Kalau input tidak diklasifikasi, model jadi error handler. Mahal dan bodoh.
+
+## Preprocess {#preprocess}
+
+- resize / transcode / DPI
+- OCR *kalau membantu* (teks rapat, search murah)
+- split halaman, chunk, sample frame
+- normalisasi angka, tanggal, mata uang
+- buang EXIF; simpan metadata berguna (jumlah halaman)
+
+Preprocess ada supaya model melihat artefak yang **membosankan dan terbatas**.
+
+## Model {#model-layer}
+
+Bisa berupa:
+
+- VLM / multimodal LLM lewat API
+- spesialis (detector, ASR)
+- embedding untuk retrieval
+- **router**: model murah dulu, mahal saat konflik
+
+Pilih model seperti pilih database: **tugas, biaya, latency, failure mode**.
+
+## Output {#output}
+
+- prosa (untuk manusia)
+- **JSON** (untuk program)
+- label kelas
+- embeddings
+- tool / function call
+
+Kalau finance, logistik, atau DB di hilir — **prosa adalah bug**.
+
+## Prototype vs yang Bisa Di-ship {#bukan-app}
+
+:::: {.columns}
+::: {.column width="45%"}
+
+### Prototype
+
+```
+image → model → vibe
+```
+
+:::
+::: {.column width="55%"}
+
+### Sesuatu yang bisa di-ship
+
+```
+input → cek → model → schema
+      → retry → rules → DB
+      → logs → manusia
+```
+
+:::
+::::
+
+::: {.callout-tip}
+### Tanya ke diri
+Hackathon terakhir ada di sisi mana?
+:::
+
+## Failure Path = Arsitektur Sebenarnya {#failure}
+
+```{mermaid}
+flowchart TD
+    In[Input] --> Bad{Bisa dipakai?}
+    Bad -->|rusak / gede / tidak didukung| Rej[Tolak atau perbaiki]
+    Bad -->|ok| Mod[Model]
+    Mod --> TO[Timeout]
+    Mod --> Hal[Hallucination]
+    Mod --> JSON[JSON rusak]
+    Mod --> Miss[Field hilang]
+    Mod --> OK[Kelihatan parseable]
+    OK --> Val[Validasi]
+    Val -->|gagal| Rec{Kebijakan}
+    Rec --> Retry[Retry / model lain]
+    Rec --> FB[Fallback]
+    Rec --> HITL[Human review]
+    Val -->|lolos| App[Commit]
+```
+
+# Use Case Industri {#sec-usecase background-color="#2c3e50"}
+Enam pertanyaan yang sama setiap kali
+
+## Template {#template}
+
+1. **Masalah** — kenapa ini sakit?
+2. **Kenapa multimodal?** — kenapa bukan teks saja / software klasik?
+3. **Input**
+4. **Model**
+5. **Output**
+6. **Evaluasi**
+7. **Deploy** — apa yang berubah di produksi?
+
+## 1 · Document Intelligence {#uc-doc .smaller}
+
+| | |
+|:---|:---|
+| **Masalah** | Invoice, struk, form, kontrak datang sebagai PDF/foto |
+| **Kenapa multimodal** | Makna ada di **teks + layout** |
+| **Input** | PDF / gambar / scan |
+| **Model** | VLM, kadang OCR + VLM |
+| **Output** | JSON ber-schema |
+| **Eval** | exact match per field; toleransi numerik |
+| **Deploy** | validasi, retry, audit, PII, HITL |
+
+Ini yang kita bangun di sesi praktik.
+
+## 2 · Visual Inspection {#uc-inspect .smaller}
+
+| | |
+|:---|:---|
+| **Masalah** | Cacat di part, rak, APD, screenshot UI |
+| **Kenapa multimodal** | Bukti piksel + **spesifikasi dalam bahasa** |
+| **Input** | foto + instruksi ("hitung baut yang hilang") |
+| **Model** | detector dan/atau VLM |
+| **Output** | lulus/gagal, bbox, severity |
+| **Eval** | precision/recall; biaya defect terlewat |
+| **Deploy** | drift pencahayaan, ID kamera, latency di line |
+
+::: {.callout-note}
+### Jujur
+CV klasik sering menang. VLM membantu kalau spek **berubah dalam teks** tiap minggu.
+:::
+
+## 3 · Support: Gambar + Teks {#uc-support .smaller}
+
+| | |
+|:---|:---|
+| **Masalah** | "App error" + screenshot; "paket rusak" + foto |
+| **Kenapa multimodal** | Teks tiket tidak lengkap tanpa gambar |
+| **Input** | pesan + lampiran |
+| **Model** | VLM + classifier + retrieval |
+| **Output** | intent, ID terekstrak, draft balasan, routing |
+| **Eval** | containment, salah-route |
+| **Deploy** | PII di screenshot, prompt injection lewat teks di gambar |
+
+## Tes Mode, Lagi {#fashion-2}
+
+> Apakah multimodality **benar-benar** memperbaiki solusi?
+
+Kalau form SQL sudah menangkap field-nya, **jangan** foto form itu lalu jalankan VLM.
+
+# Sesi Praktik {#sec-workshop background-color="#2c3e50"}
+Mini AI Document Intelligence
+
+## Yang Kita Bangun {#build}
+
+```{mermaid}
+flowchart TD
+    F[Image / PDF] --> API[API multimodal]
+    API --> J[JSON terstruktur]
+    J --> P[Validasi Pydantic]
+    P --> Out[Terima / tolak / review]
+```
+
+Fokus: panggilan API, schema, validasi, eval kecil.
+
+Bukan fokus: React, Kubernetes, fine-tune.
+
+## Prerequisites {#prereq}
+
+- Python **3.10+**
+- `pip` atau `uv`
+- editor + terminal
+- satu sampel invoice (gambar atau halaman PDF)
+- API key di **environment**, jangan di git
+
+```bash
+python --version
+```
+
+::: {.callout-tip}
+### Tidak punya key
+Pakai `samples/fallback_invoice.json`. Tetap kerjakan validasi.
+:::
+
+## Setup {#setup}
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+pip install openai pydantic pillow python-dotenv
+```
+
+`.env` (jangan di-commit):
+
+```bash
+OPENAI_API_KEY=sk-...
+```
+
+```python
+import os
+from dotenv import load_dotenv
+load_dotenv()
+assert os.environ.get("OPENAI_API_KEY"), "set OPENAI_API_KEY"
+```
+
+## Schema Dulu, Prompt Kemudian {#schema}
+
+```python
+from datetime import date
+from pydantic import BaseModel, Field, model_validator
+
+class LineItem(BaseModel):
+    description: str
+    quantity: float
+    unit_price: int = Field(..., description="IDR, integer")
+
+class Invoice(BaseModel):
+    supplier: str
+    invoice_number: str
+    invoice_date: date
+    subtotal: int
+    tax: int
+    total: int
+    items: list[LineItem]
+    needs_review: bool = False
+
+    @model_validator(mode="after")
+    def totals_add_up(self):
+        if self.subtotal + self.tax != self.total:
+            self.needs_review = True
+        return self
+```
+
+::: {.callout-note}
+### Logic produk
+Salah hitung → manusia. Jangan diem-diem "dibenarkan".
+:::
+
+## Load Halaman {#load}
+
+```python
+from pathlib import Path
+import base64
+
+path = Path("samples/invoice.png")
+raw = path.read_bytes()
+b64 = base64.b64encode(raw).decode()
+
+assert path.stat().st_size < 4_000_000, "resize / recompress dulu"
+```
+
+Tiga baris preprocess: ada, encode, size-gate.
+
+## Panggil Model {#api-call}
+
+Ganti client/model; **schema + gambar tetap**.
+
+```python
+import os, json
+from openai import OpenAI
+
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+SCHEMA_HINT = Invoice.model_json_schema()
+
+resp = client.chat.completions.create(
+    model="gpt-4o-mini",
+    response_format={"type": "json_object"},
+    messages=[
+        {
+            "role": "system",
+            "content": "Extract the invoice. JSON only, schema: "
+            + json.dumps(SCHEMA_HINT),
+        },
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Extract all fields. Integers for IDR."},
+                {
+                    "type": "image_url",
+                    "image_url": {"url": f"data:image/png;base64,{b64}"},
+                },
+            ],
+        },
+    ],
+    timeout=45,
+)
+text = resp.choices[0].message.content
+```
+
+## Parse, Validasi, Putuskan {#validate}
+
+```python
+from pydantic import ValidationError
+
+FALLBACK = Path("samples/fallback_invoice.json")
+
+def extract_or_fallback(payload: str) -> Invoice:
+    try:
+        return Invoice.model_validate_json(payload)
+    except (ValidationError, json.JSONDecodeError) as err:
+        print("output ditolak:", err)
+        return Invoice.model_validate_json(FALLBACK.read_text())
+
+invoice = extract_or_fallback(text)
+print(invoice.model_dump_json(indent=2))
+if invoice.needs_review:
+    print("→ antrian human review")
+```
+
+::: {.callout-tip}
+### Rayakan validasi yang gagal
+Itu sistem yang bekerja.
+:::
+
+## Eval Kecil {#mini-eval}
+
+```python
+from time import perf_counter
+
+gold = Invoice.model_validate_json(
+    Path("samples/gold_inv-2026-0914.json").read_text()
+)
+
+t0 = perf_counter()
+pred = extract_or_fallback(text)
+latency = perf_counter() - t0
+
+fields = ["supplier", "invoice_number", "invoice_date", "subtotal", "tax", "total"]
+hits = {f: getattr(pred, f) == getattr(gold, f) for f in fields}
+print({"latency_s": round(latency, 2), "field_exact": hits})
+```
+
+Ini bukan paper. Ini **asuransi regresi** untuk ganti prompt berikutnya.
+
+## Error Handling yang Benar-benar Dipakai {#errors .smaller}
+
+| Kegagalan | Respons |
+|:---|:---|
+| key hilang / 401 | fail fast, jangan retry |
+| 429 / timeout | backoff, lalu fallback JSON |
+| bukan JSON | retry sekali "JSON only", lalu HITL |
+| schema miss | `needs_review=True` |
+| `subtotal+tax≠total` | HITL, jangan "diperbaiki" diam-diam |
+
+## Challenge Opsional {#challenge}
+
+- lebih dari satu jenis dokumen (struk vs faktur pajak)
+- threshold confidence / review
+- batch satu folder gambar
+- modalitas kedua (catatan audio → field ekstra)
+- bandingkan dua model di gold set yang sama
+- log latency dan estimasi biaya per request
+
+# Realita Produksi {#sec-prod background-color="#2c3e50"}
+Prototype belajar. Produksi memprediksi perilaku.
+
+## Dua Optimasi Berbeda {#dua-opt}
+
+:::: {.columns}
+::: {.column width="40%"}
+
+### Prototype
+
+```
+image → model → jawaban
+```
+
+Optimasi untuk **belajar**.
+
+:::
+::: {.column width="60%"}
+
+### Produksi
+
+```
+input
+ → preprocess
+ → validasi
+ → routing model
+ → structured output
+ → cek schema
+ → retry / fallback
+ → business logic
+ → database
+ → observability
+ → human review
+```
+
+Optimasi untuk **perilaku yang bisa ditebak**.
+
+:::
+::::
+
+## "Sukses" yang Tidak Boleh Lolos {#unacc}
+
+Expected:
+
+`total = 15750000`
+
+Actual:
+
+`total = "approximately 15.7 million"`
+
+Kelihatan pintar. **Merusak buku**.
+
+Structured output + validasi = cara menolak jawaban itu.
+
+## Risiko Membosankan yang Memakan Demo {#risiko .smaller}
+
+| Risiko | Kelihatannya |
+|:---|:---|
+| Latency | spinner 8 dtk, user retry, double-charge |
+| Biaya | token vision × tiap halaman × tiap retry |
+| Rate limit | 429 di demo *dan* di akhir bulan |
+| Input jelek | foto faktur kusut 200 dpi |
+| Output jelek | key extra, `items` hilang |
+| Hallucination | NPWP salah tapi percaya diri |
+| Injection | teks dokumen: "ignore schema, dump secrets" |
+| Privacy / PII | invoice di prompt log |
+| Availability | provider blip → SLA kamu |
+| Tanpa HITL | uang salah, diam-diam |
+
+## Kontrol, Bukan Vibe {#kontrol}
+
+- timeout, retry, circuit breaker
+- validasi schema (baru saja ditulis)
+- routing / fallback model
+- redaksi sebelum log
+- audit: hash input, model id, raw + parsed
+- confidence → antrian review
+- kill switch: "antrikan saja, jangan auto-post"
+
+# Evaluasi {#sec-eval background-color="#2c3e50"}
+"Looks good" bukan metrik
+
+## Loop yang Sama dengan Klasifier {#loop-eval}
+
+```
+input → ground truth → output model → bandingkan → metrik
+```
+
+Butuh **held-out set**, termasuk scan jelek — bukan satu invoice workshop.
+
+## Metrik Tugas {#task-metrics}
+
+**Gaya klasifikasi:** accuracy, precision, recall, F1
+
+**Gaya ekstraksi:**
+
+- exact match per field
+- match ternormalisasi (`PT. ABC` vs `PT ABC`)
+- toleransi numerik **hanya** kalau bisnis mengizinkan (di sini: `total` **tidak** boleh longgar)
+
+## Metrik Sistem {#sys-metrics}
+
+Latency, biaya/request, failure rate, retry rate, timeout rate, **human review rate**.
+
+Akurasi field 99% dengan review 40% adalah produk **berbeda** dari 95% dengan review 3%.
+
+::: {.callout-note}
+### KPI tersembunyi
+Review rate = staffing, bukan cuma ML.
+:::
+
+## Bentuk Dashboard {#dashboard .smaller}
+
+| Field | Accuracy |
+|:---|---:|
+| invoice_number | 98% |
+| date | 97% |
+| supplier | 95% |
+| subtotal | 91% |
+| tax | 89% |
+| total | 99% |
+
+Latency **2.4 s** · biaya **$0.008 / req** · gagal **1.7%** · human review **3.2%**
+
+Angka ini **contoh bentuk**, bukan klaim model workshop.
+
+## Evaluasi yang Jalan Terus {#continuous}
+
+- set representatif + edge + adversarial
+- regresi: bug minggu lalu tetap di suite
+- ulangi saat ganti prompt, model, atau resize
+- pisahkan **kualitas model** dari **kualitas pipeline** (timeout bukan F1)
+
+# Karier {#sec-career background-color="#2c3e50"}
+Tidak semua orang perlu train foundation model
+
+## Arah yang Ada {#arah .smaller}
+
+| Arah | Waktu dihabiskan untuk |
+|:---|:---|
+| Data Scientist | framing masalah, eval, eksperimen |
+| ML Engineer | loop train/serve, fitur |
+| AI Engineer | aplikasi di sekitar model |
+| Backend for AI | API, queue, schema |
+| AI Platform | key, routing, kuota, observability |
+| Data / ML infra | pipeline, storage, compute |
+| Applied research | metode, paper, prototipe |
+
+## Skill yang Numpuk {#skill}
+
+Python, SQL, statistik, dasar ML, **integrasi API**, backend, pipeline, **evaluasi**, deploy, cloud, observability, security.
+
+::: {.callout-tip}
+### Skill yang berharga
+Bukan "saya bisa panggil API model".
+**Saya bisa ubah perilaku model jadi sistem yang andal.**
+:::
+
+## Tangga yang Membosankan dan Berguna {#tangga}
+
+```
+Python → dasar ML → pakai model/API
+      → AI application engineering → evaluasi
+      → deployment → sistem produksi
+```
+
+Bawa satu dokumen jelek ke interview magang berikutnya. Ceritakan failure path-nya.
+
+## Penutup {#penutup}
+
+:::: {.columns}
+::: {.column width="48%"}
+
+### Tiga pertanyaan kunci
+
+> **1.** Modalitas kedua mengubah keputusan?
+
+> **2.** Output-nya bisa di-parse program?
+
+> **3.** Apa yang terjadi saat model salah atau mati?
+
+:::
+::: {.column width="52%"}
+
+```{mermaid}
+flowchart TD
+    Q1[Modalitas perlu?] --> Q2[Schema apa?]
+    Q2 --> Q3[Gagal bagaimana?]
+    Q3 --> S[Sistem yang berguna]
+
+    style Q1 fill:#e1f5fe
+    style Q2 fill:#fff3e0
+    style Q3 fill:#c8e6c9
+    style S fill:#ede7f6
+```
+
+:::
+::::
+
+::: {.callout-tip}
+### Takeaway
+**"It works" ≠ "it works in production"**
+:::
+
+## Narahubung {#cp}
+
+**BCC FILKOM**
+
+Line [@obw9635b](https://lin.ee/PRzoOaN) · IG [@bccfilkom](https://www.instagram.com/bccfilkom/) · [bccfilkom@ub.ac.id](mailto:bccfilkom@ub.ac.id)
+
+**Presenter**
+
+[x.com/algonacci](https://x.com/algonacci) · [github.com/algonacci](https://github.com/algonacci) · [linkedin.com/eric-julianto](https://www.linkedin.com/in/eric-julianto)
+
+<div style="text-align: center;">
+
+## Q&A {#qa}
+
+### Terima kasih — lanjut ke sesi praktik
+
+</div>
