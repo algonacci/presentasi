@@ -89,7 +89,9 @@ format:
 :::
 ::::
 
-![](./memes/nice-to-meet-you.jpg){width=280 style="margin: 12px auto; display: block;"}
+#  
+
+![](./memes/nice-to-meet-you.jpg){width=300 style="margin: 20px auto; display: block;"}
 
 ## Sesi Hari Ini {#sesi}
 
@@ -105,8 +107,13 @@ format:
 **"It works" ≠ "it works in production"**
 :::
 
-# Masalah Nyata {#sec-demo background-color="#2c3e50"}
-Mulai dari output, bukan definisi
+#  
+
+![](./memes/demo.jpg){width=420 style="margin: 20px auto; display: block;"}
+
+<div style="text-align: center; margin-top: 20px; font-size: 1.5em; font-weight: bold;">
+Waktunya demo
+</div>
 
 ## Demo: User Upload KTP {#ktp-ocr}
 
@@ -114,23 +121,31 @@ Sistem harus mengembalikan ini:
 
 ```json
 {
+  "provinsi": "DKI JAKARTA",
+  "kota": "JAKARTA BARAT",
   "nik": "3171234567890123",
   "nama": "MIRA SETIAWAN",
   "tempat_lahir": "JAKARTA",
-  "tanggal_lahir": "1986-02-18",
+  "tanggal_lahir": "18-02-1986",
   "jenis_kelamin": "PEREMPUAN",
+  "golongan_darah": "B",
   "alamat": "JL. PASTI CEPAT A7/66",
   "rt_rw": "007/008",
-  "kelurahan_desa": "PEGADUNGAN",
+  "kelurahan": "PEGADUNGAN",
   "kecamatan": "KALIDERES",
+  "agama": "ISLAM",
+  "status_perkawinan": "KAWIN",
   "pekerjaan": "PEGAWAI SWASTA",
-  "kewarganegaraan": "WNI"
+  "kewarganegaraan": "WNI",
+  "berlaku_hingga": "22-02-2017",
+  "dikeluarkan_di": "JAKARTA BARAT",
+  "tanggal_dikeluarkan": "02-12-2012"
 }
 ```
 
 ::: {.callout-note}
 ### Perhatikan tipenya
-Tanggal dinormalisasi ke ISO. NIK tetap **string** agar digit tidak berubah. Field yang tidak terbaca harus `null`, bukan ditebak.
+NIK tetap **string** agar digit tidak berubah. Tanggal seperti di KTP (`18-02-1986`); sistem menormalisasi ke ISO. Field yang tidak terbaca harus `null`, bukan ditebak.
 :::
 
 ## "Itu Kan Cuma OCR" {#bukan-ocr}
@@ -151,19 +166,6 @@ Pekerjaan ini juga butuh:
 Efek multimodalnya langsung terlihat: foto identitas tidak terstruktur → record terstruktur.
 :::
 
-![](./memes/demo.jpg){width=420 style="margin: 16px auto; display: block;"}
-
-## Kalau API Mati {#demo}
-
-image / PDF → model → JSON → validasi → OK / tolak
-
-Kalau jaringan mati: rekaman layar, lalu `samples/fallback_ktp.json`.
-
-::: {.callout-important}
-### Lesson pertama
-Talk produksi punya fallback. Demo yang nunggu API key di proyektor **bukan** produksi.
-:::
-
 # Multimodal AI 101 {#sec-101 background-color="#2c3e50"}
 Modalitas cuma jenis input
 
@@ -182,69 +184,23 @@ Modalitas cuma jenis input
 Bukan "gambar biasa". **Layout** adalah channel ekstra.
 :::
 
-## Istilah yang Cukup untuk Hari Ini {#istilah .smaller}
-
-| Istilah | Arti kerja |
-|:---|:---|
-| **VLM** | Vision-language model: token gambar/halaman + teks → generasi |
-| **Encoder** | Ubah modalitas jadi vektor |
-| **Embeddings** | Vektor itu, untuk search / kemiripan |
-| **Tokens** | Potongan yang di-attend model (teks *atau* patch visual) |
-| **Structured output** | JSON / tool call yang bisa di-parse program |
-
-Hari ini **tidak** menurunkan arsitektur transformer.
-
-## Kapan *Tidak* Pakai VLM {#kapan-tidak}
-
-Lewati VLM kalau:
-
-- regex / template sudah extract 99%
-- cukup CV klasik (threshold, YOLO, OCR engine)
-- modalitas kedua **tidak mengubah keputusan**
-- file tidak boleh disimpan / dievaluasi secara legal
-
-::: {.callout-warning}
-### Tes mode
-**Apakah modalitas kedua mengubah jawaban?** Kalau tidak, jangan bayar.
-:::
-
 # Anatomi Aplikasi {#sec-anatomy background-color="#2c3e50"}
 Model cuma satu kotak
 
 ## Di Mana Model Duduk {#integrasi .smaller}
 
-| Lapisan | Tugasnya | Bukan tugasnya |
-|:---|:---|:---|
-| **UI** | upload, progress, hasil, tombol review | menebak field |
-| **API** | terima file, auth, batas ukuran | menyimpan key di browser |
-| **Backend** | antrian, retry, simpan hasil | memercayai JSON mentah |
-| **Database** | record tervalidasi + audit | jadi tempat prompt log mentah |
-| **Model** | baca modalitas → kandidat JSON | memutuskan uang boleh lolos |
+| Lapisan | Tugasnya |
+|:---|:---|
+| **UI** | upload, progress, hasil, tombol review |
+| **API** | terima file, auth, batas ukuran |
+| **Backend** | antrian, retry, simpan hasil |
+| **Database** | record tervalidasi + audit |
+| **Model** | baca modalitas → kandidat JSON |
 
 :::{.callout-tip}
 ### Kontrak antarlapisan
 UI boleh cantik. Yang di-commit ke database tetap hasil **sesudah** validasi.
 :::
-
-## Failure Path = Arsitektur Sebenarnya {#failure}
-
-```{mermaid}
-flowchart TD
-    In[Input] --> Bad{Bisa dipakai?}
-    Bad -->|rusak / gede / tidak didukung| Rej[Tolak atau perbaiki]
-    Bad -->|ok| Mod[Model]
-    Mod --> TO[Timeout]
-    Mod --> Hal[Hallucination]
-    Mod --> JSON[JSON rusak]
-    Mod --> Miss[Field hilang]
-    Mod --> OK[Kelihatan parseable]
-    OK --> Val[Validasi]
-    Val -->|gagal| Rec{Kebijakan}
-    Rec --> Retry[Retry / model lain]
-    Rec --> FB[Fallback]
-    Rec --> HITL[Human review]
-    Val -->|lolos| App[Commit]
-```
 
 # Use Case Industri {#sec-usecase background-color="#2c3e50"}
 Enam pertanyaan yang sama setiap kali
@@ -312,192 +268,39 @@ Kalau jawaban harus < 1 detik, jangan mulai dari model terbesar. Route dulu: atu
 # Sesi Praktik {#sec-workshop background-color="#2c3e50"}
 Mini AI Document Intelligence
 
-## Prerequisites {#prereq}
+## Buka Google Colab {#colab}
 
-- Python **3.10+**
-- `pip` atau `uv`
-- editor + terminal
-- satu sampel invoice (gambar atau halaman PDF)
-- API key di **environment**, jangan di git
+![](qr-Colab-BCC-Filkom.png){width=330 fig-align="center"}
 
-```bash
-python --version
-```
+<div style="text-align: center; font-size: 1.4em; margin-top: 20px;">
+[**s.id/Colab-BCC-Filkom**](https://s.id/Colab-BCC-Filkom)
+</div>
 
-::: {.callout-tip}
-### Tidak punya key
-Pakai `samples/fallback_invoice.json`. Tetap kerjakan validasi.
-:::
-
-## Setup {#setup}
-
-```bash
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-
-pip install openai pydantic pillow python-dotenv
-```
-
-`.env` (jangan di-commit):
-
-```bash
-OPENAI_API_KEY=sk-...
-```
-
-```python
-import os
-from dotenv import load_dotenv
-load_dotenv()
-assert os.environ.get("OPENAI_API_KEY"), "set OPENAI_API_KEY"
-```
-
-## Schema Dulu, Prompt Kemudian {#schema}
-
-```python
-from datetime import date
-from pydantic import BaseModel, Field, model_validator
-
-class LineItem(BaseModel):
-    description: str
-    quantity: float
-    unit_price: int = Field(..., description="IDR, integer")
-
-class Invoice(BaseModel):
-    supplier: str
-    invoice_number: str
-    invoice_date: date
-    subtotal: int
-    tax: int
-    total: int
-    items: list[LineItem]
-    needs_review: bool = False
-
-    @model_validator(mode="after")
-    def totals_add_up(self):
-        if self.subtotal + self.tax != self.total:
-            self.needs_review = True
-        return self
-```
-
-::: {.callout-note}
-### Logic produk
-Salah hitung → manusia. Jangan diem-diem "dibenarkan".
-:::
-
-![](./memes/so-simple-right.jpg){width=420 style="margin: 16px auto; display: block;"}
-
-## Panggil Model {#api-call}
-
-Load, encode, tolak kalau lebih dari 4 MB. Lalu:
-
-Ganti client/model; **schema + gambar tetap**.
-
-```python
-import os, json
-from openai import OpenAI
-
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-SCHEMA_HINT = Invoice.model_json_schema()
-
-resp = client.chat.completions.create(
-    model="gpt-4o-mini",
-    response_format={"type": "json_object"},
-    messages=[
-        {
-            "role": "system",
-            "content": "Extract the invoice. JSON only, schema: "
-            + json.dumps(SCHEMA_HINT),
-        },
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": "Extract all fields. Integers for IDR."},
-                {
-                    "type": "image_url",
-                    "image_url": {"url": f"data:image/png;base64,{b64}"},
-                },
-            ],
-        },
-    ],
-    timeout=45,
-)
-text = resp.choices[0].message.content
-```
-
-## Parse, Validasi, Putuskan {#validate}
-
-```python
-from pydantic import ValidationError
-
-FALLBACK = Path("samples/fallback_invoice.json")
-
-def extract_or_fallback(payload: str) -> Invoice:
-    try:
-        return Invoice.model_validate_json(payload)
-    except (ValidationError, json.JSONDecodeError) as err:
-        print("output ditolak:", err)
-        return Invoice.model_validate_json(FALLBACK.read_text())
-
-invoice = extract_or_fallback(text)
-print(invoice.model_dump_json(indent=2))
-if invoice.needs_review:
-    print("→ antrian human review")
-```
-
-::: {.callout-tip}
-### Rayakan validasi yang gagal
-Itu sistem yang bekerja.
-:::
-
-## Eval Kecil {#mini-eval}
-
-```python
-from time import perf_counter
-
-gold = Invoice.model_validate_json(
-    Path("samples/gold_inv-2026-0914.json").read_text()
-)
-
-t0 = perf_counter()
-pred = extract_or_fallback(text)
-latency = perf_counter() - t0
-
-fields = ["supplier", "invoice_number", "invoice_date", "subtotal", "tax", "total"]
-hits = {f: getattr(pred, f) == getattr(gold, f) for f in fields}
-print({"latency_s": round(latency, 2), "field_exact": hits})
-```
-
-Ini bukan paper. Ini **asuransi regresi** untuk ganti prompt berikutnya.
-
-![](./memes/demo-2.jpg){width=420 style="margin: 16px auto; display: block;"}
-
-# Realita Produksi {#sec-prod background-color="#2c3e50"}
+# Production {#sec-prod background-color="#2c3e50"}
 Prototype belajar. Produksi memprediksi perilaku.
 
-## Risiko yang Memakan Demo {#risiko .smaller}
+## Risiko KTP OCR {#risiko .smaller}
 
-`total = "approximately 15.7 million"` kelihatan pintar. **Merusak buku.**
-
-
-
-| Risiko | Kelihatannya |
+| Risiko | Contoh |
 |:---|:---|
-| Latency | spinner 8 dtk, user retry, double-charge |
-| Biaya | token vision × tiap halaman × tiap retry |
-| Rate limit | 429 di demo *dan* di akhir bulan |
-| Input jelek | foto faktur kusut 200 dpi |
-| Output jelek | key extra, `items` hilang |
-| Hallucination | NPWP salah tapi percaya diri |
-| Injection | teks dokumen: "ignore schema, dump secrets" |
-| Privacy / PII | invoice di prompt log |
-| Availability | provider blip → SLA kamu |
-| Tanpa HITL | uang salah, diam-diam |
+| Foto buruk | buram, silau, miring, atau terpotong |
+| Salah baca | `0` menjadi `O`, `8` menjadi `B` |
+| Field tertukar | tempat lahir masuk ke alamat |
+| Halusinasi | model mengisi teks yang tidak terbaca |
+| Format tidak konsisten | NIK jadi angka, tanggal berbeda format |
+| Privasi | foto KTP atau NIK masuk ke log |
+| Layanan gagal | timeout, rate limit, atau provider mati |
+
+::: {.callout-warning}
+Jangan langsung percaya output model. Validasi dulu, lalu minta review jika ragu.
+:::
 
 ## Kontrol, Bukan Vibe {#kontrol}
 
 - timeout, retry, circuit breaker
 - validasi schema (baru saja ditulis)
 - routing / fallback model
+- queue / worker untuk proses asinkron
 - redaksi sebelum log
 - audit: hash input, model id, raw + parsed
 - confidence → antrian review
@@ -508,66 +311,49 @@ Prototype belajar. Produksi memprediksi perilaku.
 
 ## Bentuk Dashboard {#dashboard .smaller}
 
-Exact match per field. `total` tidak boleh longgar. Review 40% adalah produk berbeda dari review 3%.
+Exact match per field. NIK salah satu digit tetap salah. Foto yang tidak terbaca harus masuk review, bukan ditebak.
 
-
-
-| Field | Accuracy |
+| Field | Exact Match |
 |:---|---:|
-| invoice_number | 98% |
-| date | 97% |
-| supplier | 95% |
-| subtotal | 91% |
-| tax | 89% |
-| total | 99% |
+| NIK | 98% |
+| nama | 97% |
+| tanggal_lahir | 96% |
+| alamat | 92% |
+| kelurahan | 94% |
 
-Latency **2.4 s** · biaya **$0.008 / req** · gagal **1.7%** · human review **3.2%**
+Latency **2.4 s** · gagal ekstraksi **1.7%** · field kosong **2.6%** · human review **3.2%**
 
 Angka ini **contoh bentuk**, bukan klaim model workshop.
 
 # Karier {#sec-career background-color="#2c3e50"}
-Tidak semua orang perlu train foundation model
 
 ## Skill yang Numpuk {#skill}
 
 AI Engineer, backend, platform, data, atau riset. Semuanya butuh skill yang sama:
 
-Python, SQL, API, backend, evaluasi, deploy, observability.
-
-::: {.callout-tip}
-### Yang berharga
-Bukan "saya bisa panggil API model".
-**Saya bisa ubah perilaku model jadi sistem yang andal.**
-:::
-
-Bawa satu dokumen jelek ke interview. Ceritakan failure path-nya.
-
-![](./memes/materi-selesai.png){width=360 style="margin: 16px auto; display: block;"}
+- Python
+- SQL
+- API dan backend
+- evaluasi
+- deployment
+- observability
 
 ## Penutup {#penutup}
 
-1. Modalitas kedua mengubah keputusan?
-2. Output-nya bisa di-parse program?
-3. Apa yang terjadi saat model salah atau mati?
+1. Multimodal AI mengubah input visual menjadi informasi yang bisa dipakai aplikasi.
+2. Structured output dan validasi membuat hasil model lebih aman untuk diproses.
+3. Sistem produksi perlu fallback, observability, dan human review.
 
 **"It works" ≠ "it works in production"**
 
-## Narahubung {#cp}
+#  
 
-**BCC FILKOM**
-
-Line [@obw9635b](https://lin.ee/PRzoOaN) · IG [@bccfilkom](https://www.instagram.com/bccfilkom/) · [bccfilkom@ub.ac.id](mailto:bccfilkom@ub.ac.id)
-
-**Presenter**
-
-[x.com/algonacci](https://x.com/algonacci) · [github.com/algonacci](https://github.com/algonacci) · [linkedin.com/eric-julianto](https://www.linkedin.com/in/eric-julianto)
+![](./memes/materi-selesai.png){width=400 style="margin: 20px auto; display: block;"}
 
 <div style="text-align: center;">
 
 ## Q&A {#qa}
 
 ![](./memes/any-question.png){width=280 style="margin: 16px auto; display: block;"}
-
-### Terima kasih — lanjut ke sesi praktik
 
 </div>

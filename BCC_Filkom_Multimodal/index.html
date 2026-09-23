@@ -190,9 +190,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="index_files/libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="index_files/libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -252,8 +249,12 @@ Eric Julianto
 </ul>
 </div>
 </div></div>
-<p><img data-src="./memes/nice-to-meet-you.jpg" class="img-fluid" style="margin: 12px auto; display: block;" width="280"></p>
-</section>
+</section></section>
+<section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/nice-to-meet-you.jpg" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="300"></section>
 <section id="sesi" class="slide level2">
 <h2>Sesi Hari Ini</h2>
 <ol type="1">
@@ -279,26 +280,37 @@ Eric Julianto
 </div>
 </section></section>
 <section>
-<section id="sec-demo" class="title-slide slide level1 center" data-background-color="#2c3e50">
-<h1>Masalah Nyata</h1>
-<p>Mulai dari output, bukan definisi</p>
+<section id="section-2" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/demo.jpg" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="420"><div style="text-align: center; margin-top: 20px; font-size: 1.5em; font-weight: bold;">
+<p>Waktunya demo</p>
+</div>
 </section>
 <section id="ktp-ocr" class="slide level2">
 <h2>Demo: User Upload KTP</h2>
 <p>Sistem harus mengembalikan ini:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href=""></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href=""></a>  <span class="dt">"nik"</span><span class="fu">:</span> <span class="st">"3171234567890123"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href=""></a>  <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"MIRA SETIAWAN"</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href=""></a>  <span class="dt">"tempat_lahir"</span><span class="fu">:</span> <span class="st">"JAKARTA"</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href=""></a>  <span class="dt">"tanggal_lahir"</span><span class="fu">:</span> <span class="st">"1986-02-18"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href=""></a>  <span class="dt">"jenis_kelamin"</span><span class="fu">:</span> <span class="st">"PEREMPUAN"</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href=""></a>  <span class="dt">"alamat"</span><span class="fu">:</span> <span class="st">"JL. PASTI CEPAT A7/66"</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href=""></a>  <span class="dt">"rt_rw"</span><span class="fu">:</span> <span class="st">"007/008"</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href=""></a>  <span class="dt">"kelurahan_desa"</span><span class="fu">:</span> <span class="st">"PEGADUNGAN"</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href=""></a>  <span class="dt">"kecamatan"</span><span class="fu">:</span> <span class="st">"KALIDERES"</span><span class="fu">,</span></span>
-<span id="cb1-11"><a href=""></a>  <span class="dt">"pekerjaan"</span><span class="fu">:</span> <span class="st">"PEGAWAI SWASTA"</span><span class="fu">,</span></span>
-<span id="cb1-12"><a href=""></a>  <span class="dt">"kewarganegaraan"</span><span class="fu">:</span> <span class="st">"WNI"</span></span>
-<span id="cb1-13"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href=""></a>  <span class="dt">"provinsi"</span><span class="fu">:</span> <span class="st">"DKI JAKARTA"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href=""></a>  <span class="dt">"kota"</span><span class="fu">:</span> <span class="st">"JAKARTA BARAT"</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href=""></a>  <span class="dt">"nik"</span><span class="fu">:</span> <span class="st">"3171234567890123"</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href=""></a>  <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"MIRA SETIAWAN"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href=""></a>  <span class="dt">"tempat_lahir"</span><span class="fu">:</span> <span class="st">"JAKARTA"</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href=""></a>  <span class="dt">"tanggal_lahir"</span><span class="fu">:</span> <span class="st">"18-02-1986"</span><span class="fu">,</span></span>
+<span id="cb1-8"><a href=""></a>  <span class="dt">"jenis_kelamin"</span><span class="fu">:</span> <span class="st">"PEREMPUAN"</span><span class="fu">,</span></span>
+<span id="cb1-9"><a href=""></a>  <span class="dt">"golongan_darah"</span><span class="fu">:</span> <span class="st">"B"</span><span class="fu">,</span></span>
+<span id="cb1-10"><a href=""></a>  <span class="dt">"alamat"</span><span class="fu">:</span> <span class="st">"JL. PASTI CEPAT A7/66"</span><span class="fu">,</span></span>
+<span id="cb1-11"><a href=""></a>  <span class="dt">"rt_rw"</span><span class="fu">:</span> <span class="st">"007/008"</span><span class="fu">,</span></span>
+<span id="cb1-12"><a href=""></a>  <span class="dt">"kelurahan"</span><span class="fu">:</span> <span class="st">"PEGADUNGAN"</span><span class="fu">,</span></span>
+<span id="cb1-13"><a href=""></a>  <span class="dt">"kecamatan"</span><span class="fu">:</span> <span class="st">"KALIDERES"</span><span class="fu">,</span></span>
+<span id="cb1-14"><a href=""></a>  <span class="dt">"agama"</span><span class="fu">:</span> <span class="st">"ISLAM"</span><span class="fu">,</span></span>
+<span id="cb1-15"><a href=""></a>  <span class="dt">"status_perkawinan"</span><span class="fu">:</span> <span class="st">"KAWIN"</span><span class="fu">,</span></span>
+<span id="cb1-16"><a href=""></a>  <span class="dt">"pekerjaan"</span><span class="fu">:</span> <span class="st">"PEGAWAI SWASTA"</span><span class="fu">,</span></span>
+<span id="cb1-17"><a href=""></a>  <span class="dt">"kewarganegaraan"</span><span class="fu">:</span> <span class="st">"WNI"</span><span class="fu">,</span></span>
+<span id="cb1-18"><a href=""></a>  <span class="dt">"berlaku_hingga"</span><span class="fu">:</span> <span class="st">"22-02-2017"</span><span class="fu">,</span></span>
+<span id="cb1-19"><a href=""></a>  <span class="dt">"dikeluarkan_di"</span><span class="fu">:</span> <span class="st">"JAKARTA BARAT"</span><span class="fu">,</span></span>
+<span id="cb1-20"><a href=""></a>  <span class="dt">"tanggal_dikeluarkan"</span><span class="fu">:</span> <span class="st">"02-12-2012"</span></span>
+<span id="cb1-21"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -308,7 +320,7 @@ Eric Julianto
 <p><strong>Perhatikan tipenya</strong></p>
 </div>
 <div class="callout-content">
-<p>Tanggal dinormalisasi ke ISO. NIK tetap <strong>string</strong> agar digit tidak berubah. Field yang tidak terbaca harus <code>null</code>, bukan ditebak.</p>
+<p>NIK tetap <strong>string</strong> agar digit tidak berubah. Tanggal seperti di KTP (<code>18-02-1986</code>); sistem menormalisasi ke ISO. Field yang tidak terbaca harus <code>null</code>, bukan ditebak.</p>
 </div>
 </div>
 </div>
@@ -335,25 +347,6 @@ Eric Julianto
 </div>
 <div class="callout-content">
 <p>Efek multimodalnya langsung terlihat: foto identitas tidak terstruktur → record terstruktur.</p>
-</div>
-</div>
-</div>
-
-<img data-src="./memes/demo.jpg" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="420"></section>
-<section id="demo" class="slide level2">
-<h2>Kalau API Mati</h2>
-<p>image / PDF → model → JSON → validasi → OK / tolak</p>
-<p>Kalau jaringan mati: rekaman layar, lalu <code>samples/fallback_ktp.json</code>.</p>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Lesson pertama</strong></p>
-</div>
-<div class="callout-content">
-<p>Talk produksi punya fallback. Demo yang nunggu API key di proyektor <strong>bukan</strong> produksi.</p>
 </div>
 </div>
 </div>
@@ -414,67 +407,6 @@ Eric Julianto
 </div>
 </div>
 </div>
-</section>
-<section id="istilah" class="slide level2 smaller">
-<h2>Istilah yang Cukup untuk Hari Ini</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Istilah</th>
-<th style="text-align: left;">Arti kerja</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>VLM</strong></td>
-<td style="text-align: left;">Vision-language model: token gambar/halaman + teks → generasi</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Encoder</strong></td>
-<td style="text-align: left;">Ubah modalitas jadi vektor</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Embeddings</strong></td>
-<td style="text-align: left;">Vektor itu, untuk search / kemiripan</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Tokens</strong></td>
-<td style="text-align: left;">Potongan yang di-attend model (teks <em>atau</em> patch visual)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Structured output</strong></td>
-<td style="text-align: left;">JSON / tool call yang bisa di-parse program</td>
-</tr>
-</tbody>
-</table>
-<p>Hari ini <strong>tidak</strong> menurunkan arsitektur transformer.</p>
-</section>
-<section id="kapan-tidak" class="slide level2">
-<h2>Kapan <em>Tidak</em> Pakai VLM</h2>
-<p>Lewati VLM kalau:</p>
-<ul>
-<li>regex / template sudah extract 99%</li>
-<li>cukup CV klasik (threshold, YOLO, OCR engine)</li>
-<li>modalitas kedua <strong>tidak mengubah keputusan</strong></li>
-<li>file tidak boleh disimpan / dievaluasi secara legal</li>
-</ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tes mode</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Apakah modalitas kedua mengubah jawaban?</strong> Kalau tidak, jangan bayar.</p>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="sec-anatomy" class="title-slide slide level1 center" data-background-color="#2c3e50">
@@ -484,43 +416,32 @@ Eric Julianto
 <section id="integrasi" class="slide level2 smaller">
 <h2>Di Mana Model Duduk</h2>
 <table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Lapisan</th>
 <th style="text-align: left;">Tugasnya</th>
-<th style="text-align: left;">Bukan tugasnya</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>UI</strong></td>
 <td style="text-align: left;">upload, progress, hasil, tombol review</td>
-<td style="text-align: left;">menebak field</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>API</strong></td>
 <td style="text-align: left;">terima file, auth, batas ukuran</td>
-<td style="text-align: left;">menyimpan key di browser</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Backend</strong></td>
 <td style="text-align: left;">antrian, retry, simpan hasil</td>
-<td style="text-align: left;">memercayai JSON mentah</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Database</strong></td>
 <td style="text-align: left;">record tervalidasi + audit</td>
-<td style="text-align: left;">jadi tempat prompt log mentah</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Model</strong></td>
 <td style="text-align: left;">baca modalitas → kandidat JSON</td>
-<td style="text-align: left;">memutuskan uang boleh lolos</td>
 </tr>
 </tbody>
 </table>
@@ -534,35 +455,6 @@ Eric Julianto
 </div>
 <div class="callout-content">
 <p>UI boleh cantik. Yang di-commit ke database tetap hasil <strong>sesudah</strong> validasi.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="failure" class="slide level2">
-<h2>Failure Path = Arsitektur Sebenarnya</h2>
-<div class="cell" data-reveal="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TD
-    In[Input] --&gt; Bad{Bisa dipakai?}
-    Bad --&gt;|rusak / gede / tidak didukung| Rej[Tolak atau perbaiki]
-    Bad --&gt;|ok| Mod[Model]
-    Mod --&gt; TO[Timeout]
-    Mod --&gt; Hal[Hallucination]
-    Mod --&gt; JSON[JSON rusak]
-    Mod --&gt; Miss[Field hilang]
-    Mod --&gt; OK[Kelihatan parseable]
-    OK --&gt; Val[Validasi]
-    Val --&gt;|gagal| Rec{Kebijakan}
-    Rec --&gt; Retry[Retry / model lain]
-    Rec --&gt; FB[Fallback]
-    Rec --&gt; HITL[Human review]
-    Val --&gt;|lolos| App[Commit]
-</pre>
-</div>
-<p></p></figure><p></p>
 </div>
 </div>
 </div>
@@ -748,224 +640,71 @@ Eric Julianto
 <h1>Sesi Praktik</h1>
 <p>Mini AI Document Intelligence</p>
 </section>
-<section id="prereq" class="slide level2">
-<h2>Prerequisites</h2>
-<ul>
-<li>Python <strong>3.10+</strong></li>
-<li><code>pip</code> atau <code>uv</code></li>
-<li>editor + terminal</li>
-<li>satu sampel invoice (gambar atau halaman PDF)</li>
-<li>API key di <strong>environment</strong>, jangan di git</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="ex">python</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tidak punya key</strong></p>
-</div>
-<div class="callout-content">
-<p>Pakai <code>samples/fallback_invoice.json</code>. Tetap kerjakan validasi.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="setup" class="slide level2">
-<h2>Setup</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="ex">python</span> <span class="at">-m</span> venv .venv</span>
-<span id="cb3-2"><a href=""></a><span class="bu">source</span> .venv/bin/activate   <span class="co"># Windows: .venv\Scripts\activate</span></span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a><span class="ex">pip</span> install openai pydantic pillow python-dotenv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>.env</code> (jangan di-commit):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="va">OPENAI_API_KEY</span><span class="op">=</span>sk-...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="im">import</span> os</span>
-<span id="cb5-2"><a href=""></a><span class="im">from</span> dotenv <span class="im">import</span> load_dotenv</span>
-<span id="cb5-3"><a href=""></a>load_dotenv()</span>
-<span id="cb5-4"><a href=""></a><span class="cf">assert</span> os.environ.get(<span class="st">"OPENAI_API_KEY"</span>), <span class="st">"set OPENAI_API_KEY"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="schema" class="slide level2">
-<h2>Schema Dulu, Prompt Kemudian</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">from</span> datetime <span class="im">import</span> date</span>
-<span id="cb6-2"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> BaseModel, Field, model_validator</span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="kw">class</span> LineItem(BaseModel):</span>
-<span id="cb6-5"><a href=""></a>    description: <span class="bu">str</span></span>
-<span id="cb6-6"><a href=""></a>    quantity: <span class="bu">float</span></span>
-<span id="cb6-7"><a href=""></a>    unit_price: <span class="bu">int</span> <span class="op">=</span> Field(..., description<span class="op">=</span><span class="st">"IDR, integer"</span>)</span>
-<span id="cb6-8"><a href=""></a></span>
-<span id="cb6-9"><a href=""></a><span class="kw">class</span> Invoice(BaseModel):</span>
-<span id="cb6-10"><a href=""></a>    supplier: <span class="bu">str</span></span>
-<span id="cb6-11"><a href=""></a>    invoice_number: <span class="bu">str</span></span>
-<span id="cb6-12"><a href=""></a>    invoice_date: date</span>
-<span id="cb6-13"><a href=""></a>    subtotal: <span class="bu">int</span></span>
-<span id="cb6-14"><a href=""></a>    tax: <span class="bu">int</span></span>
-<span id="cb6-15"><a href=""></a>    total: <span class="bu">int</span></span>
-<span id="cb6-16"><a href=""></a>    items: <span class="bu">list</span>[LineItem]</span>
-<span id="cb6-17"><a href=""></a>    needs_review: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb6-18"><a href=""></a></span>
-<span id="cb6-19"><a href=""></a>    <span class="at">@model_validator</span>(mode<span class="op">=</span><span class="st">"after"</span>)</span>
-<span id="cb6-20"><a href=""></a>    <span class="kw">def</span> totals_add_up(<span class="va">self</span>):</span>
-<span id="cb6-21"><a href=""></a>        <span class="cf">if</span> <span class="va">self</span>.subtotal <span class="op">+</span> <span class="va">self</span>.tax <span class="op">!=</span> <span class="va">self</span>.total:</span>
-<span id="cb6-22"><a href=""></a>            <span class="va">self</span>.needs_review <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb6-23"><a href=""></a>        <span class="cf">return</span> <span class="va">self</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Logic produk</strong></p>
-</div>
-<div class="callout-content">
-<p>Salah hitung → manusia. Jangan diem-diem “dibenarkan”.</p>
-</div>
-</div>
-</div>
+<section id="colab" class="slide level2">
+<h2>Buka Google Colab</h2>
 
-<img data-src="./memes/so-simple-right.jpg" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="420"></section>
-<section id="api-call" class="slide level2">
-<h2>Panggil Model</h2>
-<p>Load, encode, tolak kalau lebih dari 4 MB. Lalu:</p>
-<p>Ganti client/model; <strong>schema + gambar tetap</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="im">import</span> os, json</span>
-<span id="cb7-2"><a href=""></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a>client <span class="op">=</span> OpenAI(api_key<span class="op">=</span>os.environ[<span class="st">"OPENAI_API_KEY"</span>])</span>
-<span id="cb7-5"><a href=""></a>SCHEMA_HINT <span class="op">=</span> Invoice.model_json_schema()</span>
-<span id="cb7-6"><a href=""></a></span>
-<span id="cb7-7"><a href=""></a>resp <span class="op">=</span> client.chat.completions.create(</span>
-<span id="cb7-8"><a href=""></a>    model<span class="op">=</span><span class="st">"gpt-4o-mini"</span>,</span>
-<span id="cb7-9"><a href=""></a>    response_format<span class="op">=</span>{<span class="st">"type"</span>: <span class="st">"json_object"</span>},</span>
-<span id="cb7-10"><a href=""></a>    messages<span class="op">=</span>[</span>
-<span id="cb7-11"><a href=""></a>        {</span>
-<span id="cb7-12"><a href=""></a>            <span class="st">"role"</span>: <span class="st">"system"</span>,</span>
-<span id="cb7-13"><a href=""></a>            <span class="st">"content"</span>: <span class="st">"Extract the invoice. JSON only, schema: "</span></span>
-<span id="cb7-14"><a href=""></a>            <span class="op">+</span> json.dumps(SCHEMA_HINT),</span>
-<span id="cb7-15"><a href=""></a>        },</span>
-<span id="cb7-16"><a href=""></a>        {</span>
-<span id="cb7-17"><a href=""></a>            <span class="st">"role"</span>: <span class="st">"user"</span>,</span>
-<span id="cb7-18"><a href=""></a>            <span class="st">"content"</span>: [</span>
-<span id="cb7-19"><a href=""></a>                {<span class="st">"type"</span>: <span class="st">"text"</span>, <span class="st">"text"</span>: <span class="st">"Extract all fields. Integers for IDR."</span>},</span>
-<span id="cb7-20"><a href=""></a>                {</span>
-<span id="cb7-21"><a href=""></a>                    <span class="st">"type"</span>: <span class="st">"image_url"</span>,</span>
-<span id="cb7-22"><a href=""></a>                    <span class="st">"image_url"</span>: {<span class="st">"url"</span>: <span class="ss">f"data:image/png;base64,</span><span class="sc">{</span>b64<span class="sc">}</span><span class="ss">"</span>},</span>
-<span id="cb7-23"><a href=""></a>                },</span>
-<span id="cb7-24"><a href=""></a>            ],</span>
-<span id="cb7-25"><a href=""></a>        },</span>
-<span id="cb7-26"><a href=""></a>    ],</span>
-<span id="cb7-27"><a href=""></a>    timeout<span class="op">=</span><span class="dv">45</span>,</span>
-<span id="cb7-28"><a href=""></a>)</span>
-<span id="cb7-29"><a href=""></a>text <span class="op">=</span> resp.choices[<span class="dv">0</span>].message.content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="validate" class="slide level2">
-<h2>Parse, Validasi, Putuskan</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="im">from</span> pydantic <span class="im">import</span> ValidationError</span>
-<span id="cb8-2"><a href=""></a></span>
-<span id="cb8-3"><a href=""></a>FALLBACK <span class="op">=</span> Path(<span class="st">"samples/fallback_invoice.json"</span>)</span>
-<span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a><span class="kw">def</span> extract_or_fallback(payload: <span class="bu">str</span>) <span class="op">-&gt;</span> Invoice:</span>
-<span id="cb8-6"><a href=""></a>    <span class="cf">try</span>:</span>
-<span id="cb8-7"><a href=""></a>        <span class="cf">return</span> Invoice.model_validate_json(payload)</span>
-<span id="cb8-8"><a href=""></a>    <span class="cf">except</span> (ValidationError, json.JSONDecodeError) <span class="im">as</span> err:</span>
-<span id="cb8-9"><a href=""></a>        <span class="bu">print</span>(<span class="st">"output ditolak:"</span>, err)</span>
-<span id="cb8-10"><a href=""></a>        <span class="cf">return</span> Invoice.model_validate_json(FALLBACK.read_text())</span>
-<span id="cb8-11"><a href=""></a></span>
-<span id="cb8-12"><a href=""></a>invoice <span class="op">=</span> extract_or_fallback(text)</span>
-<span id="cb8-13"><a href=""></a><span class="bu">print</span>(invoice.model_dump_json(indent<span class="op">=</span><span class="dv">2</span>))</span>
-<span id="cb8-14"><a href=""></a><span class="cf">if</span> invoice.needs_review:</span>
-<span id="cb8-15"><a href=""></a>    <span class="bu">print</span>(<span class="st">"→ antrian human review"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<img data-src="qr-Colab-BCC-Filkom.png" class="img-fluid quarto-figure quarto-figure-center r-stretch" width="330"><div style="text-align: center; font-size: 1.4em; margin-top: 20px;">
+<p><a href="https://s.id/Colab-BCC-Filkom"><strong>s.id/Colab-BCC-Filkom</strong></a></p>
 </div>
-<p><strong>Rayakan validasi yang gagal</strong></p>
-</div>
-<div class="callout-content">
-<p>Itu sistem yang bekerja.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="mini-eval" class="slide level2">
-<h2>Eval Kecil</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="im">from</span> time <span class="im">import</span> perf_counter</span>
-<span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a>gold <span class="op">=</span> Invoice.model_validate_json(</span>
-<span id="cb9-4"><a href=""></a>    Path(<span class="st">"samples/gold_inv-2026-0914.json"</span>).read_text()</span>
-<span id="cb9-5"><a href=""></a>)</span>
-<span id="cb9-6"><a href=""></a></span>
-<span id="cb9-7"><a href=""></a>t0 <span class="op">=</span> perf_counter()</span>
-<span id="cb9-8"><a href=""></a>pred <span class="op">=</span> extract_or_fallback(text)</span>
-<span id="cb9-9"><a href=""></a>latency <span class="op">=</span> perf_counter() <span class="op">-</span> t0</span>
-<span id="cb9-10"><a href=""></a></span>
-<span id="cb9-11"><a href=""></a>fields <span class="op">=</span> [<span class="st">"supplier"</span>, <span class="st">"invoice_number"</span>, <span class="st">"invoice_date"</span>, <span class="st">"subtotal"</span>, <span class="st">"tax"</span>, <span class="st">"total"</span>]</span>
-<span id="cb9-12"><a href=""></a>hits <span class="op">=</span> {f: <span class="bu">getattr</span>(pred, f) <span class="op">==</span> <span class="bu">getattr</span>(gold, f) <span class="cf">for</span> f <span class="kw">in</span> fields}</span>
-<span id="cb9-13"><a href=""></a><span class="bu">print</span>({<span class="st">"latency_s"</span>: <span class="bu">round</span>(latency, <span class="dv">2</span>), <span class="st">"field_exact"</span>: hits})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ini bukan paper. Ini <strong>asuransi regresi</strong> untuk ganti prompt berikutnya.</p>
-
-<img data-src="./memes/demo-2.jpg" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="420"></section></section>
+</section></section>
 <section>
 <section id="sec-prod" class="title-slide slide level1 center" data-background-color="#2c3e50">
-<h1>Realita Produksi</h1>
+<h1>Production</h1>
 <p>Prototype belajar. Produksi memprediksi perilaku.</p>
 </section>
 <section id="risiko" class="slide level2 smaller">
-<h2>Risiko yang Memakan Demo</h2>
-<p><code>total = "approximately 15.7 million"</code> kelihatan pintar. <strong>Merusak buku.</strong></p>
+<h2>Risiko KTP OCR</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Risiko</th>
-<th style="text-align: left;">Kelihatannya</th>
+<th style="text-align: left;">Contoh</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Latency</td>
-<td style="text-align: left;">spinner 8 dtk, user retry, double-charge</td>
+<td style="text-align: left;">Foto buruk</td>
+<td style="text-align: left;">buram, silau, miring, atau terpotong</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Biaya</td>
-<td style="text-align: left;">token vision × tiap halaman × tiap retry</td>
+<td style="text-align: left;">Salah baca</td>
+<td style="text-align: left;"><code>0</code> menjadi <code>O</code>, <code>8</code> menjadi <code>B</code></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Rate limit</td>
-<td style="text-align: left;">429 di demo <em>dan</em> di akhir bulan</td>
+<td style="text-align: left;">Field tertukar</td>
+<td style="text-align: left;">tempat lahir masuk ke alamat</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Input jelek</td>
-<td style="text-align: left;">foto faktur kusut 200 dpi</td>
+<td style="text-align: left;">Halusinasi</td>
+<td style="text-align: left;">model mengisi teks yang tidak terbaca</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Output jelek</td>
-<td style="text-align: left;">key extra, <code>items</code> hilang</td>
+<td style="text-align: left;">Format tidak konsisten</td>
+<td style="text-align: left;">NIK jadi angka, tanggal berbeda format</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Hallucination</td>
-<td style="text-align: left;">NPWP salah tapi percaya diri</td>
+<td style="text-align: left;">Privasi</td>
+<td style="text-align: left;">foto KTP atau NIK masuk ke log</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Injection</td>
-<td style="text-align: left;">teks dokumen: “ignore schema, dump secrets”</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Privacy / PII</td>
-<td style="text-align: left;">invoice di prompt log</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Availability</td>
-<td style="text-align: left;">provider blip → SLA kamu</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Tanpa HITL</td>
-<td style="text-align: left;">uang salah, diam-diam</td>
+<td style="text-align: left;">Layanan gagal</td>
+<td style="text-align: left;">timeout, rate limit, atau provider mati</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Jangan langsung percaya output model. Validasi dulu, lalu minta review jika ragu.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="kontrol" class="slide level2">
 <h2>Kontrol, Bukan Vibe</h2>
@@ -973,6 +712,7 @@ Eric Julianto
 <li>timeout, retry, circuit breaker</li>
 <li>validasi schema (baru saja ditulis)</li>
 <li>routing / fallback model</li>
+<li>queue / worker untuk proses asinkron</li>
 <li>redaksi sebelum log</li>
 <li>audit: hash input, model id, raw + parsed</li>
 <li>confidence → antrian review</li>
@@ -986,90 +726,75 @@ Eric Julianto
 </section>
 <section id="dashboard" class="slide level2 smaller">
 <h2>Bentuk Dashboard</h2>
-<p>Exact match per field. <code>total</code> tidak boleh longgar. Review 40% adalah produk berbeda dari review 3%.</p>
+<p>Exact match per field. NIK salah satu digit tetap salah. Foto yang tidak terbaca harus masuk review, bukan ditebak.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Field</th>
-<th style="text-align: right;">Accuracy</th>
+<th style="text-align: right;">Exact Match</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">invoice_number</td>
+<td style="text-align: left;">NIK</td>
 <td style="text-align: right;">98%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">date</td>
+<td style="text-align: left;">nama</td>
 <td style="text-align: right;">97%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">supplier</td>
-<td style="text-align: right;">95%</td>
+<td style="text-align: left;">tanggal_lahir</td>
+<td style="text-align: right;">96%</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">subtotal</td>
-<td style="text-align: right;">91%</td>
+<td style="text-align: left;">alamat</td>
+<td style="text-align: right;">92%</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">tax</td>
-<td style="text-align: right;">89%</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">total</td>
-<td style="text-align: right;">99%</td>
+<td style="text-align: left;">kelurahan</td>
+<td style="text-align: right;">94%</td>
 </tr>
 </tbody>
 </table>
-<p>Latency <strong>2.4 s</strong> · biaya <strong>$0.008 / req</strong> · gagal <strong>1.7%</strong> · human review <strong>3.2%</strong></p>
+<p>Latency <strong>2.4 s</strong> · gagal ekstraksi <strong>1.7%</strong> · field kosong <strong>2.6%</strong> · human review <strong>3.2%</strong></p>
 <p>Angka ini <strong>contoh bentuk</strong>, bukan klaim model workshop.</p>
 </section></section>
 <section>
 <section id="sec-career" class="title-slide slide level1 center" data-background-color="#2c3e50">
 <h1>Karier</h1>
-<p>Tidak semua orang perlu train foundation model</p>
+
 </section>
 <section id="skill" class="slide level2">
 <h2>Skill yang Numpuk</h2>
 <p>AI Engineer, backend, platform, data, atau riset. Semuanya butuh skill yang sama:</p>
-<p>Python, SQL, API, backend, evaluasi, deploy, observability.</p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Yang berharga</strong></p>
-</div>
-<div class="callout-content">
-<p>Bukan “saya bisa panggil API model”. <strong>Saya bisa ubah perilaku model jadi sistem yang andal.</strong></p>
-</div>
-</div>
-</div>
-<p>Bawa satu dokumen jelek ke interview. Ceritakan failure path-nya.</p>
-
-<img data-src="./memes/materi-selesai.png" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="360"></section>
+<ul>
+<li>Python</li>
+<li>SQL</li>
+<li>API dan backend</li>
+<li>evaluasi</li>
+<li>deployment</li>
+<li>observability</li>
+</ul>
+</section>
 <section id="penutup" class="slide level2">
 <h2>Penutup</h2>
 <ol type="1">
-<li>Modalitas kedua mengubah keputusan?</li>
-<li>Output-nya bisa di-parse program?</li>
-<li>Apa yang terjadi saat model salah atau mati?</li>
+<li>Multimodal AI mengubah input visual menjadi informasi yang bisa dipakai aplikasi.</li>
+<li>Structured output dan validasi membuat hasil model lebih aman untuk diproses.</li>
+<li>Sistem produksi perlu fallback, observability, dan human review.</li>
 </ol>
 <p><strong>“It works” ≠ “it works in production”</strong></p>
-</section>
-<section id="cp" class="slide level2">
-<h2>Narahubung</h2>
-<p><strong>BCC FILKOM</strong></p>
-<p>Line <a href="https://lin.ee/PRzoOaN"><span class="citation" data-cites="obw9635b">@obw9635b</span></a> · IG <a href="https://www.instagram.com/bccfilkom/"><span class="citation" data-cites="bccfilkom">@bccfilkom</span></a> · <a href="mailto:bccfilkom@ub.ac.id">bccfilkom@ub.ac.id</a></p>
-<p><strong>Presenter</strong></p>
-<p><a href="https://x.com/algonacci">x.com/algonacci</a> · <a href="https://github.com/algonacci">github.com/algonacci</a> · <a href="https://www.linkedin.com/in/eric-julianto">linkedin.com/eric-julianto</a></p>
-</section>
+</section></section>
+<section>
+<section id="section-3" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/materi-selesai.png" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="400"></section>
 <section id="qa" class="slide level2" style="text-align: center;">
 <h2>Q&amp;A</h2>
 
-<img data-src="./memes/any-question.png" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="280"><h3 id="terima-kasih-lanjut-ke-sesi-praktik">Terima kasih — lanjut ke sesi praktik</h3>
-</section>
+<img data-src="./memes/any-question.png" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="280"></section>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
