@@ -1,0 +1,249 @@
+/*-- scss:defaults --*/
+
+/*-- scss:rules --*/
+/* Import Latin Modern fonts (actual LaTeX fonts) */
+@import url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css');
+
+/* Set Computer Modern as main font family */
+.reveal {
+    font-family: "Computer Modern Serif", serif;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    font-family: "Computer Modern Serif", serif;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.reveal p {
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.reveal code {
+    font-family: "Computer Modern Typewriter", monospace;
+    letter-spacing: -0.05em;
+}
+
+.reveal pre code {
+    font-family: "Computer Modern Typewriter", monospace;
+    line-height: 1.2;
+    letter-spacing: -0.05em;
+}
+
+/* Layout helpers used in slides */
+.reveal table {
+    width: 100%;
+}
+
+.reveal .columns {
+    align-items: center;
+}
+
+.reveal .center-column {
+    text-align: center;
+}
+
+.reveal .arrow-column {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.reveal .arrow-column-medium {
+    padding-top: 40px;
+}
+
+.reveal .arrow-column-tall {
+    padding-top: 60px;
+}
+
+.reveal .mermaid svg {
+    max-width: 100%;
+}
+
+/* PlantUML specific styling */
+#fig-plantuml img {
+    image-rendering: crisp-edges;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+#fig-plantuml img:hover {
+    transform: scale(1.02);
+}
+
+/* Use specific white logo on dark/inverse slides */
+.reveal.has-dark-background .slide-logo {
+    content: url('logo-white.png') !important;
+}
+
+/* ---- Braincore RnD 2026 → 2027 deck ---- */
+:root {
+    --bc-navy: #37517e;
+    --bc-deep: #1d3156;
+    --bc-sky: #47b2e4;
+    --bc-mint: #55d6be;
+    --bc-amber: #ffd166;
+    --bc-muted: #6d7d98;
+    --bc-line: #dfe7f1;
+    --bc-tint: #f2f7fc;
+}
+
+/* Evidence labels: FACT / OBSERVATION / HYPOTHESIS / DISCUSSION */
+.reveal .tag {
+    display: inline-block;
+    font-family: "Computer Modern Typewriter", monospace;
+    font-size: 0.5em;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.reveal .tag.fact { background: var(--bc-navy); color: #fff; }
+.reveal .tag.obs { background: var(--bc-sky); color: #fff; }
+.reveal .tag.hyp { background: var(--bc-amber); color: var(--bc-deep); }
+.reveal .tag.disc { border: 1.5px solid var(--bc-navy); color: var(--bc-navy); }
+
+.reveal .source {
+    font-size: 0.5em;
+    color: var(--bc-muted);
+    margin-top: 18px;
+}
+
+/* Stat grid */
+.reveal .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 10px;
+}
+.reveal .stat {
+    border-top: 3px solid var(--bc-navy);
+    background: var(--bc-tint);
+    padding: 14px 16px;
+}
+.reveal .stat .num {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: var(--bc-deep);
+    line-height: 1;
+}
+.reveal .stat .lbl {
+    font-size: 0.62em;
+    color: var(--bc-muted);
+    margin-top: 6px;
+    line-height: 1.25;
+}
+.reveal .stat.alt { border-top-color: var(--bc-sky); }
+
+/* Horizontal stacked bars */
+.reveal .bars { margin-top: 12px; }
+.reveal .bar-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 110px;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0;
+    font-size: 0.75em;
+}
+.reveal .bar-track { display: flex; height: 64px; }
+.reveal .bar-seg {
+    color: #fff;
+    font-size: 1.1em; font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reveal .seg-conf { background: var(--bc-navy); }
+.reveal .seg-jour { background: var(--bc-sky); }
+.reveal .seg-deck { background: repeating-linear-gradient(45deg, #fff, #fff 5px, var(--bc-line) 5px, var(--bc-line) 10px); color: var(--bc-navy); border: 1px dashed var(--bc-navy); }
+.reveal .legend { font-size: 0.55em; color: var(--bc-muted); }
+.reveal .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 12px; height: 12px;
+    margin: 0 6px 0 14px;
+    vertical-align: -1px;
+}
+.reveal .legend .l-conf::before { background: var(--bc-navy); }
+.reveal .legend .l-jour::before { background: var(--bc-sky); }
+.reveal .legend .l-deck::before { border: 1px dashed var(--bc-navy); }
+
+/* Timeline */
+.reveal .timeline {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    border-top: 2px solid var(--bc-navy);
+    margin-top: 30px;
+}
+.reveal .tl-col { padding: 0 6px; position: relative; }
+.reveal .tl-col::before {
+    content: "";
+    position: absolute;
+    top: -7px; left: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--bc-navy);
+}
+.reveal .tl-col.empty::before { background: #fff; border: 2px solid var(--bc-line); }
+.reveal .tl-month {
+    font-family: "Computer Modern Typewriter", monospace;
+    font-size: 0.6em;
+    color: var(--bc-muted);
+    margin: 12px 0 6px;
+}
+.reveal .tl-item {
+    font-size: 0.62em;
+    line-height: 1.25;
+    background: var(--bc-tint);
+    border-left: 3px solid var(--bc-navy);
+    padding: 4px 6px;
+    margin-bottom: 6px;
+}
+.reveal .tl-item.j { border-left-color: var(--bc-sky); }
+.reveal .tl-item.d { border-left: 3px dashed var(--bc-muted); background: #fff; }
+
+/* Topic clusters */
+.reveal .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+.reveal .topic {
+    border: 1px solid var(--bc-line);
+    padding: 12px 14px;
+}
+.reveal .topic h4 {
+    font-size: 0.75em;
+    margin: 0 0 8px;
+    color: var(--bc-deep);
+    display: flex;
+    justify-content: space-between;
+}
+.reveal .topic h4 .count { color: var(--bc-sky); }
+.reveal .topic ul { margin: 0; padding-left: 1em; font-size: 0.6em; line-height: 1.35; }
+.reveal .topic li { margin-bottom: 3px; }
+.reveal .topic .muted { color: var(--bc-muted); }
+
+.reveal .callout-line {
+    border-left: 4px solid var(--bc-sky);
+    padding: 6px 14px;
+    background: var(--bc-tint);
+    font-size: 0.75em;
+    margin-top: 16px;
+}
