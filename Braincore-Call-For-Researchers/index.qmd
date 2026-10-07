@@ -26,184 +26,272 @@ format:
         html-math-method: katex
 ---
 
-## Why We're Here {#why}
-
-TODO
-
 # Where We Are {#sec-where background-color="#37517e"}
 
 ## 2026 in Numbers {#numbers}
 
-<span class="tag fact">FACT</span> Publications listed on braincore.id/publication, plus conference decks in this repo.
-
 <div class="stat-grid">
-<div class="stat"><div class="num">10</div><div class="lbl">2026 publications listed on braincore.id</div></div>
-<div class="stat"><div class="num">7</div><div class="lbl">IEEE conference papers in 2026. Every earlier paper was in a national journal.</div></div>
-<div class="stat"><div class="num">5</div><div class="lbl">conference venues with listed papers: ISIBER, ICCRAIDS, SIML, INFINITYS, IncoSST</div></div>
-<div class="stat"><div class="num">24</div><div class="lbl">distinct co-authors across the 10 listed 2026 papers</div></div>
-<div class="stat alt"><div class="num">3</div><div class="lbl">national journal papers in 2026: JUTIF, JIAPI, J. Penelitian Pendidikan IPA</div></div>
-<div class="stat alt"><div class="num">+3</div><div class="lbl">conference decks (EECCIS, ICITRI ×2) not yet on the publication page</div></div>
-<div class="stat alt"><div class="num">17</div><div class="lbl">total listed publications, 2024–2026</div></div>
-<div class="stat alt"><div class="num">4</div><div class="lbl">public talks and workshops in 2026: Text-to-SQL Agent, MCP, IGNITE UNJ, BCC FILKOM</div></div>
+<div class="stat"><div class="num">13</div><div class="lbl">papers</div></div>
+<div class="stat"><div class="num">10</div><div class="lbl">IEEE conference papers</div></div>
+<div class="stat"><div class="num">7</div><div class="lbl">conferences</div></div>
+<div class="stat"><div class="num">29</div><div class="lbl">co-authors</div></div>
 </div>
 
-<div class="source">Sources: Braincore-id/static/js/publication.js · presentasi repo (index.html). The "+3" papers have conference decks, but this deck does not say whether they are published.</div>
+<div class="callout-line">3 already presented (EECCIS, ICITRI ×2), waiting for IEEE Xplore</div>
 
 ## From Journals to Conferences {#trajectory}
 
-<span class="tag fact">FACT</span> Listed output per year, by venue type
-
 <div class="bars">
-<div class="bar-row"><b>2024</b><div class="bar-track"><div class="bar-seg seg-jour" style="width:30.8%">4</div></div><span>4</span></div>
-<div class="bar-row"><b>2025</b><div class="bar-track"><div class="bar-seg seg-jour" style="width:23.1%">3</div></div><span>3</span></div>
-<div class="bar-row"><b>2026</b><div class="bar-track"><div class="bar-seg seg-conf" style="width:53.8%">7</div><div class="bar-seg seg-jour" style="width:23.1%">3</div><div class="bar-seg seg-deck" style="width:23.1%">+3</div></div><span>10 <small>(+3)</small></span></div>
+<div class="bar-row"><b>2024</b><div class="bar-track"><div class="bar-seg seg-jour" style="width:30.8%">4</div></div><span></span></div>
+<div class="bar-row"><b>2025</b><div class="bar-track"><div class="bar-seg seg-jour" style="width:23.1%">3</div></div><span></span></div>
+<div class="bar-row"><b>2026</b><div class="bar-track"><div class="bar-seg seg-conf" style="width:53.8%">7</div><div class="bar-seg seg-jour" style="width:23.1%">3</div><div class="bar-seg seg-deck" style="width:23.1%">+3</div></div><span></span></div>
 </div>
 
-<div class="legend"><span class="l-conf">IEEE conference</span><span class="l-jour">National journal</span><span class="l-deck">Conference deck, not yet listed</span></div>
+<div class="legend"><span class="l-conf">IEEE conference</span><span class="l-jour">Journal</span><span class="l-deck">Presented, awaiting Xplore</span></div>
 
-<div class="callout-line"><span class="tag obs">OBSERVATION</span> 2026 had more listed papers than 2024 and 2025 put together (10 vs 7). The mix also flipped from journal-only to mostly conference papers.</div>
+<div class="callout-line">2026 alone > 2024 + 2025 combined</div>
 
 ## 2026 Timeline {#timeline}
 
-<span class="tag fact">FACT</span> When papers came out or were presented
-
 <div class="timeline">
-<div class="tl-col"><div class="tl-month">FEB</div><div class="tl-item">ISIBER · APNR (YOLOv8 + TrOCR)</div><div class="tl-item">ISIBER · Multi-criteria re-ranking</div></div>
+<div class="tl-col"><div class="tl-month">FEB</div><div class="tl-item">ISIBER · APNR</div><div class="tl-item">ISIBER · Re-ranking</div></div>
 <div class="tl-col empty"><div class="tl-month">MAR</div></div>
-<div class="tl-col"><div class="tl-month">APR</div><div class="tl-item">ICCRAIDS · Dominant color extraction</div><div class="tl-item j">JPPIPA · Malaria image denoising</div></div>
+<div class="tl-col"><div class="tl-month">APR</div><div class="tl-item">ICCRAIDS · Dominant color</div><div class="tl-item j">JPPIPA · Malaria</div></div>
 <div class="tl-col empty"><div class="tl-month">MAY</div></div>
-<div class="tl-col"><div class="tl-month">JUN</div><div class="tl-item">SIML · Text-to-SQL pipeline</div><div class="tl-item">SIML · GA-LSTM stock forecasting</div><div class="tl-item j">JUTIF · Sparse vs dense retrieval</div><div class="tl-item j">JIAPI · Decentralization policy</div><div class="tl-item d">EECCIS · Battery SoC + XAI</div></div>
-<div class="tl-col"><div class="tl-month">JUL</div><div class="tl-item">INFINITYS · RAG resume screening</div></div>
-<div class="tl-col"><div class="tl-month">AUG</div><div class="tl-item">IncoSST · CNN-RF pneumonia</div></div>
-<div class="tl-col"><div class="tl-month">SEP</div><div class="tl-item d">ICITRI · Glaucoma, 10 backbones</div><div class="tl-item d">ICITRI · Liver fibrosis CNN benchmark</div></div>
+<div class="tl-col"><div class="tl-month">JUN</div><div class="tl-item">SIML · Text-to-SQL</div><div class="tl-item">SIML · GA-LSTM</div><div class="tl-item j">JUTIF · Retrieval</div><div class="tl-item j">JIAPI · Policy</div><div class="tl-item d">EECCIS · Battery SoC</div></div>
+<div class="tl-col"><div class="tl-month">JUL</div><div class="tl-item">INFINITYS · RAG resume</div></div>
+<div class="tl-col"><div class="tl-month">AUG</div><div class="tl-item">IncoSST · Pneumonia</div></div>
+<div class="tl-col"><div class="tl-month">SEP</div><div class="tl-item d">ICITRI · Glaucoma</div><div class="tl-item d">ICITRI · Liver</div></div>
 </div>
 
-<div class="legend" style="margin-top:14px"><span class="l-conf">IEEE conference</span><span class="l-jour">National journal</span><span class="l-deck">Deck only, status to confirm</span></div>
-
-<div class="source">The website gives only "2026" for the SIML, INFINITYS and IncoSST papers. Their months come from the dates of the matching presentation decks.</div>
+<div class="legend" style="margin-top:14px"><span class="l-conf">Conference</span><span class="l-jour">Journal</span><span class="l-deck">Presented, awaiting Xplore</span></div>
 
 ## What We Researched {#topics}
 
-<span class="tag fact">FACT</span> 2026 work grouped by theme (10 listed papers + 3 conference decks)
-
 <div class="topic-grid">
 <div class="topic"><h4>Retrieval, NLP & LLM <span class="count">4</span></h4><ul>
-<li>Multi-criteria re-ranking for hybrid semantic IR</li>
-<li>RAG + cross-encoder for resume screening</li>
-<li>Sparse vs dense vs hybrid retrieval on Indonesian Wikipedia</li>
-<li>Modular Text-to-SQL pipeline benchmark</li></ul></div>
-<div class="topic"><h4>Medical Imaging <span class="count">2 + 2</span></h4><ul>
-<li>Image denoising for malaria diagnosis</li>
-<li>Hybrid CNN-RF for chest X-ray pneumonia</li>
-<li class="muted">Glaucoma: transformer vs lightweight models</li>
-<li class="muted">Liver fibrosis: lightweight CNN benchmark</li></ul></div>
+<li>Re-ranking for hybrid IR</li>
+<li>RAG resume screening</li>
+<li>Indonesian Wikipedia retrieval</li>
+<li>Text-to-SQL</li></ul></div>
+<div class="topic"><h4>Medical Imaging <span class="count">4</span></h4><ul>
+<li>Malaria</li>
+<li>Pneumonia</li>
+<li>Glaucoma</li>
+<li>Liver fibrosis</li></ul></div>
 <div class="topic"><h4>Computer Vision <span class="count">2</span></h4><ul>
-<li>License plate recognition (YOLOv8 + TrOCR)</li>
-<li>Saliency-weighted K-means for dominant color extraction</li></ul></div>
-<div class="topic"><h4>Forecasting & Optimization <span class="count">1 + 1</span></h4><ul>
-<li>GA-tuned LSTM / Bi-LSTM for banking stocks</li>
-<li class="muted">Metaheuristic-optimized ML for battery SoC</li></ul></div>
+<li>License plate recognition</li>
+<li>Dominant color extraction</li></ul></div>
+<div class="topic"><h4>Forecasting & Optimization <span class="count">2</span></h4><ul>
+<li>GA-LSTM stocks</li>
+<li>Battery SoC</li></ul></div>
 <div class="topic"><h4>Public Policy <span class="count">1</span></h4><ul>
-<li>Central vs regional decentralization balance</li></ul></div>
-<div class="topic" style="background:var(--bc-tint)"><h4>Cross-cutting methods</h4><ul>
-<li><b>Benchmark / comparative studies:</b> retrieval, malaria, Text-to-SQL, glaucoma, liver</li>
-<li><b>Explainability (SHAP / Grad-CAM):</b> stocks, battery SoC, liver</li></ul></div>
+<li>Decentralization</li></ul></div>
+<div class="topic" style="background:var(--bc-tint)"><h4>Common pattern</h4><ul>
+<li>Benchmarks & comparisons</li>
+<li>Explainable AI</li></ul></div>
 </div>
-
-<div class="source">Grey items: conference deck only, not yet on the publication page.</div>
 
 ## Notable in 2026 {#milestones}
 
 :::: {.columns}
-::: {.column width="50%"}
-<span class="tag fact">FACT</span>
-
-- **First IEEE conference papers.** All 7 listed papers from 2024–2025 were national journal papers.
-- **Two papers at one venue, twice:** ISIBER (Feb) and SIML (Jun).
-- **11-author papers** (INFINITYS, ICITRI). These were our largest collaborations so far.
-- **7 universities in co-author affiliations** on the conference decks: Esa Unggul, Brawijaya, Hasanuddin, Terbuka, Jember, Sains Indonesia, Dian Nusantara.
-- **Beyond AI:** a public-policy paper in JIAPI.
+::: {.column width="55%"}
+- **First IEEE papers.** Everything before 2026 was a journal paper.
+- **11-author papers.** Our biggest collaborations yet.
+- **7 universities** among co-author affiliations.
+- **Beyond AI.** One public-policy paper.
 :::
 
-::: {.column width="50%"}
-<span class="tag obs">OBSERVATION</span>
-
-- Retrieval/LLM and medical imaging were the two most frequent 2026 themes.
-- Medical imaging spans all three years: heart attack (2024), brain tumor and diabetes (2025), then malaria, pneumonia, glaucoma and liver (2026).
-- **5 of the 13** pieces of 2026 work are comparative benchmarks rather than new methods.
-
-<span class="tag disc">DISCUSSION</span>
-
-- Is the benchmark-heavy profile a strength to build on, or a ceiling?
+::: {.column width="45%"}
+<div class="uni-list">
+<div><b>Universitas Brawijaya</b><span>6 papers</span></div>
+<div><b>Universitas Esa Unggul</b><span>5</span></div>
+<div><b>Universitas Terbuka</b><span>2</span></div>
+<div><b>Universitas Hasanuddin</b><span>2</span></div>
+<div><b>Universitas Jember</b><span>2</span></div>
+<div><b>Universitas Sains Indonesia</b><span>1</span></div>
+<div><b>Universitas Dian Nusantara</b><span>1</span></div>
+</div>
 :::
 ::::
 
-## The Reality of Research {#loop}
-
-TODO
 
 ## Rejected ≠ Dead {#rejected}
 
-TODO
+<div class="loop">
+<div class="step">Idea</div><div class="arr">→</div>
+<div class="step">Experiment</div><div class="arr">→</div>
+<div class="step">Paper</div><div class="arr">→</div>
+<div class="step">Submit</div><div class="arr">→</div>
+<div class="step split"><span class="ok">Accepted</span><span class="no">Rejected</span></div><div class="arr">→</div>
+<div class="step">Learn</div><div class="arr">→</div>
+<div class="step hl">Revise</div>
+</div>
+<div class="loop-back">↺ back into the loop</div>
 
-# Slowing Down, On Purpose {#sec-slow background-color="#37517e"}
+<div class="big-line"><b>3 papers</b> rejected in 2026, and they can still be saved.</div>
 
-## Why We Are Slowing Down {#slowdown}
-
-TODO
-
-## 2026 → 2027 {#transition}
-
-TODO
+<div class="chips">
+<span>Revise &amp; resubmit</span><span>Change venue</span><span>Strengthen method</span><span>Expand experiments</span><span>Merge with newer work</span><span>New direction</span>
+</div>
 
 # Looking Outward {#sec-outward background-color="#37517e"}
 
-## What Should 2027 Look Like? {#explore}
-
-TODO
-
 ## Call for Researchers {#cfr}
 
-TODO
+<div class="stat-grid">
+<div class="stat"><div class="num">52</div><div class="lbl">responses in 3 days</div></div>
+<div class="stat"><div class="num">41</div><div class="lbl">in the first 24 hours</div></div>
+<div class="stat"><div class="num">~43</div><div class="lbl">new faces</div></div>
+<div class="stat"><div class="num">23</div><div class="lbl">came from X / Twitter</div></div>
+</div>
 
-## 52 Responses: What People Are Interested In {#responses}
+<div class="callout-line">Collaborators, not applicants.</div>
 
-TODO
+## Who Responded {#who}
 
-## Research Interest Map {#interest-map}
+<div class="hbars big">
+<div class="hbar"><span class="hb-l">Independent</span><span class="hb-t"><span class="hb-f" style="width:100%"></span></span><span class="hb-n">16</span></div>
+<div class="hbar"><span class="hb-l">Industry</span><span class="hb-t"><span class="hb-f" style="width:87.5%"></span></span><span class="hb-n">14</span></div>
+<div class="hbar"><span class="hb-l">Undergraduate</span><span class="hb-t"><span class="hb-f" style="width:75%"></span></span><span class="hb-n">12</span></div>
+<div class="hbar"><span class="hb-l">Master's / PhD</span><span class="hb-t"><span class="hb-f" style="width:43.8%"></span></span><span class="hb-n">7</span></div>
+<div class="hbar"><span class="hb-l">Faculty</span><span class="hb-t"><span class="hb-f" style="width:18.8%"></span></span><span class="hb-n">3</span></div>
+</div>
 
-TODO
+<div class="callout-line">~17 universities · ~8 companies · 1 from abroad · <b>0 asked for a PM role</b> (the form never asked)</div>
+
+## What People Want to Research {#interests}
+
+:::: {.columns}
+::: {.column width="55%"}
+<div class="hbars">
+<div class="hbar"><span class="hb-l">LLM</span><span class="hb-t"><span class="hb-f" style="width:100.0%"></span></span><span class="hb-n">33</span></div>
+<div class="hbar"><span class="hb-l">Data Science & Analytics</span><span class="hb-t"><span class="hb-f" style="width:87.9%"></span></span><span class="hb-n">29</span></div>
+<div class="hbar"><span class="hb-l">GenAI</span><span class="hb-t"><span class="hb-f" style="width:72.7%"></span></span><span class="hb-n">24</span></div>
+<div class="hbar"><span class="hb-l">Medical Imaging</span><span class="hb-t"><span class="hb-f" style="width:60.6%"></span></span><span class="hb-n">20</span></div>
+<div class="hbar"><span class="hb-l">Social / Policy</span><span class="hb-t"><span class="hb-f" style="width:51.5%"></span></span><span class="hb-n">17</span></div>
+<div class="hbar"><span class="hb-l">IoT</span><span class="hb-t"><span class="hb-f" style="width:42.4%"></span></span><span class="hb-n">14</span></div>
+<div class="hbar"><span class="hb-l">Computational Finance</span><span class="hb-t"><span class="hb-f" style="width:39.4%"></span></span><span class="hb-n">13</span></div>
+<div class="hbar"><span class="hb-l">Behavioural</span><span class="hb-t"><span class="hb-f" style="width:39.4%"></span></span><span class="hb-n">13</span></div>
+<div class="hbar"><span class="hb-l">Digital Twin</span><span class="hb-t"><span class="hb-f" style="width:24.2%"></span></span><span class="hb-n">8</span></div>
+<div class="hbar"><span class="hb-l">Blockchain</span><span class="hb-t"><span class="hb-f" style="width:24.2%"></span></span><span class="hb-n">8</span></div>
+<div class="hbar"><span class="hb-l">Computer Networks</span><span class="hb-t"><span class="hb-f" style="width:18.2%"></span></span><span class="hb-n">6</span></div>
+<div class="hbar"><span class="hb-l">5G / 6G & Telecom</span><span class="hb-t"><span class="hb-f" style="width:18.2%"></span></span><span class="hb-n">6</span></div>
+</div>
+:::
+
+::: {.column width="45%"}
+<table class="heat"><tr><th></th><th>LLM</th><th>Data Sci.</th><th>GenAI</th><th>Med. Img</th><th>Soc./Policy</th><th>IoT</th><th>Comp. Fin.</th><th>Behav.</th></tr>
+<tr><th>LLM</th><td class="diag">33</td><td style="background:rgba(55,81,126,1.00);color:#fff">25</td><td style="background:rgba(55,81,126,0.84);color:#fff">21</td><td style="background:rgba(55,81,126,0.60);color:#fff">15</td><td style="background:rgba(55,81,126,0.48);color:#1d3156">12</td><td style="background:rgba(55,81,126,0.24);color:#1d3156">6</td><td style="background:rgba(55,81,126,0.40);color:#1d3156">10</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td></tr>
+<tr><th>Data Sci.</th><td style="background:rgba(55,81,126,1.00);color:#fff">25</td><td class="diag">29</td><td style="background:rgba(55,81,126,0.76);color:#fff">19</td><td style="background:rgba(55,81,126,0.64);color:#fff">16</td><td style="background:rgba(55,81,126,0.52);color:#1d3156">13</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.40);color:#1d3156">10</td><td style="background:rgba(55,81,126,0.28);color:#1d3156">7</td></tr>
+<tr><th>GenAI</th><td style="background:rgba(55,81,126,0.84);color:#fff">21</td><td style="background:rgba(55,81,126,0.76);color:#fff">19</td><td class="diag">24</td><td style="background:rgba(55,81,126,0.48);color:#1d3156">12</td><td style="background:rgba(55,81,126,0.36);color:#1d3156">9</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td></tr>
+<tr><th>Med. Img</th><td style="background:rgba(55,81,126,0.60);color:#fff">15</td><td style="background:rgba(55,81,126,0.64);color:#fff">16</td><td style="background:rgba(55,81,126,0.48);color:#1d3156">12</td><td class="diag">20</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td style="background:rgba(55,81,126,0.24);color:#1d3156">6</td><td style="background:rgba(55,81,126,0.36);color:#1d3156">9</td><td style="background:rgba(55,81,126,0.28);color:#1d3156">7</td></tr>
+<tr><th>Soc./Policy</th><td style="background:rgba(55,81,126,0.48);color:#1d3156">12</td><td style="background:rgba(55,81,126,0.52);color:#1d3156">13</td><td style="background:rgba(55,81,126,0.36);color:#1d3156">9</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td class="diag">17</td><td style="background:rgba(55,81,126,0.12);color:#1d3156">3</td><td style="background:rgba(55,81,126,0.20);color:#1d3156">5</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td></tr>
+<tr><th>IoT</th><td style="background:rgba(55,81,126,0.24);color:#1d3156">6</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.24);color:#1d3156">6</td><td style="background:rgba(55,81,126,0.12);color:#1d3156">3</td><td class="diag">14</td><td style="background:rgba(55,81,126,0.12);color:#1d3156">3</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td></tr>
+<tr><th>Comp. Fin.</th><td style="background:rgba(55,81,126,0.40);color:#1d3156">10</td><td style="background:rgba(55,81,126,0.40);color:#1d3156">10</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td style="background:rgba(55,81,126,0.36);color:#1d3156">9</td><td style="background:rgba(55,81,126,0.20);color:#1d3156">5</td><td style="background:rgba(55,81,126,0.12);color:#1d3156">3</td><td class="diag">13</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td></tr>
+<tr><th>Behav.</th><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td style="background:rgba(55,81,126,0.28);color:#1d3156">7</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.28);color:#1d3156">7</td><td style="background:rgba(55,81,126,0.32);color:#1d3156">8</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td style="background:rgba(55,81,126,0.16);color:#1d3156">4</td><td class="diag">13</td></tr>
+</table>
+:::
+::::
+
+<div class="source">Write-ins: computer vision, quantum, FPGA, GPU/HPC, geospatial, nuclear, smart grid, browser engines, tourism</div>
+
+## Clusters: AI & Language {#clusters-ai}
+
+<div class="cluster-grid">
+<div class="cg fit"><h4>Medical Imaging & Data Quality</h4><ul>
+<li><b>Sukma</b><em>Braincore</em><span>retina ViT</span></li>
+<li><b>Rifqi</b><em>Telkom University</em><span>synthetic data, rare diseases</span></li>
+<li><b>Affriza</b><em>UGM</em><span>train/test leakage audit</span></li>
+<li><b>Valentino</b><em>UPI</em><span>cardiac DL</span></li>
+<li><b>Anggito</b><em>Braincore</em><span>anatomy</span></li>
+<li><b>Adrian</b><em class="none">industry</em><span>agentic hospital admin</span></li></ul></div>
+<div class="cg fit"><h4>GenAI & Human Cognition</h4><ul>
+<li><b>Helmy</b><em class="none">undergrad</em><span>GenAI vs critical thinking</span></li>
+<li><b>Sabrina</b><em class="none">independent</em><span>GenAI & metacognition</span></li>
+<li><b>Jose</b><em class="none">independent</em><span>limits of GenAI</span></li>
+<li><b>Ira</b><em class="none">independent</em><span>AI adoption</span></li>
+<li><b>Gymnastiar</b><em>ISBI Bandung</em><span>anthropology of AI</span></li></ul></div>
+<div class="cg new"><h4>Efficient LLM Systems</h4><ul>
+<li><b>Defhanaya</b><em class="none">industry</em><span>LLM serving on GPU clusters</span></li>
+<li><b>Fadhel</b><em>Hariff Defense</em><span>Llama on FPGA</span></li>
+<li><b>Afrizal</b><em>Telkom University</em><span>routing to small models</span></li></ul></div>
+<div class="cg fit"><h4>LLM for Indonesian Public Docs</h4><ul>
+<li><b>Albar</b><em>KTM Solutions</em><span>court-decision corpus</span></li>
+<li><b>Syarifudin</b><em class="none">grad student</em><span>regional fund data</span></li>
+<li><b>Catur</b><em class="none">independent</em><span>private LLM for government</span></li>
+<li><b>Henry</b><em>UMN</em><span>monetary policy from text</span></li></ul></div>
+<div class="cg fit"><h4>Indonesian Opinion Mining</h4><ul>
+<li><b>Wildan Abid</b><em>UNS</em><span>ABSA hospital reviews</span></li>
+<li><b>Fahmi</b><em class="none">independent</em><span>topic modeling benchmark</span></li>
+<li><b>Livia</b><em>UMN</em><span>fake-review detection</span></li></ul></div>
+</div>
+
+<div class="legend"><span class="l-fit">Overlaps our work</span><span class="l-new">New for Braincore</span></div>
+
+## Clusters: Physical & Infra {#clusters-phys}
+
+<div class="cluster-grid">
+<div class="cg new"><h4>Earth Observation & Digital Twin</h4><ul>
+<li><b>Evans</b><em>UGM / BRIN</em><span>environmental digital twin</span></li>
+<li><b>Dwiputra</b><em>Univ. of Queensland</em><span>agricultural digital twin</span></li>
+<li><b>Rafif</b><em>UNESA</em><span>post-fire recovery (satellite)</span></li>
+<li><b>Rahmat</b><em>ESRI</em><span>geospatial embeddings</span></li></ul></div>
+<div class="cg new"><h4>Industrial AI</h4><ul>
+<li><b>Vandha</b><em>Telkom University</em><span>predictive maintenance</span></li>
+<li><b>Tsaqif</b><em>OptiControl</em><span>CV for NDT</span></li>
+<li><b>Azzar</b><em>Afu.id</em><span>self-healing PID / LQR</span></li></ul></div>
+<div class="cg fit"><h4>Finance & Optimization</h4><ul>
+<li><b>Safrizal</b><em>Brawijaya</em><span>metaheuristic portfolios</span></li>
+<li><b>Jamal</b><em>UNG</em><span>energy infrastructure</span></li>
+<li><b>Amalan</b><em>Braincore</em><span>RL</span></li></ul></div>
+<div class="cg new"><h4>Networks, Security & Hardware</h4><ul>
+<li><b>Adysurya</b><em class="none">independent</em><span>unreliable networks</span></li>
+<li><b>XsanLahci</b><em class="none">independent</em><span>wireless security</span></li>
+<li><b>Yudha</b><em>Unhas</em><span>network & voice response</span></li>
+<li><b>Lukas</b><em class="none">undergrad</em><span>assistive hardware</span></li></ul></div>
+<div class="cg new"><h4>Blockchain & Web3</h4><ul>
+<li><b>Sarah</b><em>UIN Jakarta</em><span>asset tokenization</span></li>
+<li><b>Ibrohim</b><em>HIS</em><span>gamified adoption</span></li></ul></div>
+<div class="cg gap"><h4>No concrete idea yet</h4><ul>
+<li>Fauzan, Syifa, Wildan Arif, Aditia, Apri, Nurul, Haerul, Nurhikam, Kresna, Ando, Rafli, Lingga, Divetri, Rachel, Saia</li></ul></div>
+</div>
 
 ## What This Tells Us {#insights}
 
-TODO
+- **LLM & medical imaging** are both what people want and what we already do
+- **Earth observation, efficient LLMs, industrial AI** are new for us, and outside collaborators would need to lead them
+- **15 people** have no idea yet, so they could start on a learning / analyst track
 
-# 2027 {#sec-2027 background-color="#37517e"}
+<span class="tag disc">DISCUSSION</span> Which 2–3 clusters do we commit to?
 
-## Possible 2027 Research Tracks {#tracks}
+## Accepted ≠ Published {#accepted-dropped}
 
-TODO
+<div class="drop-wrap">
+<div class="drop-num">2</div>
+<div class="drop-text">
+<div class="drop-main">papers <b>accepted</b>, but we didn't continue.</div>
+<div class="drop-sub">The research passed review. The budget didn't.</div>
+</div>
+</div>
 
-## From Topics to Research Questions {#questions}
+<div class="cost-row"><span>Registration</span><span>APC</span><span>Travel</span></div>
 
-TODO
+## Funding in 2027 {#funding-2027}
 
-## Collaboration Model {#collab}
+<div class="fund-grid">
+<div><b>Research grants</b><span>BRIN · LPDP · Kemdiktisaintek</span></div>
+<div><b>Industry sponsors</b><span>problem + data + budget</span></div>
+<div><b>Cost-sharing</b><span>with partner universities</span></div>
+<div><b>Compute credits</b><span>cloud research programs</span></div>
+<div><b>Fewer, better venues</b><span>spend where it counts</span></div>
+</div>
 
-TODO
+<div class="big-line"><span class="tag disc">DISCUSSION</span> Which 1–2 do we chase first?</div>
 
-## What We Need to Fix {#fix}
+## Q&A {#qa background-color="#37517e" .qa}
 
-TODO
-
-## 2027 Principles {#principles}
-
-TODO
-
-## Discussion {#discussion}
-
-TODO
-
-## Next Steps {#next}
-
-TODO
+<div class="qa-wrap">
+<div class="qa-title">Questions &amp; Discussion</div>
+<div class="qa-sub">Braincore RnD · 2026 → 2027</div>
+</div>

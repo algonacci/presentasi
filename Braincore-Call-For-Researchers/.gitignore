@@ -1,2 +1,3 @@
 # Raw form responses contain personal data; keep them out of the published repo
 *.xlsx
+*.csv
