@@ -1,6 +1,6 @@
 ---
-title: "Token Optimization"
-subtitle: "Dari tokenisasi sampai caching, di level aplikasi dan agentic coding"
+title: "Token Efficiency"
+subtitle: "Hasil yang sama dengan token lebih sedikit, di level aplikasi dan agentic coding"
 author: "Eric Julianto"
 institute: "Orvix.id × Road to DevFest Jakarta 2026"
 format:
@@ -212,12 +212,12 @@ Dengan DeepSeek V4.1 Flash ≈ **435 giliran agent per hari**. Dengan GPT-5.6 So
 :::
 
 # Tech Talk {#talk background-color="#2c3e50"}
-Token Optimization
+Token Efficiency
 
 ## Sesi Ini {#agenda}
 
-1. Tokenisasi: teks jadi angka
-2. Tiga tuas token optimization
+1. Dasar: token itu apa
+2. Tiga tuas token efficiency
 3. Prompt caching: cara kerja dan aturan mainnya
 4. **Level aplikasi**: AI wrapper apps
 5. **Level agentic coding**: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding
@@ -227,7 +227,7 @@ Token Optimization
 **Model yang sama, prompt yang sama, tagihan bisa beda 9×.** Bedanya cuma urutan.
 :::
 
-# Tokenisasi {#sec-token background-color="#2c3e50"}
+# Dasar: Token {#sec-token background-color="#2c3e50"}
 Model tidak membaca huruf
 
 ## Teks → Token → Angka {#tokenisasi}
@@ -306,7 +306,7 @@ Data nyata traffic Orvix, 30 hari terakhir:
 Yang Anda bayar adalah **konteks yang dikirim ulang setiap giliran**. Di situ caching bekerja.
 :::
 
-## Tiga Tuas Token Optimization {#tiga-tuas}
+## Tiga Tuas Token Efficiency {#tiga-tuas}
 
 | Tuas | Pertanyaannya | Contoh |
 |:---|:---|:---|
