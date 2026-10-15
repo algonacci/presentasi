@@ -1,6 +1,6 @@
 ---
-title: "Token yang Tidak Perlu Dibayar Dua Kali"
-subtitle: "Caching di level aplikasi dan agentic coding"
+title: "Token Optimization"
+subtitle: "Dari tokenisasi sampai caching, di level aplikasi dan agentic coding"
 author: "Eric Julianto"
 institute: "Orvix.id × Road to DevFest Jakarta 2026"
 format:
@@ -212,22 +212,44 @@ Dengan DeepSeek V4.1 Flash ≈ **435 giliran agent per hari**. Dengan GPT-5.6 So
 :::
 
 # Tech Talk {#talk background-color="#2c3e50"}
-Token yang tidak perlu dibayar dua kali
+Token Optimization
 
 ## Sesi Ini {#agenda}
 
-1. Token itu apa, dan habisnya di mana
-2. Prompt caching: cara kerja dan aturan mainnya
-3. **Level aplikasi**: AI wrapper apps
-4. **Level agentic coding**: OpenCode, Pi, omp
-5. Yang kami pelajari dari Orvix Coding
+1. Tokenisasi: teks jadi angka
+2. Tiga tuas token optimization
+3. Prompt caching: cara kerja dan aturan mainnya
+4. **Level aplikasi**: AI wrapper apps
+5. **Level agentic coding**: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding
 
 ::: {.callout-warning}
 ### Kontrak
 **Model yang sama, prompt yang sama, tagihan bisa beda 9×.** Bedanya cuma urutan.
 :::
 
-# Token dan Habisnya di Mana {#sec-token background-color="#2c3e50"}
+# Tokenisasi {#sec-token background-color="#2c3e50"}
+Model tidak membaca huruf
+
+## Teks → Token → Angka {#tokenisasi}
+
+```
+"Halo DevFest Jakarta!"
+        │  tokenizer
+        ▼
+['Halo', ' Dev', 'Fest', ' Jakarta', '!']        ← 5 token
+        │  kamus ±200 ribu entri (o200k_base)
+        ▼
+[193254, 11674, 78104, 65994, 0]                 ← yang benar-benar dilihat model
+        │  model
+        ▼
+token ID jawaban  →  detokenize  →  teks jawaban
+```
+
+Semua batasan dihitung dalam token:
+
+- **Harga**: per 1 juta token input dan output
+- **Context window**: berapa token yang muat sekali kirim
+- **Rate limit dan kuota**: termasuk kuota sprint Anda
 
 ## Token Bukan Kata {#token-bukan-kata .smaller}
 
@@ -239,6 +261,8 @@ Diukur dengan tokenizer `o200k_base`:
 | pengembangan | 2 | `peng` · `embangan` |
 | accountability | 2 | `account` · `ability` |
 | mempertanggungjawabkan | 6 | `mem` · `pert` · `anggung` · `jaw` · `ab` · `kan` |
+| Rp100.000 | 4 | `Rp` · `100` · `.` · `000` |
+| 2026-10-17 | 6 | `202` · `6` · `-` · `10` · `-` · `17` |
 
 Kalimat yang sama, permintaan bikin fungsi + unit test:
 
@@ -280,6 +304,19 @@ Data nyata traffic Orvix, 30 hari terakhir:
 ::: {.callout-important}
 ### Pada agent, output cuma 0,5% dari total token
 Yang Anda bayar adalah **konteks yang dikirim ulang setiap giliran**. Di situ caching bekerja.
+:::
+
+## Tiga Tuas Token Optimization {#tiga-tuas}
+
+| Tuas | Pertanyaannya | Contoh |
+|:---|:---|:---|
+| **1. Kirim lebih sedikit** | token apa yang sebenarnya tidak perlu? | CSV bukan JSON rapi, riwayat dipangkas, RAG hanya chunk relevan, `max_tokens` |
+| **2. Jangan bayar dua kali** | token apa yang dikirim ulang terus? | **prompt caching**, response cache |
+| **3. Bayar lebih murah per token** | model sebesar apa yang benar-benar perlu? | model kecil untuk tugas kecil, model besar saat perlu |
+
+::: {.callout-important}
+### Untuk agent, tuas 2 paling besar
+92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas tuas 2, tanpa melupakan 1 dan 3.
 :::
 
 # Prompt Caching {#sec-cache background-color="#2c3e50"}
@@ -428,6 +465,21 @@ messages = [
 
 Isi informasinya **sama**. Yang berubah cuma urutannya.
 
+## Tuas 1 di Aplikasi: Kirim Lebih Sedikit {#kirim-sedikit .smaller}
+
+| Sumber token | Optimasi |
+|:---|:---|
+| Riwayat chat | jendela N giliran terakhir + ringkasan di **batas topik**, bukan tiap giliran |
+| Dokumen RAG | top-k yang benar-benar relevan; potong boilerplate (header, footer, navigasi) |
+| Data tabel | CSV atau daftar ringkas, bukan JSON rapi |
+| Definisi tools | hanya tools yang relevan untuk alur itu; deskripsi singkat dan jelas |
+| Output | `max_tokens` sesuai kebutuhan; structured output untuk jawaban yang diproses mesin |
+
+::: {.callout-warning}
+### Jangan bentrok dengan tuas 2
+Memangkas riwayat **setiap giliran** mengubah prefix → cache hilang. Pangkas jarang, di batas yang jelas.
+:::
+
 ## Selain Prompt Cache {#cache-lain .smaller}
 
 | Jenis | Kapan berguna | Hati-hati |
@@ -549,11 +601,11 @@ Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang 
 
 ## Ringkasan {#ringkasan}
 
-1. Token habis di **input**, terutama pada agent: 92% cache, output cuma 0,5%.
-2. Cache cocok **dari depan**. Yang stabil di depan, yang berubah di belakang.
-3. Cache tinggal **di satu tempat**: model dan upstream yang sama. Butuh sticky routing.
-4. **Ukur** `cached_tokens`. Tanpa angka, Anda menebak.
-5. Agent: **satu tugas, satu sesi, satu model**.
+1. Model membaca **token**, bukan huruf. Bahasa, angka, dan format menentukan jumlahnya.
+2. Tiga tuas: **kirim lebih sedikit**, **jangan bayar dua kali**, **bayar lebih murah per token**.
+3. Token habis di **input**, terutama pada agent: 92% cache, output cuma 0,5%.
+4. Cache cocok **dari depan** dan tinggal **di satu tempat**. Yang stabil di depan; butuh sticky routing.
+5. **Ukur** `cached_tokens`. Agent: **satu tugas, satu sesi, satu model**.
 
 **Model yang sama, prompt yang sama, tagihan bisa beda 9×.**
 

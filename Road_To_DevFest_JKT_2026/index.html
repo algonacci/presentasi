@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Eric Julianto">
-  <title>Token yang Tidak Perlu Dibayar Dua Kali</title>
+  <title>Token Optimization</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -196,8 +196,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Token yang Tidak Perlu Dibayar Dua Kali</h1>
-  <p class="subtitle">Caching di level aplikasi dan agentic coding</p>
+  <h1 class="title">Token Optimization</h1>
+  <p class="subtitle">Dari tokenisasi sampai caching, di level aplikasi dan agentic coding</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -469,16 +469,16 @@ Eric Julianto
 <section>
 <section id="talk" class="title-slide slide level1 center" data-background-color="#2c3e50">
 <h1>Tech Talk</h1>
-<p>Token yang tidak perlu dibayar dua kali</p>
+<p>Token Optimization</p>
 </section>
 <section id="agenda" class="slide level2">
 <h2>Sesi Ini</h2>
 <ol type="1">
-<li>Token itu apa, dan habisnya di mana</li>
+<li>Tokenisasi: teks jadi angka</li>
+<li>Tiga tuas token optimization</li>
 <li>Prompt caching: cara kerja dan aturan mainnya</li>
 <li><strong>Level aplikasi</strong>: AI wrapper apps</li>
-<li><strong>Level agentic coding</strong>: OpenCode, Pi, omp</li>
-<li>Yang kami pelajari dari Orvix Coding</li>
+<li><strong>Level agentic coding</strong>: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding</li>
 </ol>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -496,8 +496,27 @@ Eric Julianto
 </section></section>
 <section>
 <section id="sec-token" class="title-slide slide level1 center" data-background-color="#2c3e50">
-<h1>Token dan Habisnya di Mana</h1>
-
+<h1>Tokenisasi</h1>
+<p>Model tidak membaca huruf</p>
+</section>
+<section id="tokenisasi" class="slide level2">
+<h2>Teks → Token → Angka</h2>
+<pre><code>"Halo DevFest Jakarta!"
+        │  tokenizer
+        ▼
+['Halo', ' Dev', 'Fest', ' Jakarta', '!']        ← 5 token
+        │  kamus ±200 ribu entri (o200k_base)
+        ▼
+[193254, 11674, 78104, 65994, 0]                 ← yang benar-benar dilihat model
+        │  model
+        ▼
+token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
+<p>Semua batasan dihitung dalam token:</p>
+<ul>
+<li><strong>Harga</strong>: per 1 juta token input dan output</li>
+<li><strong>Context window</strong>: berapa token yang muat sekali kirim</li>
+<li><strong>Rate limit dan kuota</strong>: termasuk kuota sprint Anda</li>
+</ul>
 </section>
 <section id="token-bukan-kata" class="slide level2 smaller">
 <h2>Token Bukan Kata</h2>
@@ -535,6 +554,16 @@ Eric Julianto
 <td style="text-align: left;">mempertanggungjawabkan</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: left;"><code>mem</code> · <code>pert</code> · <code>anggung</code> · <code>jaw</code> · <code>ab</code> · <code>kan</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rp100.000</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: left;"><code>Rp</code> · <code>100</code> · <code>.</code> · <code>000</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2026-10-17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;"><code>202</code> · <code>6</code> · <code>-</code> · <code>10</code> · <code>-</code> · <code>17</code></td>
 </tr>
 </tbody>
 </table>
@@ -665,6 +694,53 @@ Eric Julianto
 </div>
 </div>
 </div>
+</section>
+<section id="tiga-tuas" class="slide level2">
+<h2>Tiga Tuas Token Optimization</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tuas</th>
+<th style="text-align: left;">Pertanyaannya</th>
+<th style="text-align: left;">Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>1. Kirim lebih sedikit</strong></td>
+<td style="text-align: left;">token apa yang sebenarnya tidak perlu?</td>
+<td style="text-align: left;">CSV bukan JSON rapi, riwayat dipangkas, RAG hanya chunk relevan, <code>max_tokens</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>2. Jangan bayar dua kali</strong></td>
+<td style="text-align: left;">token apa yang dikirim ulang terus?</td>
+<td style="text-align: left;"><strong>prompt caching</strong>, response cache</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>3. Bayar lebih murah per token</strong></td>
+<td style="text-align: left;">model sebesar apa yang benar-benar perlu?</td>
+<td style="text-align: left;">model kecil untuk tugas kecil, model besar saat perlu</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Untuk agent, tuas 2 paling besar</strong></p>
+</div>
+<div class="callout-content">
+<p>92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas tuas 2, tanpa melupakan 1 dan 3.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="sec-cache" class="title-slide slide level1 center" data-background-color="#2c3e50">
@@ -742,14 +818,14 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <section id="ukur" class="slide level2">
 <h2>Cara Mengukur</h2>
 <p>Response OpenAI-compatible sudah memberi tahu:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb7-1"><a href=""></a><span class="er">"usage":</span> <span class="fu">{</span></span>
-<span id="cb7-2"><a href=""></a>  <span class="dt">"prompt_tokens"</span><span class="fu">:</span> <span class="dv">142750</span><span class="fu">,</span></span>
-<span id="cb7-3"><a href=""></a>  <span class="dt">"completion_tokens"</span><span class="fu">:</span> <span class="dv">688</span><span class="fu">,</span></span>
-<span id="cb7-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
-<span id="cb7-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
-<span id="cb8-2"><a href=""></a>hit <span class="op">=</span> u.prompt_tokens_details.cached_tokens <span class="op">/</span> u.prompt_tokens</span>
-<span id="cb8-3"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href=""></a><span class="er">"usage":</span> <span class="fu">{</span></span>
+<span id="cb8-2"><a href=""></a>  <span class="dt">"prompt_tokens"</span><span class="fu">:</span> <span class="dv">142750</span><span class="fu">,</span></span>
+<span id="cb8-3"><a href=""></a>  <span class="dt">"completion_tokens"</span><span class="fu">:</span> <span class="dv">688</span><span class="fu">,</span></span>
+<span id="cb8-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
+<span id="cb8-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
+<span id="cb9-2"><a href=""></a>hit <span class="op">=</span> u.prompt_tokens_details.cached_tokens <span class="op">/</span> u.prompt_tokens</span>
+<span id="cb9-3"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -848,22 +924,72 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Sebelum</strong> ❌</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>system <span class="op">=</span> <span class="ss">f"""Kamu asisten toko </span><span class="sc">{</span>shop<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb9-2"><a href=""></a><span class="ss">Sekarang </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb9-3"><a href=""></a><span class="ss">User: </span><span class="sc">{</span>user<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb9-4"><a href=""></a><span class="ss">Konteks: </span><span class="sc">{</span>rag_docs<span class="sc">}</span></span>
-<span id="cb9-5"><a href=""></a><span class="ss">Aturan: </span><span class="sc">{</span>RULES<span class="sc">}</span><span class="ss">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>system <span class="op">=</span> <span class="ss">f"""Kamu asisten toko </span><span class="sc">{</span>shop<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb10-2"><a href=""></a><span class="ss">Sekarang </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb10-3"><a href=""></a><span class="ss">User: </span><span class="sc">{</span>user<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb10-4"><a href=""></a><span class="ss">Konteks: </span><span class="sc">{</span>rag_docs<span class="sc">}</span></span>
+<span id="cb10-5"><a href=""></a><span class="ss">Aturan: </span><span class="sc">{</span>RULES<span class="sc">}</span><span class="ss">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><strong>Sesudah</strong> ✅</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>messages <span class="op">=</span> [</span>
-<span id="cb10-2"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RULES},   <span class="co"># tetap</span></span>
-<span id="cb10-3"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SHOP},    <span class="co"># per toko</span></span>
-<span id="cb10-4"><a href=""></a>  <span class="op">*</span>history,                               <span class="co"># bertambah</span></span>
-<span id="cb10-5"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>:</span>
-<span id="cb10-6"><a href=""></a>     <span class="ss">f"</span><span class="sc">{</span>rag_docs<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Waktu: </span><span class="sc">{</span>now<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>},</span>
-<span id="cb10-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>messages <span class="op">=</span> [</span>
+<span id="cb11-2"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RULES},   <span class="co"># tetap</span></span>
+<span id="cb11-3"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SHOP},    <span class="co"># per toko</span></span>
+<span id="cb11-4"><a href=""></a>  <span class="op">*</span>history,                               <span class="co"># bertambah</span></span>
+<span id="cb11-5"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>:</span>
+<span id="cb11-6"><a href=""></a>     <span class="ss">f"</span><span class="sc">{</span>rag_docs<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Waktu: </span><span class="sc">{</span>now<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb11-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <p>Isi informasinya <strong>sama</strong>. Yang berubah cuma urutannya.</p>
+</section>
+<section id="kirim-sedikit" class="slide level2 smaller">
+<h2>Tuas 1 di Aplikasi: Kirim Lebih Sedikit</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sumber token</th>
+<th style="text-align: left;">Optimasi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Riwayat chat</td>
+<td style="text-align: left;">jendela N giliran terakhir + ringkasan di <strong>batas topik</strong>, bukan tiap giliran</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dokumen RAG</td>
+<td style="text-align: left;">top-k yang benar-benar relevan; potong boilerplate (header, footer, navigasi)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Data tabel</td>
+<td style="text-align: left;">CSV atau daftar ringkas, bukan JSON rapi</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Definisi tools</td>
+<td style="text-align: left;">hanya tools yang relevan untuk alur itu; deskripsi singkat dan jelas</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Output</td>
+<td style="text-align: left;"><code>max_tokens</code> sesuai kebutuhan; structured output untuk jawaban yang diproses mesin</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Jangan bentrok dengan tuas 2</strong></p>
+</div>
+<div class="callout-content">
+<p>Memangkas riwayat <strong>setiap giliran</strong> mengubah prefix → cache hilang. Pangkas jarang, di batas yang jelas.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="cache-lain" class="slide level2 smaller">
 <h2>Selain Prompt Cache</h2>
@@ -1125,11 +1251,11 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <section id="ringkasan" class="slide level2">
 <h2>Ringkasan</h2>
 <ol type="1">
+<li>Model membaca <strong>token</strong>, bukan huruf. Bahasa, angka, dan format menentukan jumlahnya.</li>
+<li>Tiga tuas: <strong>kirim lebih sedikit</strong>, <strong>jangan bayar dua kali</strong>, <strong>bayar lebih murah per token</strong>.</li>
 <li>Token habis di <strong>input</strong>, terutama pada agent: 92% cache, output cuma 0,5%.</li>
-<li>Cache cocok <strong>dari depan</strong>. Yang stabil di depan, yang berubah di belakang.</li>
-<li>Cache tinggal <strong>di satu tempat</strong>: model dan upstream yang sama. Butuh sticky routing.</li>
-<li><strong>Ukur</strong> <code>cached_tokens</code>. Tanpa angka, Anda menebak.</li>
-<li>Agent: <strong>satu tugas, satu sesi, satu model</strong>.</li>
+<li>Cache cocok <strong>dari depan</strong> dan tinggal <strong>di satu tempat</strong>. Yang stabil di depan; butuh sticky routing.</li>
+<li><strong>Ukur</strong> <code>cached_tokens</code>. Agent: <strong>satu tugas, satu sesi, satu model</strong>.</li>
 </ol>
 <p><strong>Model yang sama, prompt yang sama, tagihan bisa beda 9×.</strong></p>
 </section></section>
