@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/tabby.min.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
+
+  <meta name="author" content="Eric Julianto">
+  <title>Token yang Tidak Perlu Dibayar Dua Kali</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-bbddfaabaaccfd8a5ddbf403c6be5566.css">
+  <link rel="stylesheet" href="custom.css">
+  <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="index_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Token yang Tidak Perlu Dibayar Dua Kali</h1>
+  <p class="subtitle">Caching di level aplikasi dan agentic coding</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Eric Julianto 
+</div>
+        <p class="quarto-title-affiliation">
+            Orvix.id × Road to DevFest Jakarta 2026
+          </p>
+    </div>
+</div>
+
+</section>
+<section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/hello-hello-everybody.jpg" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="300"></section>
+<section id="about-me" class="slide level2 smaller">
+<h2>About Me</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="profile.jpg" class="img-fluid" style="border-radius: 50%; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;" width="200"></p>
+<div style="font-size: 0.9em; line-height: 1.8;">
+<p><strong>x.com</strong>/algonacci</p>
+<p><strong>github.com</strong>/algonacci</p>
+<p><strong>linkedin.com</strong>/eric-julianto</p>
+<p><strong>instagram.com</strong>/eric.juliantooo</p>
+</div>
+</div><div class="column" style="width:70%;">
+<div style="padding-left: 30px;">
+<p><strong>Work Experience</strong></p>
+<style>
+.compact-list li { margin-bottom: 0.3em; line-height: 1.2; }
+.compact-list .period { font-size: 0.85em; color: #666; display: block; margin-top: -0.2em; }
+</style>
+<div class="compact-list">
+<ul>
+<li><p>Founder at Orvix.id <span class="period">(Now)</span></p></li>
+<li><p>Research Analyst at Braincore <span class="period">(Dec 21 - Now)</span></p></li>
+<li><p>Machine Learning Mentor at Bangkit Academy <span class="period">(Feb 23 - Jan 24)</span></p></li>
+<li><p>SEO Intern at Dibilabs by Dibimbing.id <span class="period">(Mar 23 - Jun 23)</span></p></li>
+<li><p>AI Developer Intern at ZettaByte <span class="period">(May 22 - Aug 22)</span></p></li>
+</ul>
+</div>
+<p><strong>Education</strong></p>
+<ul>
+<li>Hospitality &amp; Tourism at Universitas Bunda Mulia</li>
+<li>Computer Science at Universitas Esa Unggul</li>
+</ul>
+</div>
+</div></div>
+</section></section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/nice-to-meet-you.jpg" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="300"></section>
+
+<section>
+<section id="enablement" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Sprint Enablement</h1>
+<p>Token Cloud Credits dari Orvix</p>
+</section>
+<section id="jatah" class="slide level2">
+<h2>Yang Anda Dapat</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<table class="caption-top">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Kuota</strong></td>
+<td style="text-align: left;">100 juta token per orang</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Batas harian</strong></td>
+<td style="text-align: left;">30 juta token per hari</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Berlaku</strong></td>
+<td style="text-align: left;">sampai <strong>1 November 2026, 23:59 WIB</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Kecepatan</strong></td>
+<td style="text-align: left;">20 request/menit, 3 request bersamaan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Endpoint</strong></td>
+<td style="text-align: left;"><code>/v1</code> untuk aplikasi, <code>/coding/v1</code> untuk coding agent</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Model default</strong></td>
+<td style="text-align: left;">DeepSeek V4.1 Flash</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/devfest.png" class="img-fluid quarto-figure quarto-figure-center" width="320"></p>
+</figure>
+</div>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Gratis, tanpa kartu</strong></p>
+</div>
+<div class="callout-content">
+<p>Kuota ini sponsor Orvix untuk sprint. Tidak perlu top-up untuk memakainya.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="klaim" class="slide level2">
+<h2>Klaim dalam 3 Langkah</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/qr-join.png" class="img-fluid quarto-figure quarto-figure-center" width="300"></p>
+</figure>
+</div>
+<div style="text-align: center; font-size: 0.9em;">
+<p><strong>platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026</strong></p>
+</div>
+</div><div class="column" style="width:60%;">
+<ol type="1">
+<li><strong>Scan QR</strong> → masuk dengan email (magic link, tanpa password)</li>
+<li><strong>Gabung campaign</strong> → kuota langsung aktif</li>
+<li><strong>Buat API key</strong>
+<ul>
+<li>untuk aplikasi: scope <code>ai:invoke</code></li>
+<li>untuk coding agent: scope <code>coding:invoke</code></li>
+</ul></li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>API key = dompet</strong></p>
+</div>
+<div class="callout-content">
+<p>Jangan commit ke GitHub, jangan bagi ke tim lain. Satu orang, satu key.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="pakai-app" class="slide level2">
+<h2>Pakai di Aplikasi</h2>
+<p>OpenAI-compatible: SDK OpenAI mana pun jalan, cukup ganti <code>base_url</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>client <span class="op">=</span> OpenAI(</span>
+<span id="cb1-4"><a href=""></a>    base_url<span class="op">=</span><span class="st">"https://api.orvix.id/v1"</span>,</span>
+<span id="cb1-5"><a href=""></a>    api_key<span class="op">=</span><span class="st">"orv-sk_live_..."</span>,          <span class="co"># dari platform.orvix.id/api-keys</span></span>
+<span id="cb1-6"><a href=""></a>)</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a>reply <span class="op">=</span> client.chat.completions.create(</span>
+<span id="cb1-9"><a href=""></a>    model<span class="op">=</span><span class="st">"orvix/deepseek-v4.1-flash"</span>,</span>
+<span id="cb1-10"><a href=""></a>    messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"Halo dari DevFest!"</span>}],</span>
+<span id="cb1-11"><a href=""></a>)</span>
+<span id="cb1-12"><a href=""></a><span class="bu">print</span>(reply.choices[<span class="dv">0</span>].message.content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pakai-coding" class="slide level2">
+<h2>Pakai di Coding Agent</h2>
+<p>Pasang plugin Orvix di harness favorit Anda:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="ex">opencode</span> plugin add @orvix-id/opencode     <span class="co"># OpenCode</span></span>
+<span id="cb2-2"><a href=""></a><span class="ex">pi</span> install npm:@orvix-id/pi                <span class="co"># Pi</span></span>
+<span id="cb2-3"><a href=""></a><span class="ex">omp</span> plugin install @orvix-id/omp           <span class="co"># omp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="bu">export</span> <span class="va">ORVIX_CODING_API_KEY</span><span class="op">=</span><span class="st">"orv-sk_live_..."</span>   <span class="co"># key dengan scope coding:invoke</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Endpoint-nya <code>https://api.orvix.id/coding/v1</code>. Plugin yang mengurus sisanya, termasuk hal yang akan kita bahas setelah ini: <strong>session id untuk cache</strong>.</p>
+</section>
+<section id="bobot" class="slide level2 smaller">
+<h2>Kuota Dihitung Setara Gemini</h2>
+<p>Tiap model punya bobot. <strong>1 token di model berbobot 2 = 2 token kuota.</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">Bobot</th>
+<th style="text-align: right;">100 jt kuota ≈ token asli</th>
+<th style="text-align: right;">1 giliran agent*</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Atria Dawn Preview</td>
+<td style="text-align: right;">0,01</td>
+<td style="text-align: right;">10 miliar</td>
+<td style="text-align: right;">1.435</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Muse Spark 1.3</td>
+<td style="text-align: right;">0,11</td>
+<td style="text-align: right;">909 juta</td>
+<td style="text-align: right;">15.779</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qwen 3.8 Flash</td>
+<td style="text-align: right;">0,20</td>
+<td style="text-align: right;">500 juta</td>
+<td style="text-align: right;">28.688</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GPT-5.6 Luna</td>
+<td style="text-align: right;">0,28</td>
+<td style="text-align: right;">357 juta</td>
+<td style="text-align: right;">40.163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>DeepSeek V4.1 Flash</strong></td>
+<td style="text-align: right;"><strong>0,48</strong></td>
+<td style="text-align: right;"><strong>208 juta</strong></td>
+<td style="text-align: right;"><strong>68.851</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hy3</td>
+<td style="text-align: right;">0,58</td>
+<td style="text-align: right;">172 juta</td>
+<td style="text-align: right;">83.195</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hy4 Preview</td>
+<td style="text-align: right;">0,78</td>
+<td style="text-align: right;">128 juta</td>
+<td style="text-align: right;">111.882</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gemini 3.8 Flash</td>
+<td style="text-align: right;">1,00</td>
+<td style="text-align: right;">100 juta</td>
+<td style="text-align: right;">143.438</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GPT-5.6 Terra</td>
+<td style="text-align: right;">2,73</td>
+<td style="text-align: right;">37 juta</td>
+<td style="text-align: right;">391.586</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GPT-5.6 Sol</td>
+<td style="text-align: right;">6,82</td>
+<td style="text-align: right;">15 juta</td>
+<td style="text-align: right;">978.248</td>
+</tr>
+</tbody>
+</table>
+<p><span style="font-size: 0.8em; color: #666;">* giliran agent rata-rata di Orvix: 142.750 token input + 688 token output (data 30 hari, Oktober 2026).</span></p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Batas harian 30 juta</strong></p>
+</div>
+<div class="callout-content">
+<p>Dengan DeepSeek V4.1 Flash ≈ <strong>435 giliran agent per hari</strong>. Dengan GPT-5.6 Sol ≈ <strong>30</strong>. Pakai model besar saat memang perlu.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="talk" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Tech Talk</h1>
+<p>Token yang tidak perlu dibayar dua kali</p>
+</section>
+<section id="agenda" class="slide level2">
+<h2>Sesi Ini</h2>
+<ol type="1">
+<li>Token itu apa, dan habisnya di mana</li>
+<li>Prompt caching: cara kerja dan aturan mainnya</li>
+<li><strong>Level aplikasi</strong>: AI wrapper apps</li>
+<li><strong>Level agentic coding</strong>: OpenCode, Pi, omp</li>
+<li>Yang kami pelajari dari Orvix Coding</li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Kontrak</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Model yang sama, prompt yang sama, tagihan bisa beda 9×.</strong> Bedanya cuma urutan.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="sec-token" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Token dan Habisnya di Mana</h1>
+
+</section>
+<section id="token-bukan-kata" class="slide level2 smaller">
+<h2>Token Bukan Kata</h2>
+<p>Diukur dengan tokenizer <code>o200k_base</code>:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Kata</th>
+<th style="text-align: right;">Token</th>
+<th style="text-align: left;">Dipotong jadi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">development</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"><code>development</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pengembangan</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"><code>peng</code> · <code>embangan</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">accountability</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: left;"><code>account</code> · <code>ability</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mempertanggungjawabkan</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;"><code>mem</code> · <code>pert</code> · <code>anggung</code> · <code>jaw</code> · <code>ab</code> · <code>kan</code></td>
+</tr>
+</tbody>
+</table>
+<p>Kalimat yang sama, permintaan bikin fungsi + unit test:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bahasa</th>
+<th style="text-align: right;">Karakter</th>
+<th style="text-align: right;">Token</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">English</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">22</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indonesia</td>
+<td style="text-align: right;">120</td>
+<td style="text-align: right;"><strong>28</strong> (+27%)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Bukan berarti wajib English</strong></p>
+</div>
+<div class="callout-content">
+<p>Tapi untuk <strong>system prompt yang dikirim ribuan kali</strong>, 27% itu terasa.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="format" class="slide level2 smaller">
+<h2>Format Data Juga Token</h2>
+<p>20 baris produk yang sama:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Format</th>
+<th style="text-align: right;">Token</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">JSON rapi (<code>indent=2</code>)</td>
+<td style="text-align: right;">862</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">JSON minified</td>
+<td style="text-align: right;">483</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CSV</td>
+<td style="text-align: right;"><strong>269</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Untuk konteks yang hanya dibaca model</strong></p>
+</div>
+<div class="callout-content">
+<p>Kirim tabel sebagai CSV, bukan JSON rapi. <strong>3,2× lebih hemat</strong> dan model tetap paham.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="habis-di-input" class="slide level2">
+<h2>Habisnya di Input, Bukan Output</h2>
+<p>Data nyata traffic Orvix, 30 hari terakhir:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Jenis request</th>
+<th style="text-align: right;">Rata-rata input</th>
+<th style="text-align: right;">Rata-rata output</th>
+<th style="text-align: right;">Input dari cache</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Kecil (&lt; 5 rb token)</td>
+<td style="text-align: right;">2.774</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">69%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Menengah (5–50 rb)</td>
+<td style="text-align: right;">25.718</td>
+<td style="text-align: right;">878</td>
+<td style="text-align: right;">70%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Agent (≥ 50 rb)</strong></td>
+<td style="text-align: right;"><strong>142.750</strong></td>
+<td style="text-align: right;"><strong>688</strong></td>
+<td style="text-align: right;"><strong>92%</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pada agent, output cuma 0,5% dari total token</strong></p>
+</div>
+<div class="callout-content">
+<p>Yang Anda bayar adalah <strong>konteks yang dikirim ulang setiap giliran</strong>. Di situ caching bekerja.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="sec-cache" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Prompt Caching</h1>
+<p>Cara kerja dan aturan main</p>
+</section>
+<section id="cara-kerja" class="slide level2">
+<h2>Cara Kerjanya</h2>
+<p>Model memproses prompt dari depan. Kalau <strong>awal prompt</strong> sama persis dengan request sebelumnya, provider tidak perlu menghitung ulang bagian itu.</p>
+<pre><code>Request 1:  [system][tools][pesan 1]                          → hitung semua
+Request 2:  [system][tools][pesan 1][jawaban 1][pesan 2]      → bagian awal = cache hit
+Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit makin panjang</code></pre>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">DeepSeek V4 Flash</th>
+<th style="text-align: right;">Harga per 1 jt token</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Input baru</td>
+<td style="text-align: right;">$0,44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Input dari cache</td>
+<td style="text-align: right;"><strong>$0,014</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>31× lebih murah</strong>, dan biasanya lebih cepat karena tidak dihitung ulang.</p>
+</section>
+<section id="aturan-prefix" class="slide level2">
+<h2>Aturan #1: Prefix Harus Identik</h2>
+<p>Cache cocok <strong>per token dari depan</strong>. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Merusak cache</strong> ❌</p>
+<pre><code>[system: "Hari ini 17 Okt 10:31:07"]
+[tools]
+[riwayat chat]
+[pesan baru]</code></pre>
+<p>Jam berubah tiap request → <strong>0% hit</strong></p>
+</div><div class="column" style="width:50%;">
+<p><strong>Ramah cache</strong> ✅</p>
+<pre><code>[system: aturan tetap]
+[tools: urutan tetap]
+[riwayat chat]
+[pesan baru + "waktu: 10:31"]</code></pre>
+<p>Yang berubah ditaruh <strong>paling belakang</strong></p>
+</div></div>
+</section>
+<section id="aturan-lokasi" class="slide level2">
+<h2>Aturan #2: Cache Tinggal di Satu Tempat</h2>
+<p>Cache disimpan di <strong>server provider yang melayani request Anda</strong>, untuk <strong>model itu</strong>, dalam <strong>jangka waktu terbatas</strong>.</p>
+<ul>
+<li>Ganti model di tengah sesi → cache mulai dari nol</li>
+<li>Load balancer yang melempar request acak ke banyak upstream → hit rate jatuh</li>
+<li>Sesi diam terlalu lama → cache kedaluwarsa</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ini masalah gateway, bukan cuma masalah prompt</strong></p>
+</div>
+<div class="callout-content">
+<p>Di Orvix, request yang satu sesi <strong>ditempel ke route yang sama</strong> (sticky routing). Detailnya di bagian agentic coding.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ukur" class="slide level2">
+<h2>Cara Mengukur</h2>
+<p>Response OpenAI-compatible sudah memberi tahu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb7-1"><a href=""></a><span class="er">"usage":</span> <span class="fu">{</span></span>
+<span id="cb7-2"><a href=""></a>  <span class="dt">"prompt_tokens"</span><span class="fu">:</span> <span class="dv">142750</span><span class="fu">,</span></span>
+<span id="cb7-3"><a href=""></a>  <span class="dt">"completion_tokens"</span><span class="fu">:</span> <span class="dv">688</span><span class="fu">,</span></span>
+<span id="cb7-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
+<span id="cb7-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
+<span id="cb8-2"><a href=""></a>hit <span class="op">=</span> u.prompt_tokens_details.cached_tokens <span class="op">/</span> u.prompt_tokens</span>
+<span id="cb8-3"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Jadikan metrik</strong></p>
+</div>
+<div class="callout-content">
+<p>Kalau <strong>cache hit rate</strong> tidak pernah Anda lihat, Anda tidak tahu sedang membayar 1× atau 9×.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="sec-app" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Level Aplikasi</h1>
+<p>AI wrapper apps: chatbot, asisten, RAG</p>
+</section>
+<section id="anatomi-app" class="slide level2 smaller">
+<h2>Anatomi Request Aplikasi</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bagian</th>
+<th style="text-align: left;">Seberapa sering berubah</th>
+<th style="text-align: left;">Taruh di</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Instruksi produk, persona, aturan</td>
+<td style="text-align: left;">hampir tidak pernah</td>
+<td style="text-align: left;"><strong>paling depan</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Definisi tools / schema output</td>
+<td style="text-align: left;">per rilis</td>
+<td style="text-align: left;">depan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Profil user (nama, preferensi)</td>
+<td style="text-align: left;">per user</td>
+<td style="text-align: left;">tengah</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Riwayat percakapan</td>
+<td style="text-align: left;">bertambah tiap giliran</td>
+<td style="text-align: left;">belakang</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dokumen hasil retrieval (RAG)</td>
+<td style="text-align: left;">per pertanyaan</td>
+<td style="text-align: left;">belakang</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Waktu sekarang, pertanyaan baru</td>
+<td style="text-align: left;">tiap request</td>
+<td style="text-align: left;"><strong>paling belakang</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Urutkan dari yang paling stabil ke yang paling sering berubah.</strong></p>
+</section>
+<section id="pembunuh-app" class="slide level2">
+<h2>Pembunuh Cache yang Sering Tidak Sadar</h2>
+<ol type="1">
+<li><strong>Timestamp atau request id di system prompt</strong></li>
+<li><strong>Nama user di kalimat pertama</strong> (“Halo Budi, kamu adalah asisten…”) → tiap user punya prefix sendiri</li>
+<li><strong>Urutan tools atau key JSON acak</strong> (dict yang tidak terurut, tools dari plugin yang dimuat paralel)</li>
+<li><strong>Dokumen RAG diselipkan sebelum instruksi</strong></li>
+<li><strong>A/B test prompt per request</strong>, bukan per user/sesi</li>
+<li><strong>Riwayat diringkas ulang tiap giliran</strong> → seluruh tengah prompt berubah</li>
+</ol>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Gejalanya</strong></p>
+</div>
+<div class="callout-content">
+<p><code>cached_tokens</code> selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="before-after" class="slide level2">
+<h2>Sebelum vs Sesudah</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Sebelum</strong> ❌</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>system <span class="op">=</span> <span class="ss">f"""Kamu asisten toko </span><span class="sc">{</span>shop<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb9-2"><a href=""></a><span class="ss">Sekarang </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb9-3"><a href=""></a><span class="ss">User: </span><span class="sc">{</span>user<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb9-4"><a href=""></a><span class="ss">Konteks: </span><span class="sc">{</span>rag_docs<span class="sc">}</span></span>
+<span id="cb9-5"><a href=""></a><span class="ss">Aturan: </span><span class="sc">{</span>RULES<span class="sc">}</span><span class="ss">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><strong>Sesudah</strong> ✅</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>messages <span class="op">=</span> [</span>
+<span id="cb10-2"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RULES},   <span class="co"># tetap</span></span>
+<span id="cb10-3"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SHOP},    <span class="co"># per toko</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="op">*</span>history,                               <span class="co"># bertambah</span></span>
+<span id="cb10-5"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>:</span>
+<span id="cb10-6"><a href=""></a>     <span class="ss">f"</span><span class="sc">{</span>rag_docs<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Waktu: </span><span class="sc">{</span>now<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb10-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<p>Isi informasinya <strong>sama</strong>. Yang berubah cuma urutannya.</p>
+</section>
+<section id="cache-lain" class="slide level2 smaller">
+<h2>Selain Prompt Cache</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Jenis</th>
+<th style="text-align: left;">Kapan berguna</th>
+<th style="text-align: left;">Hati-hati</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Prompt cache</strong> (provider)</td>
+<td style="text-align: left;">selalu, gratis didapat kalau prefix stabil</td>
+<td style="text-align: left;">prefix harus identik</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Response cache</strong> (Redis, hash request)</td>
+<td style="text-align: left;">pertanyaan identik: FAQ, klasifikasi, ekstraksi ulang</td>
+<td style="text-align: left;">jangan untuk jawaban personal atau yang bergantung waktu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Embedding cache</strong></td>
+<td style="text-align: left;">dokumen yang sama di-embed berulang</td>
+<td style="text-align: left;">invalidasi saat dokumen berubah</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Hasil tool</strong></td>
+<td style="text-align: left;">API eksternal yang lambat atau berbayar</td>
+<td style="text-align: left;">TTL sesuai seberapa cepat datanya basi</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Urutan prioritas</strong></p>
+</div>
+<div class="callout-content">
+<p>Bereskan <strong>prompt cache</strong> dulu. Itu gratis: cuma butuh disiplin urutan.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="sec-agent" class="title-slide slide level1 center" data-background-color="#2c3e50">
+<h1>Level Agentic Coding</h1>
+<p>OpenCode, Pi, omp</p>
+</section>
+<section id="agent-loop" class="slide level2">
+<h2>Kenapa Agent Sangat Bergantung pada Cache</h2>
+<p>Setiap giliran, agent mengirim <strong>seluruh</strong> percakapan lagi: system prompt, definisi tools, semua file yang sudah dibaca, semua hasil command.</p>
+<pre><code>giliran 1:   12 rb token
+giliran 10:  80 rb token
+giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre>
+<p><span style="font-size: 0.75em; color: #666;">Pertumbuhan per giliran adalah ilustrasi; 140 rb dan 92% adalah rata-rata nyata request agent di Orvix.</span></p>
+<p>Satu giliran agent di DeepSeek V4 Flash (input saja):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Biaya</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tanpa cache</td>
+<td style="text-align: right;">$0,063</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dengan 92% cache</td>
+<td style="text-align: right;"><strong>$0,007</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>≈ 9× lebih murah</strong>, untuk pekerjaan yang sama persis.</p>
+</section>
+<section id="orvix-1" class="slide level2">
+<h2>Yang Kami Lakukan di Orvix Coding (1)</h2>
+<h3 id="sticky-routing-per-sesi">Sticky routing per sesi</h3>
+<p>Request dari satu sesi agent harus mendarat di <strong>upstream yang sama</strong>, supaya cache-nya ketemu.</p>
+<ul>
+<li>Plugin Orvix menyisipkan <strong><code>session_id</code> ke body request</strong>
+<ul>
+<li>OpenCode: hook <code>http.request</code></li>
+<li>Pi dan omp: hook <code>before_provider_request</code></li>
+</ul></li>
+<li>Gateway memetakan <code>session → route</code> di Redis, dipakai bersama oleh semua node</li>
+<li>Saat failover, sesi pindah ke route baru <strong>sekali</strong>, lalu menempel lagi di situ</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pelajaran</strong></p>
+</div>
+<div class="callout-content">
+<p>OpenCode sebenarnya sudah mengirim session id, tapi lewat <strong>header</strong>. Kalau gateway Anda tidak membacanya, cache affinity mati diam-diam. Respons kami memberi tanda: <code>x-orvix-cache-affinity</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="orvix-2" class="slide level2 smaller">
+<h2>Yang Kami Lakukan di Orvix Coding (2)</h2>
+<h3 id="hitung-tagihan-dengan-tarif-cache">Hitung tagihan dengan tarif cache</h3>
+<p>Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. <strong>Semua hitungan margin kami salah 10×.</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Request nyata</th>
+<th style="text-align: right;">Prompt</th>
+<th style="text-align: right;">Dari cache</th>
+<th style="text-align: right;">Biaya</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sebelum cache tercatat</td>
+<td style="text-align: right;">404.909</td>
+<td style="text-align: right;">(tidak tercatat)</td>
+<td style="text-align: right;">$0,124</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sesudah</td>
+<td style="text-align: right;">56.545</td>
+<td style="text-align: right;">53.504</td>
+<td style="text-align: right;"><strong>$0,003</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="estimasi-kuota-juga-harus-sadar-cache">Estimasi kuota juga harus sadar cache</h3>
+<p>Oktober: user ditolak “kuota habis” padahal pemakaian baru <strong>7,7 jt dari 10 jt</strong>. Estimasi menganggap seluruh prompt itu input baru, jadi meleset <strong>22×</strong> dari biaya sebenarnya. Sekarang yang dipakai untuk menolak adalah <strong>pemakaian nyata</strong>, bukan estimasi.</p>
+</section>
+<section id="orvix-3" class="slide level2 smaller">
+<h2>Yang Kami Lakukan di Orvix Coding (3)</h2>
+<h3 id="request-kecil-jangan-merebut-jalur-agent">Request kecil jangan merebut jalur agent</h3>
+<p>Harness mengirim request pembantu (judul sesi, ringkasan) <strong>paralel</strong> dengan request agent.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Harness</th>
+<th style="text-align: left;">Request pembantu</th>
+<th style="text-align: left;">Request agent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">OpenCode</td>
+<td style="text-align: left;">tanpa tools, ~626 token</td>
+<td style="text-align: left;">12 tools</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">omp</td>
+<td style="text-align: left;">tanpa tools, ~184 token</td>
+<td style="text-align: left;">11 tools</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pi</td>
+<td style="text-align: left;">tidak ada</td>
+<td style="text-align: left;">4 tools</td>
+</tr>
+</tbody>
+</table>
+<p>Dulu request kecil ini menghabiskan slot concurrency, jadi agent-nya sendiri kena 429. Sekarang ada <strong>dua jalur</strong>: jalur kecil (tanpa tools, ≤ 4.096 token) dan jalur agent.</p>
+</section>
+<section id="jebakan" class="slide level2 smaller">
+<h2>Jebakan Harness yang Mengubah Prefix</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Harness</th>
+<th style="text-align: left;">Perilaku</th>
+<th style="text-align: left;">Efek ke cache</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Pi</strong></td>
+<td style="text-align: left;">system message di tengah percakapan dilebur ke system message pertama, kecuali <code>supportsMidConvoSystemMessages</code> di-set</td>
+<td style="text-align: left;"><strong>awal prompt berubah</strong> → cache dari nol</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>omp</strong></td>
+<td style="text-align: left;">hasil <code>read</code> lama ditulis ulang jadi <code>[Superseded by a newer read of this file]</code> (kalau sisa percakapan ≤ 8 rb token atau sesi diam ≥ 30 menit)</td>
+<td style="text-align: left;">sengaja: tukar cache dengan konteks lebih pendek</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>omp</strong></td>
+<td style="text-align: left;">deskripsi skill diringkas LLM, sekali per skill baru</td>
+<td style="text-align: left;">system prompt berubah sekali</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>OpenCode</strong></td>
+<td style="text-align: left;">session id dikirim lewat header</td>
+<td style="text-align: left;">gateway harus membacanya (atau pakai plugin)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tidak ada yang salah di sini</strong></p>
+</div>
+<div class="callout-content">
+<p>Ini pilihan desain. Tapi Anda perlu tahu supaya tidak heran saat tagihan melonjak.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="kebiasaan" class="slide level2">
+<h2>Kebiasaan Ramah Cache Saat Ngoding dengan Agent</h2>
+<ol type="1">
+<li><strong>Satu tugas, satu sesi.</strong> Jangan bolak-balik membuka sesi baru untuk tugas yang sama.</li>
+<li><strong>Jangan ganti model di tengah sesi.</strong> Cache terikat ke model.</li>
+<li><strong>Jangan edit <code>AGENTS.md</code> atau aturan proyek di tengah sesi.</strong> Itu ada di awal prompt.</li>
+<li><strong>Jangan nyalakan atau matikan MCP/tools di tengah sesi.</strong> Daftar tools juga bagian awal prompt.</li>
+<li><strong>Compact di batas tugas</strong>, bukan di tengah alur kerja.</li>
+<li><strong>Jangan biarkan sesi menganggur lama</strong> lalu dilanjutkan. Cache bisa sudah kedaluwarsa.</li>
+</ol>
+
+<img data-src="./memes/so-simple-right.jpg" class="img-fluid quarto-figure quarto-figure-center r-stretch" width="260"></section>
+<section id="jujur" class="slide level2">
+<h2>Catatan Jujur untuk Sprint Ini</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Di kuota campaign, token dari cache tetap dihitung penuh</strong></p>
+</div>
+<div class="callout-content">
+<p>Kuota DevFest mengukur <strong>jumlah token</strong>, bukan uang. Jadi selama sprint, caching yang baik membuat agent Anda <strong>lebih cepat</strong>, tapi tidak menghemat kuota.</p>
+<p>Yang menghemat kuota: <strong>pilih model yang tepat</strong> (lihat tabel bobot) dan <strong>jaga konteks tetap ramping</strong>.</p>
+</div>
+</div>
+</div>
+<p>Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang kita bahas tadi berubah jadi <strong>uang</strong>: 9× untuk agent, tergantung hit rate untuk aplikasi.</p>
+</section>
+<section id="ringkasan" class="slide level2">
+<h2>Ringkasan</h2>
+<ol type="1">
+<li>Token habis di <strong>input</strong>, terutama pada agent: 92% cache, output cuma 0,5%.</li>
+<li>Cache cocok <strong>dari depan</strong>. Yang stabil di depan, yang berubah di belakang.</li>
+<li>Cache tinggal <strong>di satu tempat</strong>: model dan upstream yang sama. Butuh sticky routing.</li>
+<li><strong>Ukur</strong> <code>cached_tokens</code>. Tanpa angka, Anda menebak.</li>
+<li>Agent: <strong>satu tugas, satu sesi, satu model</strong>.</li>
+</ol>
+<p><strong>Model yang sama, prompt yang sama, tagihan bisa beda 9×.</strong></p>
+</section></section>
+<section>
+<section id="section-2" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="./memes/materi-selesai.png" class="img-fluid r-stretch" style="margin: 20px auto; display: block;" width="400"></section>
+<section id="klaim-ulang" class="slide level2">
+<h2>Klaim Kuota Anda</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/qr-join.png" class="img-fluid quarto-figure quarto-figure-center" width="300"></p>
+</figure>
+</div>
+</div><div class="column" style="width:55%;">
+<p><strong>platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026</strong></p>
+<ul>
+<li>100 juta token, sampai 1 Nov 2026 23:59 WIB</li>
+<li><code>/v1</code> untuk aplikasi, <code>/coding/v1</code> untuk agent</li>
+<li>Plugin OpenCode, Pi, omp: <code>@orvix-id/*</code></li>
+</ul>
+</div></div>
+</section>
+<section id="qa" class="slide level2 center">
+<h2>Q&amp;A</h2>
+
+
+<img data-src="./memes/any-question.png" class="img-fluid r-stretch" style="margin: 16px auto; display: block;" width="280"></section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="orvix-logo.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Road to DevFest Jakarta 2026 · platform.orvix.id</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="index_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="index_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="index_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="index_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="index_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="index_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="index_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="index_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true,"theme":"whiteboard"},
+'smaller': true,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

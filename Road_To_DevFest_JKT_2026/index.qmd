@@ -1,0 +1,581 @@
+---
+title: "Token yang Tidak Perlu Dibayar Dua Kali"
+subtitle: "Caching di level aplikasi dan agentic coding"
+author: "Eric Julianto"
+institute: "Orvix.id × Road to DevFest Jakarta 2026"
+format:
+    revealjs:
+        theme: white
+        width: 1280
+        height: 720
+        css: custom.css
+        slide-number: c/t
+        chalkboard:
+            buttons: true
+            theme: whiteboard
+        transition: slide
+        background-transition: fade
+        code-copy: true
+        code-fold: false
+        code-overflow: wrap
+        smaller: true
+        incremental: false
+        preview-links: auto
+        logo: "orvix-logo.png"
+        footer: "Road to DevFest Jakarta 2026 · platform.orvix.id"
+        margin: 0.1
+        fig-responsive: true
+        highlight-style: github
+---
+
+#
+
+![](./memes/hello-hello-everybody.jpg){width=300 style="margin: 20px auto; display: block;"}
+
+## About Me {.smaller}
+
+:::: {.columns}
+::: {.column width="30%"}
+
+![](profile.jpg){width=200 style="border-radius: 50%; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;"}
+
+<div style="font-size: 0.9em; line-height: 1.8;">
+
+**x.com**/algonacci
+
+**github.com**/algonacci
+
+**linkedin.com**/eric-julianto
+
+**instagram.com**/eric.juliantooo
+
+</div>
+:::
+
+::: {.column width="70%"}
+<div style="padding-left: 30px;">
+
+**Work Experience**
+
+<style>
+.compact-list li { margin-bottom: 0.3em; line-height: 1.2; }
+.compact-list .period { font-size: 0.85em; color: #666; display: block; margin-top: -0.2em; }
+</style>
+
+<div class="compact-list">
+
+- Founder at Orvix.id
+<span class="period">(Now)</span>
+
+- Research Analyst at Braincore
+<span class="period">(Dec 21 - Now)</span>
+
+- Machine Learning Mentor at Bangkit Academy
+<span class="period">(Feb 23 - Jan 24)</span>
+
+- SEO Intern at Dibilabs by Dibimbing.id
+<span class="period">(Mar 23 - Jun 23)</span>
+
+- AI Developer Intern at ZettaByte
+<span class="period">(May 22 - Aug 22)</span>
+
+</div>
+
+**Education**
+
+- Hospitality & Tourism at Universitas Bunda Mulia
+- Computer Science at Universitas Esa Unggul
+
+</div>
+:::
+::::
+
+#
+
+![](./memes/nice-to-meet-you.jpg){width=300 style="margin: 20px auto; display: block;"}
+
+# Sprint Enablement {#enablement background-color="#2c3e50"}
+Token Cloud Credits dari Orvix
+
+## Yang Anda Dapat {#jatah}
+
+:::: {.columns}
+::: {.column width="55%"}
+
+| | |
+|:---|:---|
+| **Kuota** | 100 juta token per orang |
+| **Batas harian** | 30 juta token per hari |
+| **Berlaku** | sampai **1 November 2026, 23:59 WIB** |
+| **Kecepatan** | 20 request/menit, 3 request bersamaan |
+| **Endpoint** | `/v1` untuk aplikasi, `/coding/v1` untuk coding agent |
+| **Model default** | DeepSeek V4.1 Flash |
+
+:::
+::: {.column width="45%"}
+
+![](images/devfest.png){width=320 fig-align="center"}
+
+:::
+::::
+
+::: {.callout-note}
+### Gratis, tanpa kartu
+Kuota ini sponsor Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
+:::
+
+## Klaim dalam 3 Langkah {#klaim}
+
+:::: {.columns}
+::: {.column width="40%"}
+
+![](images/qr-join.png){width=300 fig-align="center"}
+
+<div style="text-align: center; font-size: 0.9em;">
+**platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026**
+</div>
+
+:::
+::: {.column width="60%"}
+
+1. **Scan QR** → masuk dengan email (magic link, tanpa password)
+2. **Gabung campaign** → kuota langsung aktif
+3. **Buat API key**
+   - untuk aplikasi: scope `ai:invoke`
+   - untuk coding agent: scope `coding:invoke`
+
+::: {.callout-warning}
+### API key = dompet
+Jangan commit ke GitHub, jangan bagi ke tim lain. Satu orang, satu key.
+:::
+
+:::
+::::
+
+## Pakai di Aplikasi {#pakai-app}
+
+OpenAI-compatible: SDK OpenAI mana pun jalan, cukup ganti `base_url`.
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.orvix.id/v1",
+    api_key="orv-sk_live_...",          # dari platform.orvix.id/api-keys
+)
+
+reply = client.chat.completions.create(
+    model="orvix/deepseek-v4.1-flash",
+    messages=[{"role": "user", "content": "Halo dari DevFest!"}],
+)
+print(reply.choices[0].message.content)
+```
+
+## Pakai di Coding Agent {#pakai-coding}
+
+Pasang plugin Orvix di harness favorit Anda:
+
+```bash
+opencode plugin add @orvix-id/opencode     # OpenCode
+pi install npm:@orvix-id/pi                # Pi
+omp plugin install @orvix-id/omp           # omp
+```
+
+```bash
+export ORVIX_CODING_API_KEY="orv-sk_live_..."   # key dengan scope coding:invoke
+```
+
+Endpoint-nya `https://api.orvix.id/coding/v1`. Plugin yang mengurus sisanya, termasuk hal yang akan kita bahas setelah ini: **session id untuk cache**.
+
+## Kuota Dihitung Setara Gemini {#bobot .smaller}
+
+Tiap model punya bobot. **1 token di model berbobot 2 = 2 token kuota.**
+
+| Model | Bobot | 100 jt kuota ≈ token asli | 1 giliran agent* |
+|:---|---:|---:|---:|
+| Atria Dawn Preview | 0,01 | 10 miliar | 1.435 |
+| Muse Spark 1.3 | 0,11 | 909 juta | 15.779 |
+| Qwen 3.8 Flash | 0,20 | 500 juta | 28.688 |
+| GPT-5.6 Luna | 0,28 | 357 juta | 40.163 |
+| **DeepSeek V4.1 Flash** | **0,48** | **208 juta** | **68.851** |
+| Hy3 | 0,58 | 172 juta | 83.195 |
+| Hy4 Preview | 0,78 | 128 juta | 111.882 |
+| Gemini 3.8 Flash | 1,00 | 100 juta | 143.438 |
+| GPT-5.6 Terra | 2,73 | 37 juta | 391.586 |
+| GPT-5.6 Sol | 6,82 | 15 juta | 978.248 |
+
+[* giliran agent rata-rata di Orvix: 142.750 token input + 688 token output (data 30 hari, Oktober 2026).]{style="font-size: 0.8em; color: #666;"}
+
+::: {.callout-tip}
+### Batas harian 30 juta
+Dengan DeepSeek V4.1 Flash ≈ **435 giliran agent per hari**. Dengan GPT-5.6 Sol ≈ **30**. Pakai model besar saat memang perlu.
+:::
+
+# Tech Talk {#talk background-color="#2c3e50"}
+Token yang tidak perlu dibayar dua kali
+
+## Sesi Ini {#agenda}
+
+1. Token itu apa, dan habisnya di mana
+2. Prompt caching: cara kerja dan aturan mainnya
+3. **Level aplikasi**: AI wrapper apps
+4. **Level agentic coding**: OpenCode, Pi, omp
+5. Yang kami pelajari dari Orvix Coding
+
+::: {.callout-warning}
+### Kontrak
+**Model yang sama, prompt yang sama, tagihan bisa beda 9×.** Bedanya cuma urutan.
+:::
+
+# Token dan Habisnya di Mana {#sec-token background-color="#2c3e50"}
+
+## Token Bukan Kata {#token-bukan-kata .smaller}
+
+Diukur dengan tokenizer `o200k_base`:
+
+| Kata | Token | Dipotong jadi |
+|:---|---:|:---|
+| development | 1 | `development` |
+| pengembangan | 2 | `peng` · `embangan` |
+| accountability | 2 | `account` · `ability` |
+| mempertanggungjawabkan | 6 | `mem` · `pert` · `anggung` · `jaw` · `ab` · `kan` |
+
+Kalimat yang sama, permintaan bikin fungsi + unit test:
+
+| Bahasa | Karakter | Token |
+|:---|---:|---:|
+| English | 119 | 22 |
+| Indonesia | 120 | **28** (+27%) |
+
+::: {.callout-note}
+### Bukan berarti wajib English
+Tapi untuk **system prompt yang dikirim ribuan kali**, 27% itu terasa.
+:::
+
+## Format Data Juga Token {#format .smaller}
+
+20 baris produk yang sama:
+
+| Format | Token |
+|:---|---:|
+| JSON rapi (`indent=2`) | 862 |
+| JSON minified | 483 |
+| CSV | **269** |
+
+::: {.callout-tip}
+### Untuk konteks yang hanya dibaca model
+Kirim tabel sebagai CSV, bukan JSON rapi. **3,2× lebih hemat** dan model tetap paham.
+:::
+
+## Habisnya di Input, Bukan Output {#habis-di-input}
+
+Data nyata traffic Orvix, 30 hari terakhir:
+
+| Jenis request | Rata-rata input | Rata-rata output | Input dari cache |
+|:---|---:|---:|---:|
+| Kecil (< 5 rb token) | 2.774 | 240 | 69% |
+| Menengah (5–50 rb) | 25.718 | 878 | 70% |
+| **Agent (≥ 50 rb)** | **142.750** | **688** | **92%** |
+
+::: {.callout-important}
+### Pada agent, output cuma 0,5% dari total token
+Yang Anda bayar adalah **konteks yang dikirim ulang setiap giliran**. Di situ caching bekerja.
+:::
+
+# Prompt Caching {#sec-cache background-color="#2c3e50"}
+Cara kerja dan aturan main
+
+## Cara Kerjanya {#cara-kerja}
+
+Model memproses prompt dari depan. Kalau **awal prompt** sama persis dengan request sebelumnya, provider tidak perlu menghitung ulang bagian itu.
+
+```
+Request 1:  [system][tools][pesan 1]                          → hitung semua
+Request 2:  [system][tools][pesan 1][jawaban 1][pesan 2]      → bagian awal = cache hit
+Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit makin panjang
+```
+
+| DeepSeek V4 Flash | Harga per 1 jt token |
+|:---|---:|
+| Input baru | $0,44 |
+| Input dari cache | **$0,014** |
+
+**31× lebih murah**, dan biasanya lebih cepat karena tidak dihitung ulang.
+
+## Aturan #1: Prefix Harus Identik {#aturan-prefix}
+
+Cache cocok **per token dari depan**. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.
+
+:::: {.columns}
+::: {.column width="50%"}
+**Merusak cache** ❌
+
+```
+[system: "Hari ini 17 Okt 10:31:07"]
+[tools]
+[riwayat chat]
+[pesan baru]
+```
+Jam berubah tiap request → **0% hit**
+:::
+::: {.column width="50%"}
+**Ramah cache** ✅
+
+```
+[system: aturan tetap]
+[tools: urutan tetap]
+[riwayat chat]
+[pesan baru + "waktu: 10:31"]
+```
+Yang berubah ditaruh **paling belakang**
+:::
+::::
+
+## Aturan #2: Cache Tinggal di Satu Tempat {#aturan-lokasi}
+
+Cache disimpan di **server provider yang melayani request Anda**, untuk **model itu**, dalam **jangka waktu terbatas**.
+
+- Ganti model di tengah sesi → cache mulai dari nol
+- Load balancer yang melempar request acak ke banyak upstream → hit rate jatuh
+- Sesi diam terlalu lama → cache kedaluwarsa
+
+::: {.callout-note}
+### Ini masalah gateway, bukan cuma masalah prompt
+Di Orvix, request yang satu sesi **ditempel ke route yang sama** (sticky routing). Detailnya di bagian agentic coding.
+:::
+
+## Cara Mengukur {#ukur}
+
+Response OpenAI-compatible sudah memberi tahu:
+
+```json
+"usage": {
+  "prompt_tokens": 142750,
+  "completion_tokens": 688,
+  "prompt_tokens_details": { "cached_tokens": 131330 }
+}
+```
+
+```python
+u = reply.usage
+hit = u.prompt_tokens_details.cached_tokens / u.prompt_tokens
+log.info("cache_hit=%.0f%% prompt=%d", hit * 100, u.prompt_tokens)
+```
+
+::: {.callout-tip}
+### Jadikan metrik
+Kalau **cache hit rate** tidak pernah Anda lihat, Anda tidak tahu sedang membayar 1× atau 9×.
+:::
+
+# Level Aplikasi {#sec-app background-color="#2c3e50"}
+AI wrapper apps: chatbot, asisten, RAG
+
+## Anatomi Request Aplikasi {#anatomi-app .smaller}
+
+| Bagian | Seberapa sering berubah | Taruh di |
+|:---|:---|:---|
+| Instruksi produk, persona, aturan | hampir tidak pernah | **paling depan** |
+| Definisi tools / schema output | per rilis | depan |
+| Profil user (nama, preferensi) | per user | tengah |
+| Riwayat percakapan | bertambah tiap giliran | belakang |
+| Dokumen hasil retrieval (RAG) | per pertanyaan | belakang |
+| Waktu sekarang, pertanyaan baru | tiap request | **paling belakang** |
+
+**Urutkan dari yang paling stabil ke yang paling sering berubah.**
+
+## Pembunuh Cache yang Sering Tidak Sadar {#pembunuh-app}
+
+1. **Timestamp atau request id di system prompt**
+2. **Nama user di kalimat pertama** ("Halo Budi, kamu adalah asisten…") → tiap user punya prefix sendiri
+3. **Urutan tools atau key JSON acak** (dict yang tidak terurut, tools dari plugin yang dimuat paralel)
+4. **Dokumen RAG diselipkan sebelum instruksi**
+5. **A/B test prompt per request**, bukan per user/sesi
+6. **Riwayat diringkas ulang tiap giliran** → seluruh tengah prompt berubah
+
+::: {.callout-warning}
+### Gejalanya
+`cached_tokens` selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.
+:::
+
+## Sebelum vs Sesudah {#before-after}
+
+:::: {.columns}
+::: {.column width="50%"}
+**Sebelum** ❌
+
+```python
+system = f"""Kamu asisten toko {shop.name}.
+Sekarang {datetime.now()}.
+User: {user.name}.
+Konteks: {rag_docs}
+Aturan: {RULES}"""
+```
+:::
+::: {.column width="50%"}
+**Sesudah** ✅
+
+```python
+messages = [
+  {"role": "system", "content": RULES},   # tetap
+  {"role": "system", "content": SHOP},    # per toko
+  *history,                               # bertambah
+  {"role": "user", "content":
+     f"{rag_docs}\n\nWaktu: {now}\n\n{question}"},
+]
+```
+:::
+::::
+
+Isi informasinya **sama**. Yang berubah cuma urutannya.
+
+## Selain Prompt Cache {#cache-lain .smaller}
+
+| Jenis | Kapan berguna | Hati-hati |
+|:---|:---|:---|
+| **Prompt cache** (provider) | selalu, gratis didapat kalau prefix stabil | prefix harus identik |
+| **Response cache** (Redis, hash request) | pertanyaan identik: FAQ, klasifikasi, ekstraksi ulang | jangan untuk jawaban personal atau yang bergantung waktu |
+| **Embedding cache** | dokumen yang sama di-embed berulang | invalidasi saat dokumen berubah |
+| **Hasil tool** | API eksternal yang lambat atau berbayar | TTL sesuai seberapa cepat datanya basi |
+
+::: {.callout-tip}
+### Urutan prioritas
+Bereskan **prompt cache** dulu. Itu gratis: cuma butuh disiplin urutan.
+:::
+
+# Level Agentic Coding {#sec-agent background-color="#2c3e50"}
+OpenCode, Pi, omp
+
+## Kenapa Agent Sangat Bergantung pada Cache {#agent-loop}
+
+Setiap giliran, agent mengirim **seluruh** percakapan lagi: system prompt, definisi tools, semua file yang sudah dibaca, semua hasil command.
+
+```
+giliran 1:   12 rb token
+giliran 10:  80 rb token
+giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim
+```
+[Pertumbuhan per giliran adalah ilustrasi; 140 rb dan 92% adalah rata-rata nyata request agent di Orvix.]{style="font-size: 0.75em; color: #666;"}
+
+Satu giliran agent di DeepSeek V4 Flash (input saja):
+
+| | Biaya |
+|:---|---:|
+| Tanpa cache | $0,063 |
+| Dengan 92% cache | **$0,007** |
+
+**≈ 9× lebih murah**, untuk pekerjaan yang sama persis.
+
+## Yang Kami Lakukan di Orvix Coding (1) {#orvix-1}
+
+### Sticky routing per sesi
+
+Request dari satu sesi agent harus mendarat di **upstream yang sama**, supaya cache-nya ketemu.
+
+- Plugin Orvix menyisipkan **`session_id` ke body request**
+  - OpenCode: hook `http.request`
+  - Pi dan omp: hook `before_provider_request`
+- Gateway memetakan `session → route` di Redis, dipakai bersama oleh semua node
+- Saat failover, sesi pindah ke route baru **sekali**, lalu menempel lagi di situ
+
+::: {.callout-note}
+### Pelajaran
+OpenCode sebenarnya sudah mengirim session id, tapi lewat **header**. Kalau gateway Anda tidak membacanya, cache affinity mati diam-diam. Respons kami memberi tanda: `x-orvix-cache-affinity`.
+:::
+
+## Yang Kami Lakukan di Orvix Coding (2) {#orvix-2 .smaller}
+
+### Hitung tagihan dengan tarif cache
+
+Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. **Semua hitungan margin kami salah 10×.**
+
+| Request nyata | Prompt | Dari cache | Biaya |
+|:---|---:|---:|---:|
+| Sebelum cache tercatat | 404.909 | (tidak tercatat) | $0,124 |
+| Sesudah | 56.545 | 53.504 | **$0,003** |
+
+### Estimasi kuota juga harus sadar cache
+
+Oktober: user ditolak "kuota habis" padahal pemakaian baru **7,7 jt dari 10 jt**. Estimasi menganggap seluruh prompt itu input baru, jadi meleset **22×** dari biaya sebenarnya. Sekarang yang dipakai untuk menolak adalah **pemakaian nyata**, bukan estimasi.
+
+## Yang Kami Lakukan di Orvix Coding (3) {#orvix-3 .smaller}
+
+### Request kecil jangan merebut jalur agent
+
+Harness mengirim request pembantu (judul sesi, ringkasan) **paralel** dengan request agent.
+
+| Harness | Request pembantu | Request agent |
+|:---|:---|:---|
+| OpenCode | tanpa tools, ~626 token | 12 tools |
+| omp | tanpa tools, ~184 token | 11 tools |
+| Pi | tidak ada | 4 tools |
+
+Dulu request kecil ini menghabiskan slot concurrency, jadi agent-nya sendiri kena 429. Sekarang ada **dua jalur**: jalur kecil (tanpa tools, ≤ 4.096 token) dan jalur agent.
+
+## Jebakan Harness yang Mengubah Prefix {#jebakan .smaller}
+
+| Harness | Perilaku | Efek ke cache |
+|:---|:---|:---|
+| **Pi** | system message di tengah percakapan dilebur ke system message pertama, kecuali `supportsMidConvoSystemMessages` di-set | **awal prompt berubah** → cache dari nol |
+| **omp** | hasil `read` lama ditulis ulang jadi `[Superseded by a newer read of this file]` (kalau sisa percakapan ≤ 8 rb token atau sesi diam ≥ 30 menit) | sengaja: tukar cache dengan konteks lebih pendek |
+| **omp** | deskripsi skill diringkas LLM, sekali per skill baru | system prompt berubah sekali |
+| **OpenCode** | session id dikirim lewat header | gateway harus membacanya (atau pakai plugin) |
+
+::: {.callout-note}
+### Tidak ada yang salah di sini
+Ini pilihan desain. Tapi Anda perlu tahu supaya tidak heran saat tagihan melonjak.
+:::
+
+## Kebiasaan Ramah Cache Saat Ngoding dengan Agent {#kebiasaan}
+
+1. **Satu tugas, satu sesi.** Jangan bolak-balik membuka sesi baru untuk tugas yang sama.
+2. **Jangan ganti model di tengah sesi.** Cache terikat ke model.
+3. **Jangan edit `AGENTS.md` atau aturan proyek di tengah sesi.** Itu ada di awal prompt.
+4. **Jangan nyalakan atau matikan MCP/tools di tengah sesi.** Daftar tools juga bagian awal prompt.
+5. **Compact di batas tugas**, bukan di tengah alur kerja.
+6. **Jangan biarkan sesi menganggur lama** lalu dilanjutkan. Cache bisa sudah kedaluwarsa.
+
+![](./memes/so-simple-right.jpg){width=260 fig-align="center"}
+
+## Catatan Jujur untuk Sprint Ini {#jujur}
+
+::: {.callout-important}
+### Di kuota campaign, token dari cache tetap dihitung penuh
+Kuota DevFest mengukur **jumlah token**, bukan uang. Jadi selama sprint, caching yang baik membuat agent Anda **lebih cepat**, tapi tidak menghemat kuota.
+
+Yang menghemat kuota: **pilih model yang tepat** (lihat tabel bobot) dan **jaga konteks tetap ramping**.
+:::
+
+Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang kita bahas tadi berubah jadi **uang**: 9× untuk agent, tergantung hit rate untuk aplikasi.
+
+## Ringkasan {#ringkasan}
+
+1. Token habis di **input**, terutama pada agent: 92% cache, output cuma 0,5%.
+2. Cache cocok **dari depan**. Yang stabil di depan, yang berubah di belakang.
+3. Cache tinggal **di satu tempat**: model dan upstream yang sama. Butuh sticky routing.
+4. **Ukur** `cached_tokens`. Tanpa angka, Anda menebak.
+5. Agent: **satu tugas, satu sesi, satu model**.
+
+**Model yang sama, prompt yang sama, tagihan bisa beda 9×.**
+
+#
+
+![](./memes/materi-selesai.png){width=400 style="margin: 20px auto; display: block;"}
+
+## Klaim Kuota Anda {#klaim-ulang}
+
+:::: {.columns}
+::: {.column width="45%"}
+![](images/qr-join.png){width=300 fig-align="center"}
+:::
+::: {.column width="55%"}
+**platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026**
+
+- 100 juta token, sampai 1 Nov 2026 23:59 WIB
+- `/v1` untuk aplikasi, `/coding/v1` untuk agent
+- Plugin OpenCode, Pi, omp: `@orvix-id/*`
+:::
+::::
+
+## Q&A {#qa .center}
+
+![](./memes/any-question.png){width=280 style="margin: 16px auto; display: block;"}
