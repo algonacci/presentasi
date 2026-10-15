@@ -309,7 +309,7 @@ Eric Julianto
 <p><strong>Gratis, tanpa kartu</strong></p>
 </div>
 <div class="callout-content">
-<p>Kuota ini sponsor Orvix untuk sprint. Tidak perlu top-up untuk memakainya.</p>
+<p>Kuota ini disponsori Orvix untuk sprint. Tidak perlu top-up untuk memakainya.</p>
 </div>
 </div>
 </div>
@@ -345,7 +345,7 @@ Eric Julianto
 <p><strong>API key = dompet</strong></p>
 </div>
 <div class="callout-content">
-<p>Jangan commit ke GitHub, jangan bagi ke tim lain. Satu orang, satu key.</p>
+<p>Jangan commit ke GitHub dan jangan dibagi ke orang lain.</p>
 </div>
 </div>
 </div>
@@ -353,7 +353,7 @@ Eric Julianto
 </section>
 <section id="pakai-app" class="slide level2">
 <h2>Pakai di Aplikasi</h2>
-<p>OpenAI-compatible: SDK OpenAI mana pun jalan, cukup ganti <code>base_url</code>.</p>
+<p>OpenAI-compatible: SDK OpenAI (Python, JavaScript, dan lainnya) langsung jalan, cukup ganti <code>base_url</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">from</span> openai <span class="im">import</span> OpenAI</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a>client <span class="op">=</span> OpenAI(</span>
@@ -486,10 +486,10 @@ Eric Julianto
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Kontrak</strong></p>
+<p><strong>Intinya</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Model yang sama, prompt yang sama, tagihan bisa beda 9×.</strong> Bedanya cuma urutan.</p>
+<p><strong>Isi prompt sama persis, tagihan bisa beda 9×.</strong> Bedanya: cache kena atau tidak.</p>
 </div>
 </div>
 </div>
@@ -775,7 +775,8 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 </section>
 <section id="aturan-prefix" class="slide level2">
 <h2>Aturan #1: Prefix Harus Identik</h2>
-<p>Cache cocok <strong>per token dari depan</strong>. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.</p>
+<p>Cache cocok <strong>dari depan</strong>. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.</p>
+<p><span style="font-size: 0.8em; color: #666;">Banyak provider baru meng-cache di atas panjang minimum dan dalam blok token, jadi prompt yang pendek sering tidak ter-cache sama sekali.</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Merusak cache</strong> ❌</p>
@@ -810,7 +811,7 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <p><strong>Ini masalah gateway, bukan cuma masalah prompt</strong></p>
 </div>
 <div class="callout-content">
-<p>Di Orvix, request yang satu sesi <strong>ditempel ke route yang sama</strong> (sticky routing). Detailnya di bagian agentic coding.</p>
+<p>Di Orvix, request yang satu sesi <strong>ditempel ke route yang sama</strong> (sticky routing). Detailnya di bagian agentic coding workflow.</p>
 </div>
 </div>
 </div>
@@ -824,8 +825,10 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <span id="cb8-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
 <span id="cb8-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
-<span id="cb9-2"><a href=""></a>hit <span class="op">=</span> u.prompt_tokens_details.cached_tokens <span class="op">/</span> u.prompt_tokens</span>
-<span id="cb9-3"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href=""></a>details <span class="op">=</span> u.prompt_tokens_details           <span class="co"># bisa kosong di sebagian provider</span></span>
+<span id="cb9-3"><a href=""></a>cached <span class="op">=</span> (details.cached_tokens <span class="cf">if</span> details <span class="cf">else</span> <span class="dv">0</span>) <span class="kw">or</span> <span class="dv">0</span></span>
+<span id="cb9-4"><a href=""></a>hit <span class="op">=</span> cached <span class="op">/</span> u.prompt_tokens</span>
+<span id="cb9-5"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1009,7 +1012,7 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Prompt cache</strong> (provider)</td>
-<td style="text-align: left;">selalu, gratis didapat kalau prefix stabil</td>
+<td style="text-align: left;">hampir selalu; otomatis di banyak provider asal prefix stabil</td>
 <td style="text-align: left;">prefix harus identik</td>
 </tr>
 <tr class="even">
@@ -1038,14 +1041,14 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <p><strong>Urutan prioritas</strong></p>
 </div>
 <div class="callout-content">
-<p>Bereskan <strong>prompt cache</strong> dulu. Itu gratis: cuma butuh disiplin urutan.</p>
+<p>Bereskan <strong>prompt cache</strong> dulu. Tidak butuh infrastruktur baru, cukup disiplin urutan.</p>
 </div>
 </div>
 </div>
 </section></section>
 <section>
 <section id="sec-agent" class="title-slide slide level1 center" data-background-color="#2c3e50">
-<h1>Level Agentic Coding</h1>
+<h1>Level Agentic Coding Workflow</h1>
 <p>OpenCode, Pi, omp</p>
 </section>
 <section id="agent-loop" class="slide level2">
@@ -1107,26 +1110,21 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <h2>Yang Kami Lakukan di Orvix Coding (2)</h2>
 <h3 id="hitung-tagihan-dengan-tarif-cache">Hitung tagihan dengan tarif cache</h3>
 <p>Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. <strong>Semua hitungan margin kami salah 10×.</strong></p>
+<p>Satu request nyata: prompt 56.545 token, <strong>53.504 di antaranya dari cache</strong>.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Request nyata</th>
-<th style="text-align: right;">Prompt</th>
-<th style="text-align: right;">Dari cache</th>
+<th style="text-align: left;">Dihitung dengan</th>
 <th style="text-align: right;">Biaya</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Sebelum cache tercatat</td>
-<td style="text-align: right;">404.909</td>
-<td style="text-align: right;">(tidak tercatat)</td>
-<td style="text-align: right;">$0,124</td>
+<td style="text-align: left;">Tarif input penuh (cara lama)</td>
+<td style="text-align: right;">$0,026</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Sesudah</td>
-<td style="text-align: right;">56.545</td>
-<td style="text-align: right;">53.504</td>
+<td style="text-align: left;">Tarif cache (cara sekarang)</td>
 <td style="text-align: right;"><strong>$0,003</strong></td>
 </tr>
 </tbody>
@@ -1257,7 +1255,7 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <li>Cache cocok <strong>dari depan</strong> dan tinggal <strong>di satu tempat</strong>. Yang stabil di depan; butuh sticky routing.</li>
 <li><strong>Ukur</strong> <code>cached_tokens</code>. Agent: <strong>satu tugas, satu sesi, satu model</strong>.</li>
 </ol>
-<p><strong>Model yang sama, prompt yang sama, tagihan bisa beda 9×.</strong></p>
+<p><strong>Isi prompt sama persis, tagihan bisa beda 9×. Bedanya: cache kena atau tidak.</strong></p>
 </section></section>
 <section>
 <section id="section-2" class="title-slide slide level1 center">

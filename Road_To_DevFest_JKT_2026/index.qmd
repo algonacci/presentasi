@@ -121,7 +121,7 @@ Token Cloud Credits dari Orvix
 
 ::: {.callout-note}
 ### Gratis, tanpa kartu
-Kuota ini sponsor Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
+Kuota ini disponsori Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
 :::
 
 ## Klaim dalam 3 Langkah {#klaim}
@@ -146,7 +146,7 @@ Kuota ini sponsor Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
 
 ::: {.callout-warning}
 ### API key = dompet
-Jangan commit ke GitHub, jangan bagi ke tim lain. Satu orang, satu key.
+Jangan commit ke GitHub dan jangan dibagi ke orang lain.
 :::
 
 :::
@@ -154,7 +154,7 @@ Jangan commit ke GitHub, jangan bagi ke tim lain. Satu orang, satu key.
 
 ## Pakai di Aplikasi {#pakai-app}
 
-OpenAI-compatible: SDK OpenAI mana pun jalan, cukup ganti `base_url`.
+OpenAI-compatible: SDK OpenAI (Python, JavaScript, dan lainnya) langsung jalan, cukup ganti `base_url`.
 
 ```python
 from openai import OpenAI
@@ -223,8 +223,8 @@ Token Efficiency
 5. **Level agentic coding workflow**: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding
 
 ::: {.callout-warning}
-### Kontrak
-**Model yang sama, prompt yang sama, tagihan bisa beda 9×.** Bedanya cuma urutan.
+### Intinya
+**Isi prompt sama persis, tagihan bisa beda 9×.** Bedanya: cache kena atau tidak.
 :::
 
 # Dasar: Token {#sec-token background-color="#2c3e50"}
@@ -341,7 +341,9 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 
 ## Aturan #1: Prefix Harus Identik {#aturan-prefix}
 
-Cache cocok **per token dari depan**. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.
+Cache cocok **dari depan**. Satu karakter berubah di depan → semua di belakangnya dihitung ulang.
+
+[Banyak provider baru meng-cache di atas panjang minimum dan dalam blok token, jadi prompt yang pendek sering tidak ter-cache sama sekali.]{style="font-size: 0.8em; color: #666;"}
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -378,7 +380,7 @@ Cache disimpan di **server provider yang melayani request Anda**, untuk **model 
 
 ::: {.callout-note}
 ### Ini masalah gateway, bukan cuma masalah prompt
-Di Orvix, request yang satu sesi **ditempel ke route yang sama** (sticky routing). Detailnya di bagian agentic coding.
+Di Orvix, request yang satu sesi **ditempel ke route yang sama** (sticky routing). Detailnya di bagian agentic coding workflow.
 :::
 
 ## Cara Mengukur {#ukur}
@@ -395,7 +397,9 @@ Response OpenAI-compatible sudah memberi tahu:
 
 ```python
 u = reply.usage
-hit = u.prompt_tokens_details.cached_tokens / u.prompt_tokens
+details = u.prompt_tokens_details           # bisa kosong di sebagian provider
+cached = (details.cached_tokens if details else 0) or 0
+hit = cached / u.prompt_tokens
 log.info("cache_hit=%.0f%% prompt=%d", hit * 100, u.prompt_tokens)
 ```
 
@@ -484,17 +488,17 @@ Memangkas riwayat **setiap giliran** mengubah prefix → cache hilang. Pangkas j
 
 | Jenis | Kapan berguna | Hati-hati |
 |:---|:---|:---|
-| **Prompt cache** (provider) | selalu, gratis didapat kalau prefix stabil | prefix harus identik |
+| **Prompt cache** (provider) | hampir selalu; otomatis di banyak provider asal prefix stabil | prefix harus identik |
 | **Response cache** (Redis, hash request) | pertanyaan identik: FAQ, klasifikasi, ekstraksi ulang | jangan untuk jawaban personal atau yang bergantung waktu |
 | **Embedding cache** | dokumen yang sama di-embed berulang | invalidasi saat dokumen berubah |
 | **Hasil tool** | API eksternal yang lambat atau berbayar | TTL sesuai seberapa cepat datanya basi |
 
 ::: {.callout-tip}
 ### Urutan prioritas
-Bereskan **prompt cache** dulu. Itu gratis: cuma butuh disiplin urutan.
+Bereskan **prompt cache** dulu. Tidak butuh infrastruktur baru, cukup disiplin urutan.
 :::
 
-# Level Agentic Coding {#sec-agent background-color="#2c3e50"}
+# Level Agentic Coding Workflow {#sec-agent background-color="#2c3e50"}
 OpenCode, Pi, omp
 
 ## Kenapa Agent Sangat Bergantung pada Cache {#agent-loop}
@@ -540,10 +544,12 @@ OpenCode sebenarnya sudah mengirim session id, tapi lewat **header**. Kalau gate
 
 Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. **Semua hitungan margin kami salah 10×.**
 
-| Request nyata | Prompt | Dari cache | Biaya |
-|:---|---:|---:|---:|
-| Sebelum cache tercatat | 404.909 | (tidak tercatat) | $0,124 |
-| Sesudah | 56.545 | 53.504 | **$0,003** |
+Satu request nyata: prompt 56.545 token, **53.504 di antaranya dari cache**.
+
+| Dihitung dengan | Biaya |
+|:---|---:|
+| Tarif input penuh (cara lama) | $0,026 |
+| Tarif cache (cara sekarang) | **$0,003** |
 
 ### Estimasi kuota juga harus sadar cache
 
@@ -607,7 +613,7 @@ Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang 
 4. Cache cocok **dari depan** dan tinggal **di satu tempat**. Yang stabil di depan; butuh sticky routing.
 5. **Ukur** `cached_tokens`. Agent: **satu tugas, satu sesi, satu model**.
 
-**Model yang sama, prompt yang sama, tagihan bisa beda 9×.**
+**Isi prompt sama persis, tagihan bisa beda 9×. Bedanya: cache kena atau tidak.**
 
 #
 
