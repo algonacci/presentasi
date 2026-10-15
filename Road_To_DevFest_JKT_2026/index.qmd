@@ -1,6 +1,6 @@
 ---
 title: "Token Efficiency"
-subtitle: "Hasil yang sama dengan token lebih sedikit, di level aplikasi dan agentic coding"
+subtitle: "Cara hemat token di AI wrapper apps dan agentic coding"
 author: "Eric Julianto"
 institute: "Orvix.id × Road to DevFest Jakarta 2026"
 format:
