@@ -189,26 +189,26 @@ Endpoint-nya `https://api.orvix.id/coding/v1`. Plugin yang mengurus sisanya, ter
 
 ## Kuota Dihitung Setara Gemini {#bobot .smaller}
 
-Tiap model punya bobot. **1 token di model berbobot 2 = 2 token kuota.**
+Tiap model punya bobot: **1 token di model berbobot 2 = 2 token kuota.** Token dari cache dihitung **10%**.
 
-| Model | Bobot | 100 jt kuota ≈ token asli | 1 giliran agent* |
+| Model | Bobot | Kuota per giliran agent* | Giliran per hari (batas 30 jt) |
 |:---|---:|---:|---:|
-| Atria Dawn Preview | 0,01 | 10 miliar | 1.435 |
-| Muse Spark 1.3 | 0,11 | 909 juta | 15.779 |
-| Qwen 3.8 Flash | 0,20 | 500 juta | 28.688 |
-| GPT-5.6 Luna | 0,28 | 357 juta | 40.163 |
-| **DeepSeek V4.1 Flash** | **0,48** | **208 juta** | **68.851** |
-| Hy3 | 0,58 | 172 juta | 83.195 |
-| Hy4 Preview | 0,78 | 128 juta | 111.882 |
-| Gemini 3.8 Flash | 1,00 | 100 juta | 143.438 |
-| GPT-5.6 Terra | 2,73 | 37 juta | 391.586 |
-| GPT-5.6 Sol | 6,82 | 15 juta | 978.248 |
+| Atria Dawn Preview | 0,01 | 253 | 118.577 |
+| Muse Spark 1.3 | 0,11 | 2.777 | 10.803 |
+| Qwen 3.8 Flash | 0,20 | 5.049 | 5.941 |
+| GPT-5.6 Luna | 0,28 | 7.068 | 4.244 |
+| **DeepSeek V4.1 Flash** | **0,48** | **12.116** | **2.476** |
+| Hy3 | 0,58 | 14.640 | 2.049 |
+| Hy4 Preview | 0,78 | 19.688 | 1.523 |
+| Gemini 3.8 Flash | 1,00 | 25.241 | 1.188 |
+| GPT-5.6 Terra | 2,73 | 68.908 | 435 |
+| GPT-5.6 Sol | 6,82 | 172.144 | 174 |
 
-[* giliran agent rata-rata di Orvix: 142.750 token input + 688 token output (data 30 hari, Oktober 2026).]{style="font-size: 0.8em; color: #666;"}
+[* giliran agent rata-rata di Orvix: 142.750 token input (92% dari cache) + 688 token output, data 30 hari Oktober 2026. Tanpa cache, angkanya ±5,7× lebih besar.]{style="font-size: 0.8em; color: #666;"}
 
 ::: {.callout-tip}
-### Batas harian 30 juta
-Dengan DeepSeek V4.1 Flash ≈ **435 giliran agent per hari**. Dengan GPT-5.6 Sol ≈ **30**. Pakai model besar saat memang perlu.
+### Cache yang bagus = kuota lebih awet
+Dua hal yang paling menentukan: **model yang Anda pilih** dan **seberapa sering prompt Anda kena cache**. Keduanya kita bahas di talk berikutnya.
 :::
 
 # Tech Talk {#talk background-color="#2c3e50"}
@@ -542,7 +542,7 @@ OpenCode sebenarnya sudah mengirim session id, tapi lewat **header**. Kalau gate
 
 ### Hitung tagihan dengan tarif cache
 
-Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. **Semua hitungan margin kami salah 10×.**
+Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk yang sebenarnya kena cache. Selisihnya bisa **8–10×**.
 
 Satu request nyata: prompt 56.545 token, **53.504 di antaranya dari cache**.
 
@@ -594,16 +594,19 @@ Ini pilihan desain. Tapi Anda perlu tahu supaya tidak heran saat tagihan melonja
 
 ![](./memes/so-simple-right.jpg){width=260 fig-align="center"}
 
-## Catatan Jujur untuk Sprint Ini {#jujur}
+## Berlaku Juga untuk Kuota Sprint Ini {#sprint}
 
 ::: {.callout-important}
-### Di kuota campaign, token dari cache tetap dihitung penuh
-Kuota DevFest mengukur **jumlah token**, bukan uang. Jadi selama sprint, caching yang baik membuat agent Anda **lebih cepat**, tapi tidak menghemat kuota.
+### Token dari cache dihitung 10% di kuota DevFest
+Satu giliran agent rata-rata di DeepSeek V4.1 Flash:
 
-Yang menghemat kuota: **pilih model yang tepat** (lihat tabel bobot) dan **jaga konteks tetap ramping**.
+- tanpa cache: **68.851** token kuota
+- dengan 92% cache: **12.116** token kuota
+
+Prompt yang ramah cache = **5,7× lebih banyak giliran** dari kuota yang sama.
 :::
 
-Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang kita bahas tadi berubah jadi **uang**: 9× untuk agent, tergantung hit rate untuk aplikasi.
+Dan begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, angka yang sama berubah jadi **uang**.
 
 ## Ringkasan {#ringkasan}
 

@@ -378,90 +378,96 @@ Eric Julianto
 </section>
 <section id="bobot" class="slide level2 smaller">
 <h2>Kuota Dihitung Setara Gemini</h2>
-<p>Tiap model punya bobot. <strong>1 token di model berbobot 2 = 2 token kuota.</strong></p>
+<p>Tiap model punya bobot: <strong>1 token di model berbobot 2 = 2 token kuota.</strong> Token dari cache dihitung <strong>10%</strong>.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
 <th style="text-align: right;">Bobot</th>
-<th style="text-align: right;">100 jt kuota ≈ token asli</th>
-<th style="text-align: right;">1 giliran agent*</th>
+<th style="text-align: right;">Kuota per giliran agent*</th>
+<th style="text-align: right;">Giliran per hari (batas 30 jt)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Atria Dawn Preview</td>
 <td style="text-align: right;">0,01</td>
-<td style="text-align: right;">10 miliar</td>
-<td style="text-align: right;">1.435</td>
+<td style="text-align: right;">253</td>
+<td style="text-align: right;">118.577</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Muse Spark 1.3</td>
 <td style="text-align: right;">0,11</td>
-<td style="text-align: right;">909 juta</td>
-<td style="text-align: right;">15.779</td>
+<td style="text-align: right;">2.777</td>
+<td style="text-align: right;">10.803</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Qwen 3.8 Flash</td>
 <td style="text-align: right;">0,20</td>
-<td style="text-align: right;">500 juta</td>
-<td style="text-align: right;">28.688</td>
+<td style="text-align: right;">5.049</td>
+<td style="text-align: right;">5.941</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GPT-5.6 Luna</td>
 <td style="text-align: right;">0,28</td>
-<td style="text-align: right;">357 juta</td>
-<td style="text-align: right;">40.163</td>
+<td style="text-align: right;">7.068</td>
+<td style="text-align: right;">4.244</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>DeepSeek V4.1 Flash</strong></td>
 <td style="text-align: right;"><strong>0,48</strong></td>
-<td style="text-align: right;"><strong>208 juta</strong></td>
-<td style="text-align: right;"><strong>68.851</strong></td>
+<td style="text-align: right;"><strong>12.116</strong></td>
+<td style="text-align: right;"><strong>2.476</strong></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Hy3</td>
 <td style="text-align: right;">0,58</td>
-<td style="text-align: right;">172 juta</td>
-<td style="text-align: right;">83.195</td>
+<td style="text-align: right;">14.640</td>
+<td style="text-align: right;">2.049</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Hy4 Preview</td>
 <td style="text-align: right;">0,78</td>
-<td style="text-align: right;">128 juta</td>
-<td style="text-align: right;">111.882</td>
+<td style="text-align: right;">19.688</td>
+<td style="text-align: right;">1.523</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Gemini 3.8 Flash</td>
 <td style="text-align: right;">1,00</td>
-<td style="text-align: right;">100 juta</td>
-<td style="text-align: right;">143.438</td>
+<td style="text-align: right;">25.241</td>
+<td style="text-align: right;">1.188</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">GPT-5.6 Terra</td>
 <td style="text-align: right;">2,73</td>
-<td style="text-align: right;">37 juta</td>
-<td style="text-align: right;">391.586</td>
+<td style="text-align: right;">68.908</td>
+<td style="text-align: right;">435</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GPT-5.6 Sol</td>
 <td style="text-align: right;">6,82</td>
-<td style="text-align: right;">15 juta</td>
-<td style="text-align: right;">978.248</td>
+<td style="text-align: right;">172.144</td>
+<td style="text-align: right;">174</td>
 </tr>
 </tbody>
 </table>
-<p><span style="font-size: 0.8em; color: #666;">* giliran agent rata-rata di Orvix: 142.750 token input + 688 token output (data 30 hari, Oktober 2026).</span></p>
+<p><span style="font-size: 0.8em; color: #666;">* giliran agent rata-rata di Orvix: 142.750 token input (92% dari cache) + 688 token output, data 30 hari Oktober 2026. Tanpa cache, angkanya ±5,7× lebih besar.</span></p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Batas harian 30 juta</strong></p>
+<p><strong>Cache yang bagus = kuota lebih awet</strong></p>
 </div>
 <div class="callout-content">
-<p>Dengan DeepSeek V4.1 Flash ≈ <strong>435 giliran agent per hari</strong>. Dengan GPT-5.6 Sol ≈ <strong>30</strong>. Pakai model besar saat memang perlu.</p>
+<p>Dua hal yang paling menentukan: <strong>model yang Anda pilih</strong> dan <strong>seberapa sering prompt Anda kena cache</strong>. Keduanya kita bahas di talk berikutnya.</p>
 </div>
 </div>
 </div>
@@ -1109,7 +1115,7 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <section id="orvix-2" class="slide level2 smaller">
 <h2>Yang Kami Lakukan di Orvix Coding (2)</h2>
 <h3 id="hitung-tagihan-dengan-tarif-cache">Hitung tagihan dengan tarif cache</h3>
-<p>Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk cache hit. <strong>Semua hitungan margin kami salah 10×.</strong></p>
+<p>Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk yang sebenarnya kena cache. Selisihnya bisa <strong>8–10×</strong>.</p>
 <p>Satu request nyata: prompt 56.545 token, <strong>53.504 di antaranya dari cache</strong>.</p>
 <table class="caption-top">
 <thead>
@@ -1228,23 +1234,27 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 </ol>
 
 <img data-src="./memes/so-simple-right.jpg" class="img-fluid quarto-figure quarto-figure-center r-stretch" width="260"></section>
-<section id="jujur" class="slide level2">
-<h2>Catatan Jujur untuk Sprint Ini</h2>
+<section id="sprint" class="slide level2">
+<h2>Berlaku Juga untuk Kuota Sprint Ini</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Di kuota campaign, token dari cache tetap dihitung penuh</strong></p>
+<p><strong>Token dari cache dihitung 10% di kuota DevFest</strong></p>
 </div>
 <div class="callout-content">
-<p>Kuota DevFest mengukur <strong>jumlah token</strong>, bukan uang. Jadi selama sprint, caching yang baik membuat agent Anda <strong>lebih cepat</strong>, tapi tidak menghemat kuota.</p>
-<p>Yang menghemat kuota: <strong>pilih model yang tepat</strong> (lihat tabel bobot) dan <strong>jaga konteks tetap ramping</strong>.</p>
+<p>Satu giliran agent rata-rata di DeepSeek V4.1 Flash:</p>
+<ul>
+<li>tanpa cache: <strong>68.851</strong> token kuota</li>
+<li>dengan 92% cache: <strong>12.116</strong> token kuota</li>
+</ul>
+<p>Prompt yang ramah cache = <strong>5,7× lebih banyak giliran</strong> dari kuota yang sama.</p>
 </div>
 </div>
 </div>
-<p>Begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, semua yang kita bahas tadi berubah jadi <strong>uang</strong>: 9× untuk agent, tergantung hit rate untuk aplikasi.</p>
+<p>Dan begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, angka yang sama berubah jadi <strong>uang</strong>.</p>
 </section>
 <section id="ringkasan" class="slide level2">
 <h2>Ringkasan</h2>
