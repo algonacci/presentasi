@@ -22,7 +22,6 @@ format:
         incremental: false
         preview-links: auto
         logo: "orvix-logo.png"
-        footer: "Road to DevFest Jakarta 2026 · platform.orvix.id"
         margin: 0.1
         fig-responsive: true
         highlight-style: github

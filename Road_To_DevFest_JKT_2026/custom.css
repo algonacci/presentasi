@@ -89,3 +89,68 @@
 .reveal.has-dark-background .slide-logo {
     content: url('logo-white.png') !important;
 }
+
+/* Road to DevFest Jakarta 2026 branding on the title slide */
+#title-slide {
+    text-align: left;
+    min-height: 540px;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#title-slide > * {
+    max-width: 760px;
+}
+
+#title-slide::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 407px;
+    background: url('images/devfest.png') center / contain no-repeat;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25);
+}
+
+#title-slide::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 6px;
+    border-radius: 4px;
+    background: linear-gradient(90deg,
+            #4285F4 0 25%, #EA4335 25% 50%, #FBBC04 50% 75%, #34A853 75% 100%);
+}
+
+#title-slide .title {
+    font-size: 2.6em;
+    color: #202124;
+}
+
+#title-slide .subtitle {
+    color: #4285F4;
+}
+
+#title-slide .quarto-title-authors {
+    justify-content: flex-start;
+}
+
+#title-slide .quarto-title-author {
+    padding-left: 0;
+}
+
+#title-slide .quarto-title-affiliation {
+    display: inline-block;
+    margin-top: 0.4em;
+    padding: 0.2em 0.8em;
+    border-radius: 999px;
+    background: #34A853;
+    color: #fff;
+    font-weight: bold;
+}
