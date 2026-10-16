@@ -261,19 +261,23 @@ Eric Julianto
 <h1>Sprint Enablement</h1>
 <p>Token Cloud Credits dari Orvix</p>
 </section>
-<section id="jatah" class="slide level2">
+<section id="jatah" class="slide level2 smaller">
 <h2>Yang Anda Dapat</h2>
 <div class="columns">
-<div class="column" style="width:55%;">
+<div class="column" style="width:62%;">
 <table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Kuota</strong></td>
-<td style="text-align: left;">100 juta token per orang</td>
+<td style="text-align: left;">100 juta token per orang<br><span style="font-size: 0.8em; color: #666;">≈ 8.000+ giliran agent dengan model default</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Batas harian</strong></td>
-<td style="text-align: left;">30 juta token per hari</td>
+<td style="text-align: left;">30 juta token per hari<br><span style="font-size: 0.8em; color: #666;">rem darurat, bukan target</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Berlaku</strong></td>
@@ -289,17 +293,16 @@ Eric Julianto
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Model default</strong></td>
-<td style="text-align: left;">DeepSeek V4.1 Flash</td>
+<td style="text-align: left;">DeepSeek V4.1 Flash<br><span style="font-size: 0.8em; color: #666;">+ 7 model lain, lihat slide berikutnya</span></td>
 </tr>
 </tbody>
 </table>
-</div><div class="column" style="width:45%;">
+</div><div class="column" style="width:38%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/devfest.png" class="img-fluid quarto-figure quarto-figure-center" width="320"></p>
+<p><img data-src="images/devfest.png" class="img-fluid quarto-figure quarto-figure-center" width="260"></p>
 </figure>
 </div>
-</div></div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -313,6 +316,46 @@ Eric Julianto
 </div>
 </div>
 </div>
+</div></div>
+</section>
+<section id="model" class="slide level2">
+<h2>Model yang Tersedia</h2>
+<p>Satu API key, ganti model cukup ubah parameter <code>model</code>. Dikelompokkan dari yang paling hemat kuota:</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h3 id="hemat">Hemat</h3>
+<ul>
+<li><img data-src="images/model-logos/meta-color.png" class="model-logo img-fluid"> Muse Spark 1.3</li>
+<li><img data-src="images/model-logos/qwen-color.png" class="model-logo img-fluid"> Qwen 3.8 Flash</li>
+<li><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Luna</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<h3 id="menengah">Menengah</h3>
+<ul>
+<li><img data-src="images/model-logos/deepseek-color.png" class="model-logo img-fluid"> <strong>DeepSeek V4.1 Flash</strong> (default)</li>
+<li><img data-src="images/model-logos/hunyuan.png" class="model-logo img-fluid"> Hy3</li>
+<li><img data-src="images/model-logos/gemini-color.png" class="model-logo img-fluid"> Gemini 3.8 Flash</li>
+</ul>
+</div><div class="column" style="width:33%;">
+<h3 id="premium">Premium</h3>
+<ul>
+<li><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Terra</li>
+<li><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Sol</li>
+</ul>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pilih sesuai tugas</strong></p>
+</div>
+<div class="callout-content">
+<p>Mulai dari model hemat atau default. Naik ke premium hanya untuk tugas yang memang butuh.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="klaim" class="slide level2">
 <h2>Klaim dalam 3 Langkah</h2>
@@ -323,8 +366,8 @@ Eric Julianto
 <p><img data-src="images/qr-join.png" class="img-fluid quarto-figure quarto-figure-center" width="300"></p>
 </figure>
 </div>
-<div style="text-align: center; font-size: 0.9em;">
-<p><strong>platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026</strong></p>
+<div class="claim-url">
+<p><span class="claim-host">platform.orvix.id/e/</span> <span class="claim-code">ROAD-TO-DEVFEST-JKT-2026</span></p>
 </div>
 </div><div class="column" style="width:60%;">
 <ol type="1">
@@ -370,107 +413,113 @@ Eric Julianto
 <section id="pakai-coding" class="slide level2">
 <h2>Pakai di Coding Agent</h2>
 <p>Pasang plugin Orvix di harness favorit Anda:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="ex">opencode</span> plugin add @orvix-id/opencode     <span class="co"># OpenCode</span></span>
-<span id="cb2-2"><a href=""></a><span class="ex">pi</span> install npm:@orvix-id/pi                <span class="co"># Pi</span></span>
-<span id="cb2-3"><a href=""></a><span class="ex">omp</span> plugin install @orvix-id/omp           <span class="co"># omp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="bu">export</span> <span class="va">ORVIX_CODING_API_KEY</span><span class="op">=</span><span class="st">"orv-sk_live_..."</span>   <span class="co"># key dengan scope coding:invoke</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Endpoint-nya <code>https://api.orvix.id/coding/v1</code>. Plugin yang mengurus sisanya, termasuk hal yang akan kita bahas setelah ini: <strong>session id untuk cache</strong>.</p>
+<div class="harness-grid">
+<div class="harness-card" style="--accent: #4285F4;">
+<div class="harness-logo">
+<img src="images/harness-logos/opencode.svg" alt="OpenCode">
+</div>
+<div class="harness-name">
+OpenCode
+</div>
+<p><code>opencode plugin add <span class="citation" data-cites="orvix-id/opencode">@orvix-id/opencode</span></code></p>
+</div>
+<div class="harness-card" style="--accent: #EA4335;">
+<div class="harness-logo">
+<img src="images/harness-logos/pi.svg" alt="Pi">
+</div>
+<div class="harness-name">
+Pi
+</div>
+<p><code>pi install npm:<span class="citation" data-cites="orvix-id/pi">@orvix-id/pi</span></code></p>
+</div>
+<div class="harness-card" style="--accent: #FBBC04;">
+<div class="harness-logo">
+<img src="images/harness-logos/omp.svg" alt="omp">
+</div>
+<div class="harness-name">
+omp
+</div>
+<p><code>omp plugin install <span class="citation" data-cites="orvix-id/omp">@orvix-id/omp</span></code></p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="bu">export</span> <span class="va">ORVIX_CODING_API_KEY</span><span class="op">=</span><span class="st">"orv-sk_live_..."</span>   <span class="co"># key dengan scope coding:invoke</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="harness-note">
+<p>Endpoint: <code>https://api.orvix.id/coding/v1</code>. Plugin yang mengurus sisanya, termasuk yang kita bahas setelah ini: <strong>session id untuk cache</strong>.</p>
+</div>
 </section>
-<section id="bobot" class="slide level2 smaller">
+<section id="bobot" class="slide level2 smaller dense">
 <h2>Kuota Dihitung Setara Gemini</h2>
-<p>Tiap model punya bobot: <strong>1 token di model berbobot 2 = 2 token kuota.</strong> Token dari cache dihitung <strong>10%</strong>.</p>
+<p>Tiap model memotong kuota dengan laju berbeda. Token dari cache hanya dihitung <strong>10%</strong>.</p>
 <table class="caption-top">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Model</th>
-<th style="text-align: right;">Bobot</th>
 <th style="text-align: right;">Kuota per giliran agent*</th>
 <th style="text-align: right;">Giliran per hari (batas 30 jt)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Atria Dawn Preview</td>
-<td style="text-align: right;">0,01</td>
-<td style="text-align: right;">253</td>
-<td style="text-align: right;">118.577</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Muse Spark 1.3</td>
-<td style="text-align: right;">0,11</td>
+<td style="text-align: left;"><img data-src="images/model-logos/meta-color.png" class="model-logo img-fluid"> Muse Spark 1.3</td>
 <td style="text-align: right;">2.777</td>
 <td style="text-align: right;">10.803</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Qwen 3.8 Flash</td>
-<td style="text-align: right;">0,20</td>
+<tr class="even">
+<td style="text-align: left;"><img data-src="images/model-logos/qwen-color.png" class="model-logo img-fluid"> Qwen 3.8 Flash</td>
 <td style="text-align: right;">5.049</td>
 <td style="text-align: right;">5.941</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">GPT-5.6 Luna</td>
-<td style="text-align: right;">0,28</td>
+<tr class="odd">
+<td style="text-align: left;"><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Luna</td>
 <td style="text-align: right;">7.068</td>
 <td style="text-align: right;">4.244</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>DeepSeek V4.1 Flash</strong></td>
-<td style="text-align: right;"><strong>0,48</strong></td>
+<tr class="even">
+<td style="text-align: left;"><img data-src="images/model-logos/deepseek-color.png" class="model-logo img-fluid"> <strong>DeepSeek V4.1 Flash</strong></td>
 <td style="text-align: right;"><strong>12.116</strong></td>
 <td style="text-align: right;"><strong>2.476</strong></td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Hy3</td>
-<td style="text-align: right;">0,58</td>
+<tr class="odd">
+<td style="text-align: left;"><img data-src="images/model-logos/hunyuan.png" class="model-logo img-fluid"> Hy3</td>
 <td style="text-align: right;">14.640</td>
 <td style="text-align: right;">2.049</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">Hy4 Preview</td>
-<td style="text-align: right;">0,78</td>
-<td style="text-align: right;">19.688</td>
-<td style="text-align: right;">1.523</td>
-</tr>
 <tr class="even">
-<td style="text-align: left;">Gemini 3.8 Flash</td>
-<td style="text-align: right;">1,00</td>
+<td style="text-align: left;"><img data-src="images/model-logos/gemini-color.png" class="model-logo img-fluid"> Gemini 3.8 Flash</td>
 <td style="text-align: right;">25.241</td>
 <td style="text-align: right;">1.188</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GPT-5.6 Terra</td>
-<td style="text-align: right;">2,73</td>
+<td style="text-align: left;"><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Terra</td>
 <td style="text-align: right;">68.908</td>
 <td style="text-align: right;">435</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">GPT-5.6 Sol</td>
-<td style="text-align: right;">6,82</td>
+<td style="text-align: left;"><img data-src="images/model-logos/openai.png" class="model-logo img-fluid"> GPT-5.6 Sol</td>
 <td style="text-align: right;">172.144</td>
 <td style="text-align: right;">174</td>
 </tr>
 </tbody>
 </table>
 <p><span style="font-size: 0.8em; color: #666;">* giliran agent rata-rata di Orvix: 142.750 token input (92% dari cache) + 688 token output, data 30 hari Oktober 2026. Tanpa cache, angkanya ±5,7× lebih besar.</span></p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Cache yang bagus = kuota lebih awet</strong></p>
-</div>
-<div class="callout-content">
-<p>Dua hal yang paling menentukan: <strong>model yang Anda pilih</strong> dan <strong>seberapa sering prompt Anda kena cache</strong>. Keduanya kita bahas di talk berikutnya.</p>
-</div>
-</div>
-</div>
+<aside class="notes">
+<p>Cache yang bagus = kuota lebih awet. Dua hal yang paling menentukan: model yang dipilih dan seberapa sering prompt kena cache. Keduanya dibahas di talk berikutnya.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section id="talk" class="title-slide slide level1 center" data-background-color="#2c3e50">
@@ -481,7 +530,7 @@ Eric Julianto
 <h2>Sesi Ini</h2>
 <ol type="1">
 <li>Dasar: token itu apa</li>
-<li>Tiga tuas token efficiency</li>
+<li>Tiga cheat code token efficiency</li>
 <li>Prompt caching: cara kerja dan aturan mainnya</li>
 <li><strong>Level aplikasi</strong>: AI-native apps</li>
 <li><strong>Level agentic coding workflow</strong>: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding</li>
@@ -519,12 +568,12 @@ Eric Julianto
 token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 <p>Semua batasan dihitung dalam token:</p>
 <ul>
-<li><strong>Harga</strong>: per 1 juta token input dan output</li>
+<li><strong>Harga</strong>: dijual per 1 juta token (<strong>MTok</strong>), seperti listrik per kWh.<br>Contoh Gemini 3.8 Flash: <strong>$0,75/MTok</strong> input, <strong>$3,75/MTok</strong> output</li>
 <li><strong>Context window</strong>: berapa token yang muat sekali kirim</li>
 <li><strong>Rate limit dan kuota</strong>: termasuk kuota sprint Anda</li>
 </ul>
 </section>
-<section id="token-bukan-kata" class="slide level2 smaller">
+<section id="token-bukan-kata" class="slide level2 smaller dense">
 <h2>Token Bukan Kata</h2>
 <p>Diukur dengan tokenizer <code>o200k_base</code>:</p>
 <table class="caption-top">
@@ -609,6 +658,13 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </div>
 </div>
 </section>
+<section id="demo-tokenizer" class="slide level2 center">
+<h2>Coba Sendiri</h2>
+<div class="demo-link">
+<p><a href="https://tiktokenizer.vercel.app" target="_blank">tiktokenizer.vercel.app</a></p>
+</div>
+<p>Ketik kalimat yang sama dalam English dan Indonesia, lalu bandingkan jumlah tokennya.</p>
+</section>
 <section id="format" class="slide level2 smaller">
 <h2>Format Data Juga Token</h2>
 <p>20 baris produk yang sama:</p>
@@ -644,6 +700,65 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </div>
 <div class="callout-content">
 <p>Kirim tabel sebagai CSV, bukan JSON rapi. <strong>3,2× lebih hemat</strong> dan model tetap paham.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="demo-format" class="slide level2 smaller">
+<h2>Coba Sendiri: Format Data</h2>
+<p>Copy ketiganya ke <strong>tiktokenizer.vercel.app</strong>, bandingkan jumlah tokennya. Datanya sama persis.</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">JSON rapi</a></li><li><a href="#tabset-1-2">JSON minified</a></li><li><a href="#tabset-1-3">CSV</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href=""></a><span class="ot">[</span></span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">{</span></span>
+<span id="cb4-3"><a href=""></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href=""></a>    <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"Kopi Susu Gula Aren"</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href=""></a>    <span class="dt">"kategori"</span><span class="fu">:</span> <span class="st">"Minuman"</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href=""></a>    <span class="dt">"harga"</span><span class="fu">:</span> <span class="dv">18000</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href=""></a>    <span class="dt">"stok"</span><span class="fu">:</span> <span class="dv">42</span></span>
+<span id="cb4-8"><a href=""></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-9"><a href=""></a>  <span class="fu">{</span></span>
+<span id="cb4-10"><a href=""></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href=""></a>    <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"Nasi Goreng Kampung"</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href=""></a>    <span class="dt">"kategori"</span><span class="fu">:</span> <span class="st">"Makanan"</span><span class="fu">,</span></span>
+<span id="cb4-13"><a href=""></a>    <span class="dt">"harga"</span><span class="fu">:</span> <span class="dv">25000</span><span class="fu">,</span></span>
+<span id="cb4-14"><a href=""></a>    <span class="dt">"stok"</span><span class="fu">:</span> <span class="dv">15</span></span>
+<span id="cb4-15"><a href=""></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-16"><a href=""></a>  <span class="fu">{</span></span>
+<span id="cb4-17"><a href=""></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span></span>
+<span id="cb4-18"><a href=""></a>    <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"Teh Tarik"</span><span class="fu">,</span></span>
+<span id="cb4-19"><a href=""></a>    <span class="dt">"kategori"</span><span class="fu">:</span> <span class="st">"Minuman"</span><span class="fu">,</span></span>
+<span id="cb4-20"><a href=""></a>    <span class="dt">"harga"</span><span class="fu">:</span> <span class="dv">12000</span><span class="fu">,</span></span>
+<span id="cb4-21"><a href=""></a>    <span class="dt">"stok"</span><span class="fu">:</span> <span class="dv">30</span></span>
+<span id="cb4-22"><a href=""></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-23"><a href=""></a>  <span class="fu">{</span></span>
+<span id="cb4-24"><a href=""></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb4-25"><a href=""></a>    <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"Mie Ayam Bakso"</span><span class="fu">,</span></span>
+<span id="cb4-26"><a href=""></a>    <span class="dt">"kategori"</span><span class="fu">:</span> <span class="st">"Makanan"</span><span class="fu">,</span></span>
+<span id="cb4-27"><a href=""></a>    <span class="dt">"harga"</span><span class="fu">:</span> <span class="dv">22000</span><span class="fu">,</span></span>
+<span id="cb4-28"><a href=""></a>    <span class="dt">"stok"</span><span class="fu">:</span> <span class="dv">8</span></span>
+<span id="cb4-29"><a href=""></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb4-30"><a href=""></a>  <span class="fu">{</span></span>
+<span id="cb4-31"><a href=""></a>    <span class="dt">"id"</span><span class="fu">:</span> <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb4-32"><a href=""></a>    <span class="dt">"nama"</span><span class="fu">:</span> <span class="st">"Pisang Goreng"</span><span class="fu">,</span></span>
+<span id="cb4-33"><a href=""></a>    <span class="dt">"kategori"</span><span class="fu">:</span> <span class="st">"Camilan"</span><span class="fu">,</span></span>
+<span id="cb4-34"><a href=""></a>    <span class="dt">"harga"</span><span class="fu">:</span> <span class="dv">10000</span><span class="fu">,</span></span>
+<span id="cb4-35"><a href=""></a>    <span class="dt">"stok"</span><span class="fu">:</span> <span class="dv">25</span></span>
+<span id="cb4-36"><a href=""></a>  <span class="fu">}</span></span>
+<span id="cb4-37"><a href=""></a><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href=""></a><span class="ot">[</span><span class="fu">{</span><span class="dt">"id"</span><span class="fu">:</span><span class="dv">1</span><span class="fu">,</span><span class="dt">"nama"</span><span class="fu">:</span><span class="st">"Kopi Susu Gula Aren"</span><span class="fu">,</span><span class="dt">"kategori"</span><span class="fu">:</span><span class="st">"Minuman"</span><span class="fu">,</span><span class="dt">"harga"</span><span class="fu">:</span><span class="dv">18000</span><span class="fu">,</span><span class="dt">"stok"</span><span class="fu">:</span><span class="dv">42</span><span class="fu">}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"id"</span><span class="fu">:</span><span class="dv">2</span><span class="fu">,</span><span class="dt">"nama"</span><span class="fu">:</span><span class="st">"Nasi Goreng Kampung"</span><span class="fu">,</span><span class="dt">"kategori"</span><span class="fu">:</span><span class="st">"Makanan"</span><span class="fu">,</span><span class="dt">"harga"</span><span class="fu">:</span><span class="dv">25000</span><span class="fu">,</span><span class="dt">"stok"</span><span class="fu">:</span><span class="dv">15</span><span class="fu">}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"id"</span><span class="fu">:</span><span class="dv">3</span><span class="fu">,</span><span class="dt">"nama"</span><span class="fu">:</span><span class="st">"Teh Tarik"</span><span class="fu">,</span><span class="dt">"kategori"</span><span class="fu">:</span><span class="st">"Minuman"</span><span class="fu">,</span><span class="dt">"harga"</span><span class="fu">:</span><span class="dv">12000</span><span class="fu">,</span><span class="dt">"stok"</span><span class="fu">:</span><span class="dv">30</span><span class="fu">}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"id"</span><span class="fu">:</span><span class="dv">4</span><span class="fu">,</span><span class="dt">"nama"</span><span class="fu">:</span><span class="st">"Mie Ayam Bakso"</span><span class="fu">,</span><span class="dt">"kategori"</span><span class="fu">:</span><span class="st">"Makanan"</span><span class="fu">,</span><span class="dt">"harga"</span><span class="fu">:</span><span class="dv">22000</span><span class="fu">,</span><span class="dt">"stok"</span><span class="fu">:</span><span class="dv">8</span><span class="fu">}</span><span class="ot">,</span><span class="fu">{</span><span class="dt">"id"</span><span class="fu">:</span><span class="dv">5</span><span class="fu">,</span><span class="dt">"nama"</span><span class="fu">:</span><span class="st">"Pisang Goreng"</span><span class="fu">,</span><span class="dt">"kategori"</span><span class="fu">:</span><span class="st">"Camilan"</span><span class="fu">,</span><span class="dt">"harga"</span><span class="fu">:</span><span class="dv">10000</span><span class="fu">,</span><span class="dt">"stok"</span><span class="fu">:</span><span class="dv">25</span><span class="fu">}</span><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource csv number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>id,nama,kategori,harga,stok</span>
+<span id="cb6-2"><a href=""></a>1,Kopi Susu Gula Aren,Minuman,18000,42</span>
+<span id="cb6-3"><a href=""></a>2,Nasi Goreng Kampung,Makanan,25000,15</span>
+<span id="cb6-4"><a href=""></a>3,Teh Tarik,Minuman,12000,30</span>
+<span id="cb6-5"><a href=""></a>4,Mie Ayam Bakso,Makanan,22000,8</span>
+<span id="cb6-6"><a href=""></a>5,Pisang Goreng,Camilan,10000,25</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -701,8 +816,98 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </div>
 </div>
 </section>
+<section id="contoh-agent" class="slide level2">
+<h2>Contoh: Agent Benerin Bug Login</h2>
+<p>Input <strong>menumpuk</strong> tiap giliran. Output-nya? <strong>Cuma satu tool call.</strong></p>
+<div class="turns">
+<div class="tcol">
+<div class="tname">
+Giliran 1
+</div>
+<div class="tstack">
+<div class="tb new">
+System prompt + 8 definisi tool
+</div>
+<div class="tb new">
+User: “benerin bug login”
+</div>
+</div>
+<div class="tdown">
+↓ model jawab
+</div>
+<div class="tcall">
+read_file(“auth.ts”)
+</div>
+</div>
+<div class="tarrow">
+isi file<br>masuk<br>input<br>➜
+</div>
+<div class="tcol">
+<div class="tname">
+Giliran 2
+</div>
+<div class="tstack">
+<div class="tb old">
+System prompt + 8 definisi tool
+</div>
+<div class="tb old">
+User: “benerin bug login”
+</div>
+<div class="tb old">
+read_file(“auth.ts”)
+</div>
+<div class="tb new big">
+Isi auth.ts (300 baris)
+</div>
+</div>
+<div class="tdown">
+↓ model jawab
+</div>
+<div class="tcall">
+run_command(“npm test”)
+</div>
+</div>
+<div class="tarrow">
+hasil test<br>masuk<br>input<br>➜
+</div>
+<div class="tcol">
+<div class="tname">
+Giliran 3
+</div>
+<div class="tstack">
+<div class="tb old">
+System prompt + 8 definisi tool
+</div>
+<div class="tb old">
+User: “benerin bug login”
+</div>
+<div class="tb old">
+read_file(“auth.ts”)
+</div>
+<div class="tb old big">
+Isi auth.ts (300 baris)
+</div>
+<div class="tb old">
+run_command(“npm test”)
+</div>
+<div class="tb new big">
+Output test (200 baris)
+</div>
+</div>
+<div class="tdown">
+↓ model jawab
+</div>
+<div class="tcall">
+edit_file(“auth.ts”, …)
+</div>
+</div>
+</div>
+<div class="tlegend">
+<p><span><i class="sw sw-old"></i> sudah pernah dikirim, dikirim lagi</span> <span><i class="sw sw-new"></i> baru di giliran ini</span> <span><i class="sw sw-call"></i> output model: cuma tool call</span></p>
+</div>
+</section>
 <section id="tiga-tuas" class="slide level2">
-<h2>Tiga Tuas Token Efficiency</h2>
+<h2>3 Cheat Code Hemat Token</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -711,7 +916,7 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Tuas</th>
+<th style="text-align: left;">Cheat code</th>
 <th style="text-align: left;">Pertanyaannya</th>
 <th style="text-align: left;">Contoh</th>
 </tr>
@@ -740,10 +945,10 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Untuk agent, tuas 2 paling besar</strong></p>
+<p><strong>Untuk agent, cheat code 2 paling ngefek</strong></p>
 </div>
 <div class="callout-content">
-<p>92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas tuas 2, tanpa melupakan 1 dan 3.</p>
+<p>92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas cheat code 2, tanpa melupakan 1 dan 3.</p>
 </div>
 </div>
 </div>
@@ -755,29 +960,243 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </section>
 <section id="cara-kerja" class="slide level2">
 <h2>Cara Kerjanya</h2>
-<p>Model memproses prompt dari depan. Kalau <strong>awal prompt</strong> sama persis dengan request sebelumnya, provider tidak perlu menghitung ulang bagian itu.</p>
-<pre><code>Request 1:  [system][tools][pesan 1]                          → hitung semua
-Request 2:  [system][tools][pesan 1][jawaban 1][pesan 2]      → bagian awal = cache hit
-Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit makin panjang</code></pre>
+<p>Kalau <strong>awal prompt</strong> sama persis dengan request sebelumnya, bagian itu tidak dihitung ulang.</p>
+<div class="pc">
+<div class="pc-row">
+<div class="pc-name">
+Request 1
+</div>
+<div class="pc-bar">
+<div class="seg fresh" style="flex:3">
+system
+</div>
+<div class="seg fresh" style="flex:3">
+tools
+</div>
+<div class="seg fresh" style="flex:2">
+pesan 1
+</div>
+<div class="seg empty" style="flex:6">
+
+</div>
+</div>
+<div class="pc-tag cold">
+❄️ cache miss<small>cache masih cold, request ini jadi warm-up</small>
+</div>
+</div>
+<div class="pc-row">
+<div class="pc-name">
+Request 2
+</div>
+<div class="pc-bar">
+<div class="seg cached" style="flex:3">
+system
+</div>
+<div class="seg cached" style="flex:3">
+tools
+</div>
+<div class="seg cached" style="flex:2">
+pesan 1
+</div>
+<div class="seg fresh" style="flex:2">
+jawaban 1
+</div>
+<div class="seg fresh" style="flex:2">
+pesan 2
+</div>
+<div class="seg empty" style="flex:2">
+
+</div>
+</div>
+<div class="pc-tag hot">
+🔥 cache hit<small>cache sudah warm</small>
+</div>
+</div>
+<div class="pc-row">
+<div class="pc-name">
+Request 3
+</div>
+<div class="pc-bar">
+<div class="seg cached" style="flex:3">
+system
+</div>
+<div class="seg cached" style="flex:3">
+tools
+</div>
+<div class="seg cached" style="flex:2">
+pesan 1
+</div>
+<div class="seg cached" style="flex:2">
+jawaban 1
+</div>
+<div class="seg cached" style="flex:2">
+pesan 2
+</div>
+<div class="seg fresh" style="flex:2">
+pesan 3
+</div>
+</div>
+<div class="pc-tag hot">
+🔥 cache hit<small>bagian yang hit makin panjang</small>
+</div>
+</div>
+</div>
+<div class="pc-legend">
+<p><span><i class="sw sw-cached"></i> dari cache: murah dan cepat</span> <span><i class="sw sw-fresh"></i> dihitung baru: harga penuh</span></p>
+</div>
+<div class="pc-price">
+<div class="pp fresh-p">
+Input baru<br><b>$0,30</b><br><span>per MTok</span>
+</div>
+<div class="pp-vs">
+vs
+</div>
+<div class="pp cached-p">
+Input dari cache<br><b>$0,006</b><br><span>per MTok</span>
+</div>
+<div class="pp-res">
+= <b>50× lebih murah</b><br><span>DeepSeek V4.1 Flash, jam sibuk</span>
+</div>
+</div>
+</section>
+<section id="umur-cache" class="slide level2">
+<h2>Cache Bertahan Berapa Lama?</h2>
+<p>Chat dengan agent, lalu ditinggal ngopi sejam:</p>
+<div class="tl tl-big">
+<div class="tl-ev cold">
+<b>Request 1</b><br>jam 10:00<br><span>❄️ cache miss (cold)</span>
+</div>
+<div class="tl-gap">
+30 detik
+</div>
+<div class="tl-ev hot">
+<b>Request 2</b><br>jam 10:00:30<br><span>🔥 cache hit (warm)</span>
+</div>
+<div class="tl-gap">
+1 jam
+</div>
+<div class="tl-ev ask">
+<b>Request 3</b><br>jam 11:00<br><span>❓ masih hit?</span>
+</div>
+</div>
+<p>Request 3 masih dapat harga cache, atau bayar penuh lagi?</p>
+</section>
+<section id="umur-cache-jawaban" class="slide level2 smaller">
+<h2>Jawabannya: Tergantung Provider</h2>
+<p>Cache punya <strong>umur</strong>, tiap provider beda:</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 46%">
+<col style="width: 30%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">DeepSeek V4 Flash</th>
-<th style="text-align: right;">Harga per 1 jt token</th>
+<th style="text-align: left;">Provider</th>
+<th style="text-align: left;">Umur cache</th>
+<th style="text-align: left;">Request 3 (1 jam kemudian)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Input baru</td>
-<td style="text-align: right;">$0,44</td>
+<td style="text-align: left;">Claude (default)</td>
+<td style="text-align: left;"><strong>5 menit</strong>, timer di-reset tiap cache hit</td>
+<td style="text-align: left;">❄️ cold lagi</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Input dari cache</td>
-<td style="text-align: right;"><strong>$0,014</strong></td>
+<td style="text-align: left;">Claude (TTL 1 jam)</td>
+<td style="text-align: left;"><strong>1 jam</strong>, tapi biaya tulis cache 2×</td>
+<td style="text-align: left;">⚠️ pas di batas, anggap cold</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gemini (explicit)</td>
+<td style="text-align: left;">TTL atur sendiri (<strong>default 1 jam</strong>), bayar simpan per jam</td>
+<td style="text-align: left;">✅ kalau TTL dibuat &gt; 1 jam</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gemini (implicit)</td>
+<td style="text-align: left;">otomatis, <strong>umurnya tidak dijamin</strong></td>
+<td style="text-align: left;">🤷 bisa ya, bisa tidak</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DeepSeek</td>
+<td style="text-align: left;">otomatis, dibuang kalau nganggur (<strong>biasanya jam–hari</strong>)</td>
+<td style="text-align: left;">✅ kemungkinan besar masih</td>
 </tr>
 </tbody>
 </table>
-<p><strong>31× lebih murah</strong>, dan biasanya lebih cepat karena tidak dihitung ulang.</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Cache itu seperti makanan di meja prasmanan</strong></p>
+</div>
+<div class="callout-content">
+<p>Selama ada yang ambil, tetap disajikan. Nganggur kelamaan, dibereskan. Jeda panjang = mulai dari nol.</p>
+</div>
+</div>
+</div>
+<p><span style="font-size: 0.75em; color: #666;">Sumber: dokumentasi caching Anthropic, Gemini API, DeepSeek (Okt 2026). Semua best-effort, tidak dijamin 100% hit.</span></p>
+</section>
+<section id="ttl-kode" class="slide level2 smaller">
+<h2>Atur TTL di Kode</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Claude</a></li><li><a href="#tabset-2-2">Gemini</a></li><li><a href="#tabset-2-3">DeepSeek</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>response <span class="op">=</span> client.messages.create(</span>
+<span id="cb7-2"><a href=""></a>    model<span class="op">=</span><span class="st">"claude-opus-5-5"</span>,</span>
+<span id="cb7-3"><a href=""></a>    max_tokens<span class="op">=</span><span class="dv">1024</span>,</span>
+<span id="cb7-4"><a href=""></a>    system<span class="op">=</span>[{</span>
+<span id="cb7-5"><a href=""></a>        <span class="st">"type"</span>: <span class="st">"text"</span>,</span>
+<span id="cb7-6"><a href=""></a>        <span class="st">"text"</span>: SYSTEM_PROMPT_PANJANG,</span>
+<span id="cb7-7"><a href=""></a>        <span class="st">"cache_control"</span>: {<span class="st">"type"</span>: <span class="st">"ephemeral"</span>},                <span class="co"># TTL 5 menit (default)</span></span>
+<span id="cb7-8"><a href=""></a>        <span class="co"># "cache_control": {"type": "ephemeral", "ttl": "1h"}  # TTL 1 jam, tulis cache 2×</span></span>
+<span id="cb7-9"><a href=""></a>    }],</span>
+<span id="cb7-10"><a href=""></a>    messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"Halo!"</span>}],</span>
+<span id="cb7-11"><a href=""></a>)</span>
+<span id="cb7-12"><a href=""></a></span>
+<span id="cb7-13"><a href=""></a><span class="bu">print</span>(response.usage.cache_creation_input_tokens)  <span class="co"># warm-up: ditulis ke cache</span></span>
+<span id="cb7-14"><a href=""></a><span class="bu">print</span>(response.usage.cache_read_input_tokens)      <span class="co"># cache hit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-2-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>cache <span class="op">=</span> client.caches.create(</span>
+<span id="cb8-2"><a href=""></a>    model<span class="op">=</span><span class="st">"gemini-3.8-flash"</span>,</span>
+<span id="cb8-3"><a href=""></a>    config<span class="op">=</span>types.CreateCachedContentConfig(</span>
+<span id="cb8-4"><a href=""></a>        system_instruction<span class="op">=</span>SYSTEM_PROMPT_PANJANG,</span>
+<span id="cb8-5"><a href=""></a>        ttl<span class="op">=</span><span class="st">"3600s"</span>,                     <span class="co"># default 1 jam kalau tidak diisi</span></span>
+<span id="cb8-6"><a href=""></a>    ),</span>
+<span id="cb8-7"><a href=""></a>)</span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a>response <span class="op">=</span> client.models.generate_content(</span>
+<span id="cb8-10"><a href=""></a>    model<span class="op">=</span><span class="st">"gemini-3.8-flash"</span>,</span>
+<span id="cb8-11"><a href=""></a>    contents<span class="op">=</span><span class="st">"Halo!"</span>,</span>
+<span id="cb8-12"><a href=""></a>    config<span class="op">=</span>types.GenerateContentConfig(cached_content<span class="op">=</span>cache.name),</span>
+<span id="cb8-13"><a href=""></a>)</span>
+<span id="cb8-14"><a href=""></a></span>
+<span id="cb8-15"><a href=""></a>client.caches.update(                    <span class="co"># perpanjang sebelum habis</span></span>
+<span id="cb8-16"><a href=""></a>    name<span class="op">=</span>cache.name,</span>
+<span id="cb8-17"><a href=""></a>    config<span class="op">=</span>types.UpdateCachedContentConfig(ttl<span class="op">=</span><span class="st">"7200s"</span>),</span>
+<span id="cb8-18"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-2-3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>response <span class="op">=</span> client.chat.completions.create(   <span class="co"># base_url="https://api.deepseek.com"</span></span>
+<span id="cb9-2"><a href=""></a>    model<span class="op">=</span><span class="st">"deepseek-flash"</span>,</span>
+<span id="cb9-3"><a href=""></a>    messages<span class="op">=</span>[</span>
+<span id="cb9-4"><a href=""></a>        {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SYSTEM_PROMPT_PANJANG},</span>
+<span id="cb9-5"><a href=""></a>        {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: <span class="st">"Halo!"</span>},</span>
+<span id="cb9-6"><a href=""></a>    ],</span>
+<span id="cb9-7"><a href=""></a>)</span>
+<span id="cb9-8"><a href=""></a><span class="co"># Tidak ada parameter TTL: cache otomatis, dibuang kalau nganggur</span></span>
+<span id="cb9-9"><a href=""></a></span>
+<span id="cb9-10"><a href=""></a><span class="bu">print</span>(response.usage.prompt_cache_hit_tokens)   <span class="co"># cache hit</span></span>
+<span id="cb9-11"><a href=""></a><span class="bu">print</span>(response.usage.prompt_cache_miss_tokens)  <span class="co"># dihitung baru</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p><span style="font-size: 0.75em; color: #666;">Kode diambil dari dokumentasi resmi Anthropic, Google Gemini API, dan DeepSeek (Okt 2026).</span></p>
 </section>
 <section id="aturan-prefix" class="slide level2">
 <h2>Aturan #1: Prefix Harus Identik</h2>
@@ -804,7 +1223,7 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <h2>Aturan #2: Cache Tinggal di Satu Tempat</h2>
 <p>Cache disimpan di <strong>server provider yang melayani request Anda</strong>, untuk <strong>model itu</strong>, dalam <strong>jangka waktu terbatas</strong>.</p>
 <ul>
-<li>Ganti model di tengah sesi → cache mulai dari nol</li>
+<li>Ganti model di tengah sesi → cache mulai dari nol (<strong>mahal</strong>, lihat slide berikut)</li>
 <li>Load balancer yang melempar request acak ke banyak upstream → hit rate jatuh</li>
 <li>Sesi diam terlalu lama → cache kedaluwarsa</li>
 </ul>
@@ -822,19 +1241,85 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 </div>
 </div>
 </section>
+<section id="ganti-model" class="slide level2 smaller">
+<h2>Ganti ke Model Frontier 💸</h2>
+<p>Di tengah sesi agent (giliran 30, konteks 142 rb token): <em>“Pakai model paling jago aja deh.”</em></p>
+<div class="sw-flow">
+<div class="sw-card cheap">
+<div class="sw-t">
+Giliran 30
+</div>
+<div class="sw-m">
+DeepSeek V4.1 Flash<br>cache warm
+</div>
+<div class="sw-p">
+$0,004
+</div>
+</div>
+<div class="sw-arrow">
+ganti<br>model<br>➜
+</div>
+<div class="sw-card pricey">
+<div class="sw-t">
+Giliran 31
+</div>
+<div class="sw-m">
+Claude Fable 5.1<br>cache kosong
+</div>
+<div class="sw-p">
+$1,43
+</div>
+</div>
+<div class="sw-result">
+≈ <b>340×</b><br>lebih mahal<br><span>untuk satu giliran</span>
+</div>
+</div>
+<p>Kenapa mahalnya dobel:</p>
+<ol type="1">
+<li><strong>Cache milik model lama, tidak ikut pindah</strong> → 142 rb token dihitung ulang dari nol</li>
+<li><strong>Harga per token frontier jauh lebih tinggi</strong> → $10 vs $0,30 per MTok, <strong>33×</strong></li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Butuh model jago? Jangan pindahkan sesi yang sudah gemuk</strong></p>
+</div>
+<div class="callout-content">
+<p>Pilih model di awal sesi. Untuk sub-tugas yang butuh model frontier, buka sesi baru dengan konteks kecil, atau ringkas dulu sebelum ganti.</p>
+</div>
+</div>
+</div>
+<p><span style="font-size: 0.75em; color: #666;">Input saja. DeepSeek jam sibuk; Claude Fable 5.1 input $10/MTok.</span></p>
+<aside class="notes">
+<p>Setelah cache Fable warm pun, tiap giliran masih $0,147, kira-kira 35x lebih mahal dari DeepSeek yang cache-nya warm. Kalau giliran 31 sekaligus menulis cache 5 menit (biaya tulis 1,25x), biayanya jadi $1,78. Claude Fable 5.1 cache read $0,25/MTok.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="ukur" class="slide level2">
 <h2>Cara Mengukur</h2>
 <p>Response OpenAI-compatible sudah memberi tahu:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb8-1"><a href=""></a><span class="er">"usage":</span> <span class="fu">{</span></span>
-<span id="cb8-2"><a href=""></a>  <span class="dt">"prompt_tokens"</span><span class="fu">:</span> <span class="dv">142750</span><span class="fu">,</span></span>
-<span id="cb8-3"><a href=""></a>  <span class="dt">"completion_tokens"</span><span class="fu">:</span> <span class="dv">688</span><span class="fu">,</span></span>
-<span id="cb8-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
-<span id="cb8-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
-<span id="cb9-2"><a href=""></a>details <span class="op">=</span> u.prompt_tokens_details           <span class="co"># bisa kosong di sebagian provider</span></span>
-<span id="cb9-3"><a href=""></a>cached <span class="op">=</span> (details.cached_tokens <span class="cf">if</span> details <span class="cf">else</span> <span class="dv">0</span>) <span class="kw">or</span> <span class="dv">0</span></span>
-<span id="cb9-4"><a href=""></a>hit <span class="op">=</span> cached <span class="op">/</span> u.prompt_tokens</span>
-<span id="cb9-5"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource json number-lines code-with-copy"><code class="sourceCode json"><span id="cb12-1"><a href=""></a><span class="er">"usage":</span> <span class="fu">{</span></span>
+<span id="cb12-2"><a href=""></a>  <span class="dt">"prompt_tokens"</span><span class="fu">:</span> <span class="dv">142750</span><span class="fu">,</span></span>
+<span id="cb12-3"><a href=""></a>  <span class="dt">"completion_tokens"</span><span class="fu">:</span> <span class="dv">688</span><span class="fu">,</span></span>
+<span id="cb12-4"><a href=""></a>  <span class="dt">"prompt_tokens_details"</span><span class="fu">:</span> <span class="fu">{</span> <span class="dt">"cached_tokens"</span><span class="fu">:</span> <span class="dv">131330</span> <span class="fu">}</span></span>
+<span id="cb12-5"><a href=""></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>u <span class="op">=</span> reply.usage</span>
+<span id="cb13-2"><a href=""></a>details <span class="op">=</span> u.prompt_tokens_details           <span class="co"># bisa kosong di sebagian provider</span></span>
+<span id="cb13-3"><a href=""></a>cached <span class="op">=</span> (details.cached_tokens <span class="cf">if</span> details <span class="cf">else</span> <span class="dv">0</span>) <span class="kw">or</span> <span class="dv">0</span></span>
+<span id="cb13-4"><a href=""></a>hit <span class="op">=</span> cached <span class="op">/</span> u.prompt_tokens</span>
+<span id="cb13-5"><a href=""></a>log.info(<span class="st">"cache_hit=%.0f</span><span class="sc">%%</span><span class="st"> prompt=</span><span class="sc">%d</span><span class="st">"</span>, hit <span class="op">*</span> <span class="dv">100</span>, u.prompt_tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -854,78 +1339,140 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <h1>Level Aplikasi</h1>
 <p>AI-native apps: chatbot, asisten, RAG</p>
 </section>
-<section id="anatomi-app" class="slide level2 smaller">
+<section id="anatomi-app" class="slide level2">
 <h2>Anatomi Request Aplikasi</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Bagian</th>
-<th style="text-align: left;">Seberapa sering berubah</th>
-<th style="text-align: left;">Taruh di</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Instruksi produk, persona, aturan</td>
-<td style="text-align: left;">hampir tidak pernah</td>
-<td style="text-align: left;"><strong>paling depan</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Definisi tools / schema output</td>
-<td style="text-align: left;">per rilis</td>
-<td style="text-align: left;">depan</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Profil user (nama, preferensi)</td>
-<td style="text-align: left;">per user</td>
-<td style="text-align: left;">tengah</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Riwayat percakapan</td>
-<td style="text-align: left;">bertambah tiap giliran</td>
-<td style="text-align: left;">belakang</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Dokumen hasil retrieval (RAG)</td>
-<td style="text-align: left;">per pertanyaan</td>
-<td style="text-align: left;">belakang</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Waktu sekarang, pertanyaan baru</td>
-<td style="text-align: left;">tiap request</td>
-<td style="text-align: left;"><strong>paling belakang</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Urutkan dari yang paling stabil ke yang paling sering berubah.</strong></p>
+<p>Urutkan dari yang <strong>paling stabil</strong> ke yang <strong>paling sering berubah</strong>:</p>
+<div class="anat">
+<div class="anat-axis">
+<span>🧊 stabil</span>
+<div class="anat-line">
+
+</div>
+<span>🔥 berubah terus</span>
+</div>
+<div class="anat-stack">
+<div class="ab" style="--c:#1a73e8">
+<b>Instruksi produk, persona, aturan</b><i>hampir tidak pernah</i>
+</div>
+<div class="ab" style="--c:#4285F4">
+<b>Definisi tools / schema output</b><i>per rilis</i>
+</div>
+<div class="ab" style="--c:#8e7cc3">
+<b>Profil user (nama, preferensi)</b><i>per user</i>
+</div>
+<div class="ab" style="--c:#e37400">
+<b>Riwayat percakapan</b><i>bertambah tiap giliran</i>
+</div>
+<div class="ab" style="--c:#EA4335">
+<b>Dokumen hasil retrieval (RAG)</b><i>per pertanyaan</i>
+</div>
+<div class="ab" style="--c:#c5221f">
+<b>Waktu sekarang, pertanyaan baru</b><i>tiap request</i>
+</div>
+</div>
+<div class="anat-zones">
+<div class="az hit" style="flex:3">
+✅ hampir selalu<br>cache hit
+</div>
+<div class="az part" style="flex:1">
+◐ sebagian hit
+</div>
+<div class="az miss" style="flex:2">
+❌ dihitung baru
+</div>
+</div>
+</div>
 </section>
 <section id="pembunuh-app" class="slide level2">
-<h2>Pembunuh Cache yang Sering Tidak Sadar</h2>
-<ol type="1">
-<li><strong>Timestamp atau request id di system prompt</strong></li>
-<li><strong>Nama user di kalimat pertama</strong> (“Halo Budi, kamu adalah asisten…”) → tiap user punya prefix sendiri</li>
-<li><strong>Urutan tools atau key JSON acak</strong> (dict yang tidak terurut, tools dari plugin yang dimuat paralel)</li>
-<li><strong>Dokumen RAG diselipkan sebelum instruksi</strong></li>
-<li><strong>A/B test prompt per request</strong>, bukan per user/sesi</li>
-<li><strong>Riwayat diringkas ulang tiap giliran</strong> → seluruh tengah prompt berubah</li>
-</ol>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<h2>Pembunuh Cache Diam-Diam 🔪</h2>
+<div class="killers">
+<div class="kc">
+<div class="kc-ico">
+⏰
 </div>
-<p><strong>Gejalanya</strong></p>
+<div class="kc-t">
+Timestamp di system prompt
 </div>
-<div class="callout-content">
-<p><code>cached_tokens</code> selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.</p>
+<div class="kc-bad">
+❌ “Hari ini 17 Okt 10:31:07”
+</div>
+<div class="kc-good">
+✅ taruh di pesan terakhir
 </div>
 </div>
+<div class="kc">
+<div class="kc-ico">
+👋
+</div>
+<div class="kc-t">
+Nama user di kalimat pertama
+</div>
+<div class="kc-bad">
+❌ “Halo Budi, kamu adalah…”
+</div>
+<div class="kc-good">
+✅ profil user setelah instruksi
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+🔀
+</div>
+<div class="kc-t">
+Urutan tools / key JSON acak
+</div>
+<div class="kc-bad">
+❌ dict tak terurut, plugin paralel
+</div>
+<div class="kc-good">
+✅ urutkan tools, <code>sort_keys=True</code>
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+📄
+</div>
+<div class="kc-t">
+Dokumen RAG sebelum instruksi
+</div>
+<div class="kc-bad">
+❌ [dokumen][instruksi]
+</div>
+<div class="kc-good">
+✅ [instruksi][dokumen]
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+🎲
+</div>
+<div class="kc-t">
+A/B test per request
+</div>
+<div class="kc-bad">
+❌ prompt diacak tiap request
+</div>
+<div class="kc-good">
+✅ acak per user atau sesi
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+📝
+</div>
+<div class="kc-t">
+Riwayat diringkas tiap giliran
+</div>
+<div class="kc-bad">
+❌ tengah prompt berubah total
+</div>
+<div class="kc-good">
+✅ jarang diringkas, cukup append
+</div>
+</div>
+</div>
+<div class="symptom">
+🩺 <b>Gejalanya:</b> <code>cached_tokens</code> selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.
 </div>
 </section>
 <section id="before-after" class="slide level2">
@@ -933,123 +1480,208 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>Sebelum</strong> ❌</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>system <span class="op">=</span> <span class="ss">f"""Kamu asisten toko </span><span class="sc">{</span>shop<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb10-2"><a href=""></a><span class="ss">Sekarang </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb10-3"><a href=""></a><span class="ss">User: </span><span class="sc">{</span>user<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
-<span id="cb10-4"><a href=""></a><span class="ss">Konteks: </span><span class="sc">{</span>rag_docs<span class="sc">}</span></span>
-<span id="cb10-5"><a href=""></a><span class="ss">Aturan: </span><span class="sc">{</span>RULES<span class="sc">}</span><span class="ss">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>system <span class="op">=</span> <span class="ss">f"""Kamu asisten toko </span><span class="sc">{</span>shop<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb14-2"><a href=""></a><span class="ss">Sekarang </span><span class="sc">{</span>datetime<span class="sc">.</span>now()<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb14-3"><a href=""></a><span class="ss">User: </span><span class="sc">{</span>user<span class="sc">.</span>name<span class="sc">}</span><span class="ss">.</span></span>
+<span id="cb14-4"><a href=""></a><span class="ss">Konteks: </span><span class="sc">{</span>rag_docs<span class="sc">}</span></span>
+<span id="cb14-5"><a href=""></a><span class="ss">Aturan: </span><span class="sc">{</span>RULES<span class="sc">}</span><span class="ss">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column" style="width:50%;">
 <p><strong>Sesudah</strong> ✅</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>messages <span class="op">=</span> [</span>
-<span id="cb11-2"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RULES},   <span class="co"># tetap</span></span>
-<span id="cb11-3"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SHOP},    <span class="co"># per toko</span></span>
-<span id="cb11-4"><a href=""></a>  <span class="op">*</span>history,                               <span class="co"># bertambah</span></span>
-<span id="cb11-5"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>:</span>
-<span id="cb11-6"><a href=""></a>     <span class="ss">f"</span><span class="sc">{</span>rag_docs<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Waktu: </span><span class="sc">{</span>now<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>},</span>
-<span id="cb11-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a>messages <span class="op">=</span> [</span>
+<span id="cb15-2"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RULES},   <span class="co"># tetap</span></span>
+<span id="cb15-3"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: SHOP},    <span class="co"># per toko</span></span>
+<span id="cb15-4"><a href=""></a>  <span class="op">*</span>history,                               <span class="co"># bertambah</span></span>
+<span id="cb15-5"><a href=""></a>  {<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>:</span>
+<span id="cb15-6"><a href=""></a>     <span class="ss">f"</span><span class="sc">{</span>rag_docs<span class="sc">}</span><span class="ch">\n\n</span><span class="ss">Waktu: </span><span class="sc">{</span>now<span class="sc">}</span><span class="ch">\n\n</span><span class="sc">{</span>question<span class="sc">}</span><span class="ss">"</span>},</span>
+<span id="cb15-7"><a href=""></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <p>Isi informasinya <strong>sama</strong>. Yang berubah cuma urutannya.</p>
 </section>
-<section id="kirim-sedikit" class="slide level2 smaller">
-<h2>Tuas 1 di Aplikasi: Kirim Lebih Sedikit</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Sumber token</th>
-<th style="text-align: left;">Optimasi</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Riwayat chat</td>
-<td style="text-align: left;">jendela N giliran terakhir + ringkasan di <strong>batas topik</strong>, bukan tiap giliran</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dokumen RAG</td>
-<td style="text-align: left;">top-k yang benar-benar relevan; potong boilerplate (header, footer, navigasi)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Data tabel</td>
-<td style="text-align: left;">CSV atau daftar ringkas, bukan JSON rapi</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Definisi tools</td>
-<td style="text-align: left;">hanya tools yang relevan untuk alur itu; deskripsi singkat dan jelas</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Output</td>
-<td style="text-align: left;"><code>max_tokens</code> sesuai kebutuhan; structured output untuk jawaban yang diproses mesin</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="kirim-sedikit" class="slide level2">
+<h2>Cheat Code 1: Kirim Lebih Sedikit</h2>
+<div class="killers savers">
+<div class="kc">
+<div class="kc-ico">
+🪵
 </div>
-<p><strong>Jangan bentrok dengan tuas 2</strong></p>
+<div class="kc-t">
+Output tool
 </div>
-<div class="callout-content">
-<p>Memangkas riwayat <strong>setiap giliran</strong> mengubah prefix → cache hilang. Pangkas jarang, di batas yang jelas.</p>
+<div class="kc-bad">
+❌ 5.000 baris log test masuk konteks
+</div>
+<div class="kc-good">
+✅ error + 50 baris terakhir (<code>| tail -50</code>)
 </div>
 </div>
+<div class="kc">
+<div class="kc-ico">
+📂
+</div>
+<div class="kc-t">
+Baca file
+</div>
+<div class="kc-bad">
+❌ seluruh file 2.000 baris
+</div>
+<div class="kc-good">
+✅ baris yang perlu saja (<code>read_file(path, offset, limit)</code>)
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+🧰
+</div>
+<div class="kc-t">
+Definisi tools
+</div>
+<div class="kc-bad">
+❌ 40 tools dimuat di semua request
+</div>
+<div class="kc-good">
+✅ hanya tools untuk alur itu
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+🖼️
+</div>
+<div class="kc-t">
+Gambar
+</div>
+<div class="kc-bad">
+❌ screenshot resolusi penuh
+</div>
+<div class="kc-good">
+✅ perkecil dulu, token gambar ikut resolusi
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+🧠
+</div>
+<div class="kc-t">
+Thinking
+</div>
+<div class="kc-bad">
+❌ effort tinggi untuk semua tugas
+</div>
+<div class="kc-good">
+✅ effort rendah untuk tugas ringan, thinking dibayar sebagai output
+</div>
+</div>
+<div class="kc">
+<div class="kc-ico">
+📄
+</div>
+<div class="kc-t">
+Dokumen RAG
+</div>
+<div class="kc-bad">
+❌ dokumen utuh + header, footer, navigasi
+</div>
+<div class="kc-good">
+✅ chunk yang relevan saja
+</div>
+</div>
+</div>
+<div class="principle">
+💡 Yang masuk konteks: <b>yang dibutuhkan untuk langkah berikutnya</b>, bukan semua yang tersedia.
 </div>
 </section>
-<section id="cache-lain" class="slide level2 smaller">
+<section id="cache-lain" class="slide level2">
 <h2>Selain Prompt Cache</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Jenis</th>
-<th style="text-align: left;">Kapan berguna</th>
-<th style="text-align: left;">Hati-hati</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Prompt cache</strong> (provider)</td>
-<td style="text-align: left;">hampir selalu; otomatis di banyak provider asal prefix stabil</td>
-<td style="text-align: left;">prefix harus identik</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Response cache</strong> (Redis, hash request)</td>
-<td style="text-align: left;">pertanyaan identik: FAQ, klasifikasi, ekstraksi ulang</td>
-<td style="text-align: left;">jangan untuk jawaban personal atau yang bergantung waktu</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Embedding cache</strong></td>
-<td style="text-align: left;">dokumen yang sama di-embed berulang</td>
-<td style="text-align: left;">invalidasi saat dokumen berubah</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Hasil tool</strong></td>
-<td style="text-align: left;">API eksternal yang lambat atau berbayar</td>
-<td style="text-align: left;">TTL sesuai seberapa cepat datanya basi</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Satu request lewat beberapa titik. Tiap titik bisa punya cache sendiri:</p>
+<div class="route">
+<div class="route-end">
+🙋<br>request
 </div>
-<p><strong>Urutan prioritas</strong></p>
+<div class="stop">
+<div class="stop-ico">
+💬
 </div>
-<div class="callout-content">
-<p>Bereskan <strong>prompt cache</strong> dulu. Tidak butuh infrastruktur baru, cukup disiplin urutan.</p>
+<div class="stop-t">
+Response cache
+</div>
+<div class="stop-d">
+Pertanyaan sama persis? Kembalikan jawaban lama. <b>0 token.</b>
+</div>
+<div class="stop-ok">
+Cocok: FAQ, klasifikasi
+</div>
+<div class="stop-w">
+⚠️ jangan untuk jawaban personal atau berbasis waktu
 </div>
 </div>
+<div class="route-arrow">
+➜
+</div>
+<div class="stop">
+<div class="stop-ico">
+🧮
+</div>
+<div class="stop-t">
+Embedding cache
+</div>
+<div class="stop-d">
+Dokumen yang sama tidak di-embed ulang.
+</div>
+<div class="stop-ok">
+Cocok: RAG
+</div>
+<div class="stop-w">
+⚠️ hapus saat dokumennya berubah
+</div>
+</div>
+<div class="route-arrow">
+➜
+</div>
+<div class="stop">
+<div class="stop-ico">
+🔧
+</div>
+<div class="stop-t">
+Tool cache
+</div>
+<div class="stop-d">
+Hasil API eksternal disimpan dulu.
+</div>
+<div class="stop-ok">
+Cocok: API lambat atau berbayar
+</div>
+<div class="stop-w">
+⚠️ TTL sesuai seberapa cepat datanya basi
+</div>
+</div>
+<div class="route-arrow">
+➜
+</div>
+<div class="stop star">
+<div class="stop-ico">
+⚡
+</div>
+<div class="stop-t">
+Prompt cache
+</div>
+<div class="stop-d">
+Prefix sama? Input jauh lebih murah.
+</div>
+<div class="stop-ok">
+Otomatis di provider
+</div>
+<div class="stop-w">
+⚠️ prefix harus identik
+</div>
+</div>
+<div class="route-arrow">
+➜
+</div>
+<div class="route-end">
+🤖<br>model
+</div>
+</div>
+<div class="principle">
+⭐ <b>Mulai dari prompt cache.</b> Tidak butuh infrastruktur baru, cukup disiplin urutan prompt.
 </div>
 </section></section>
 <section>
@@ -1058,45 +1690,117 @@ Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit maki
 <p>OpenCode, Pi, omp</p>
 </section>
 <section id="agent-loop" class="slide level2">
-<h2>Kenapa Agent Sangat Bergantung pada Cache</h2>
-<p>Setiap giliran, agent mengirim <strong>seluruh</strong> percakapan lagi: system prompt, definisi tools, semua file yang sudah dibaca, semua hasil command.</p>
-<pre><code>giliran 1:   12 rb token
-giliran 10:  80 rb token
-giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre>
-<p><span style="font-size: 0.75em; color: #666;">Pertumbuhan per giliran adalah ilustrasi; 140 rb dan 92% adalah rata-rata nyata request agent di Orvix.</span></p>
-<p>Satu giliran agent di DeepSeek V4 Flash (input saja):</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Biaya</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Tanpa cache</td>
-<td style="text-align: right;">$0,063</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Dengan 92% cache</td>
-<td style="text-align: right;"><strong>$0,007</strong></td>
-</tr>
-</tbody>
-</table>
-<p><strong>≈ 9× lebih murah</strong>, untuk pekerjaan yang sama persis.</p>
+<h2>Agent Hidup dari Cache</h2>
+<p>Tiap giliran, agent mengirim <strong>seluruh</strong> percakapan lagi. Makin lama sesi, makin besar yang dikirim ulang:</p>
+<div class="grow">
+<div class="grow-row">
+<div class="grow-name">
+Giliran 1
+</div>
+<div class="grow-track">
+<div class="grow-bar" style="width:8.6%">
+<div class="g-new" style="flex:1">
+
+</div>
+</div>
+</div>
+<div class="grow-val">
+12 rb
+</div>
+</div>
+<div class="grow-row">
+<div class="grow-name">
+Giliran 10
+</div>
+<div class="grow-track">
+<div class="grow-bar" style="width:57%">
+<div class="g-cached" style="flex:9">
+
+</div>
+<div class="g-new" style="flex:1">
+
+</div>
+</div>
+</div>
+<div class="grow-val">
+80 rb
+</div>
+</div>
+<div class="grow-row">
+<div class="grow-name">
+Giliran 30
+</div>
+<div class="grow-track">
+<div class="grow-bar" style="width:100%">
+<div class="g-cached" style="flex:92">
+<span>92% sudah pernah dikirim → cache</span>
+</div>
+<div class="g-new" style="flex:8">
+
+</div>
+</div>
+</div>
+<div class="grow-val">
+140 rb
+</div>
+</div>
+</div>
+<div class="grow-legend">
+<span><i class="sw sw-cached"></i> dari cache</span><span><i class="sw sw-fresh"></i> baru</span><span class="grow-note">Pertumbuhan per giliran ilustrasi; 140 rb dan 92% rata-rata nyata agent di Orvix.</span>
+</div>
+<div class="pc-price">
+<div class="pp fresh-p">
+Tanpa cache<br><b>$0,043</b><br><span>per giliran</span>
+</div>
+<div class="pp-vs">
+vs
+</div>
+<div class="pp cached-p">
+Dengan cache 92%<br><b>$0,004</b><br><span>per giliran</span>
+</div>
+<div class="pp-res">
+= <b>≈ 10× lebih murah</b><br><span>pekerjaan sama persis<br>DeepSeek V4.1 Flash, jam sibuk, input saja</span>
+</div>
+</div>
 </section>
 <section id="orvix-1" class="slide level2">
-<h2>Yang Kami Lakukan di Orvix Coding (1)</h2>
-<h3 id="sticky-routing-per-sesi">Sticky routing per sesi</h3>
-<p>Request dari satu sesi agent harus mendarat di <strong>upstream yang sama</strong>, supaya cache-nya ketemu.</p>
+<h2>Satu Sesi, Satu Server</h2>
+<p>Cache tinggal di server yang melayani request. Dilempar acak = cache tidak ketemu.</p>
+<div class="lb">
+<div class="lb-row bad">
+<div class="lb-tag">
+❌ Load balancer acak
+</div>
+<div class="lb-req">
+req 1 → <b>A</b> <span class="m">miss</span>
+</div>
+<div class="lb-req">
+req 2 → <b>C</b> <span class="m">miss</span>
+</div>
+<div class="lb-req">
+req 3 → <b>B</b> <span class="m">miss</span>
+</div>
+</div>
+<div class="lb-row good">
+<div class="lb-tag">
+✅ Sticky per sesi
+</div>
+<div class="lb-req">
+req 1 → <b>A</b> <span class="m">miss</span>
+</div>
+<div class="lb-req">
+req 2 → <b>A</b> <span class="h">hit</span>
+</div>
+<div class="lb-req">
+req 3 → <b>A</b> <span class="h">hit</span>
+</div>
+</div>
+</div>
+<p>Caranya:</p>
 <ul>
-<li>Plugin Orvix menyisipkan <strong><code>session_id</code> ke body request</strong>
-<ul>
-<li>OpenCode: hook <code>http.request</code></li>
-<li>Pi dan omp: hook <code>before_provider_request</code></li>
-</ul></li>
-<li>Gateway memetakan <code>session → route</code> di Redis, dipakai bersama oleh semua node</li>
-<li>Saat failover, sesi pindah ke route baru <strong>sekali</strong>, lalu menempel lagi di situ</li>
+<li>Harness mengirim <strong>session id</strong> di setiap request</li>
+<li>Gateway memakai session id itu untuk <strong>memilih upstream yang sama</strong></li>
+<li>Kalau upstream mati, sesi pindah <strong>sekali</strong>, lalu menempel di tempat baru</li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1104,42 +1808,126 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Pelajaran</strong></p>
+<p><strong>Jebakan</strong></p>
 </div>
 <div class="callout-content">
-<p>OpenCode sebenarnya sudah mengirim session id, tapi lewat <strong>header</strong>. Kalau gateway Anda tidak membacanya, cache affinity mati diam-diam. Respons kami memberi tanda: <code>x-orvix-cache-affinity</code>.</p>
+<p>Session id bisa dikirim lewat <strong>header</strong> atau <strong>body</strong>, tergantung harness. Kalau gateway membaca dari tempat yang salah, sticky routing mati <strong>diam-diam</strong>.</p>
 </div>
 </div>
 </div>
 </section>
-<section id="orvix-2" class="slide level2 smaller">
-<h2>Yang Kami Lakukan di Orvix Coding (2)</h2>
-<h3 id="hitung-tagihan-dengan-tarif-cache">Hitung tagihan dengan tarif cache</h3>
-<p>Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk yang sebenarnya kena cache. Selisihnya bisa <strong>8–10×</strong>.</p>
-<p>Satu request nyata: prompt 56.545 token, <strong>53.504 di antaranya dari cache</strong>.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Dihitung dengan</th>
-<th style="text-align: right;">Biaya</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Tarif input penuh (cara lama)</td>
-<td style="text-align: right;">$0,026</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Tarif cache (cara sekarang)</td>
-<td style="text-align: right;"><strong>$0,003</strong></td>
-</tr>
-</tbody>
-</table>
-<h3 id="estimasi-kuota-juga-harus-sadar-cache">Estimasi kuota juga harus sadar cache</h3>
-<p>Oktober: user ditolak “kuota habis” padahal pemakaian baru <strong>7,7 jt dari 10 jt</strong>. Estimasi menganggap seluruh prompt itu input baru, jadi meleset <strong>22×</strong> dari biaya sebenarnya. Sekarang yang dipakai untuk menolak adalah <strong>pemakaian nyata</strong>, bukan estimasi.</p>
+<section id="orvix-2" class="slide level2">
+<h2>Tagihan &amp; Kuota Harus Sadar Cache</h2>
+<div class="aware">
+<div class="aw-card">
+<div class="aw-t">
+🧾 Tagihan
+</div>
+<div class="aw-d">
+Token dari cache harus dihitung dengan <b>tarif cache</b>, bukan tarif input penuh.
+</div>
+<div class="aw-ex">
+Contoh: prompt 56 rb token, 95% dari cache
+</div>
+<div class="aw-cmp">
+<span class="bad">tarif penuh $0,017</span> vs <span class="good">tarif cache $0,0012</span>
+</div>
+<div class="aw-big">
+≈ 14× selisihnya
+</div>
+</div>
+<div class="aw-card">
+<div class="aw-t">
+🚦 Kuota &amp; rate limit
+</div>
+<div class="aw-d">
+Estimasi sebelum request biasanya menganggap <b>semua prompt input baru</b>.
+</div>
+<div class="aw-ex">
+Di sesi agent yang 90%+ cache, estimasi bisa meleset <b>puluhan kali lipat</b>
+</div>
+<div class="aw-cmp">
+<span class="bad">user ditolak “kuota habis”</span> padahal masih banyak sisa
+</div>
+<div class="aw-big">
+Pakai pemakaian nyata dari <code>usage</code>
+</div>
+</div>
+</div>
+<p><span style="font-size: 0.75em; color: #666;">Harga contoh: DeepSeek V4.1 Flash, jam sibuk, input saja.</span></p>
+</section>
+<section id="kuota-bar" class="slide level2">
+<h2>Kuota Tinggal 8%, Masih Bisa?</h2>
+<p>Kuota <strong>10 jt</strong>, sudah terpakai <strong>92%</strong>. Request berikutnya: sesi agent panjang, konteks <strong>1 jt token</strong>, 92% dari cache.</p>
+<div class="qb">
+<div class="qb-axis">
+<span style="left:0">🔍 80% (diperbesar)</span><span style="left:48.00%">92%</span><span class="lim" style="left:80.00%">100% = 10 jt</span>
+</div>
+<div class="qb-row">
+<div class="qb-label">
+Estimasi naif<br><span>semua dihitung baru</span>
+</div>
+<div class="qb-track">
+<div class="qb-over" style="left:80.00%">
+
+</div>
+<div class="qb-used" style="width:48.00%">
+terpakai
+</div>
+<div class="qb-next bad" style="left:48.00%; width:40.00%">
++10%
+</div>
+<div class="qb-limit" style="left:80.00%">
+
+</div>
+</div>
+<div class="qb-verdict bad">
+❌ ditolak<br><span>“kuota habis”</span>
+</div>
+</div>
+<div class="qb-row">
+<div class="qb-label">
+Sadar cache<br><span>cache dihitung 10%</span>
+</div>
+<div class="qb-track">
+<div class="qb-over" style="left:80.00%">
+
+</div>
+<div class="qb-used" style="width:48.00%">
+terpakai
+</div>
+<div class="qb-next good" style="left:48.00%; width:6.88%">
++1,7%
+</div>
+<div class="qb-ghost" style="left:54.88%; width:6.88%">
+2
+</div>
+<div class="qb-ghost" style="left:61.76%; width:6.88%">
+3
+</div>
+<div class="qb-ghost" style="left:68.64%; width:6.88%">
+4
+</div>
+<div class="qb-limit" style="left:80.00%">
+
+</div>
+</div>
+<div class="qb-verdict good">
+✅ lolos<br><span>masih muat ±4 request lagi</span>
+</div>
+</div>
+</div>
+<div class="qb-math">
+<div>
+<b>Naif:</b> 1 jt token = <b>1 jt</b> kuota (10%) &gt; sisa 800 rb
+</div>
+<div>
+<b>Sadar cache:</b> 80 rb baru + 920 rb cache × 10% = <b>172 rb</b> kuota (1,7%)
+</div>
+</div>
 </section>
 <section id="orvix-3" class="slide level2 smaller">
-<h2>Yang Kami Lakukan di Orvix Coding (3)</h2>
+<h2>Yang Kami Lakukan di Orvix Coding</h2>
 <h3 id="request-kecil-jangan-merebut-jalur-agent">Request kecil jangan merebut jalur agent</h3>
 <p>Harness mengirim request pembantu (judul sesi, ringkasan) <strong>paralel</strong> dengan request agent.</p>
 <table class="caption-top">
@@ -1170,56 +1958,76 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 </table>
 <p>Dulu request kecil ini menghabiskan slot concurrency, jadi agent-nya sendiri kena 429. Sekarang ada <strong>dua jalur</strong>: jalur kecil (tanpa tools, ≤ 4.096 token) dan jalur agent.</p>
 </section>
-<section id="jebakan" class="slide level2 smaller">
+<section id="jebakan" class="slide level2">
 <h2>Jebakan Harness yang Mengubah Prefix</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Harness</th>
-<th style="text-align: left;">Perilaku</th>
-<th style="text-align: left;">Efek ke cache</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Pi</strong></td>
-<td style="text-align: left;">system message di tengah percakapan dilebur ke system message pertama, kecuali <code>supportsMidConvoSystemMessages</code> di-set</td>
-<td style="text-align: left;"><strong>awal prompt berubah</strong> → cache dari nol</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>omp</strong></td>
-<td style="text-align: left;">hasil <code>read</code> lama ditulis ulang jadi <code>[Superseded by a newer read of this file]</code> (kalau sisa percakapan ≤ 8 rb token atau sesi diam ≥ 30 menit)</td>
-<td style="text-align: left;">sengaja: tukar cache dengan konteks lebih pendek</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>omp</strong></td>
-<td style="text-align: left;">deskripsi skill diringkas LLM, sekali per skill baru</td>
-<td style="text-align: left;">system prompt berubah sekali</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>OpenCode</strong></td>
-<td style="text-align: left;">session id dikirim lewat header</td>
-<td style="text-align: left;">gateway harus membacanya (atau pakai plugin)</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="traps">
+<div class="trap">
+<div class="trap-logo">
+<img src="images/harness-logos/pi.svg" alt="Pi">
 </div>
-<p><strong>Tidak ada yang salah di sini</strong></p>
+<div class="trap-body">
+<div class="trap-n">
+Pi
 </div>
-<div class="callout-content">
-<p>Ini pilihan desain. Tapi Anda perlu tahu supaya tidak heran saat tagihan melonjak.</p>
+<div class="trap-d">
+System message di tengah percakapan <b>dilebur</b> ke system message pertama.
+</div>
+<div class="trap-e red">
+🔴 awal prompt berubah → cache dari nol
 </div>
 </div>
+</div>
+<div class="trap">
+<div class="trap-logo">
+<img src="images/harness-logos/omp.svg" alt="omp">
+</div>
+<div class="trap-body">
+<div class="trap-n">
+omp
+</div>
+<div class="trap-d">
+Hasil baca file lama <b>diganti catatan pendek</b> saat konteks menipis atau sesi lama diam.
+</div>
+<div class="trap-e green">
+🟢 sengaja: tukar cache dengan konteks lebih pendek
+</div>
+</div>
+</div>
+<div class="trap">
+<div class="trap-logo">
+<img src="images/harness-logos/omp.svg" alt="omp">
+</div>
+<div class="trap-body">
+<div class="trap-n">
+omp
+</div>
+<div class="trap-d">
+Deskripsi skill baru <b>diringkas</b> sekali oleh LLM.
+</div>
+<div class="trap-e yellow">
+🟡 system prompt berubah sekali
+</div>
+</div>
+</div>
+<div class="trap">
+<div class="trap-logo">
+<img src="images/harness-logos/opencode.svg" alt="OpenCode">
+</div>
+<div class="trap-body">
+<div class="trap-n">
+OpenCode
+</div>
+<div class="trap-d">
+Session id dikirim lewat <b>header</b>, bukan body.
+</div>
+<div class="trap-e blue">
+🔵 gateway harus membaca header itu
+</div>
+</div>
+</div>
+</div>
+<div class="principle">
+🤷 <b>Bukan bug, ini pilihan desain.</b> Yang penting tahu, biar tidak kaget lihat tagihan.
 </div>
 </section>
 <section id="kebiasaan" class="slide level2">
@@ -1260,7 +2068,7 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 <h2>Ringkasan</h2>
 <ol type="1">
 <li>Model membaca <strong>token</strong>, bukan huruf. Bahasa, angka, dan format menentukan jumlahnya.</li>
-<li>Tiga tuas: <strong>kirim lebih sedikit</strong>, <strong>jangan bayar dua kali</strong>, <strong>bayar lebih murah per token</strong>.</li>
+<li>Tiga cheat code: <strong>kirim lebih sedikit</strong>, <strong>jangan bayar dua kali</strong>, <strong>bayar lebih murah per token</strong>.</li>
 <li>Token habis di <strong>input</strong>, terutama pada agent: 92% cache, output cuma 0,5%.</li>
 <li>Cache cocok <strong>dari depan</strong> dan tinggal <strong>di satu tempat</strong>. Yang stabil di depan; butuh sticky routing.</li>
 <li><strong>Ukur</strong> <code>cached_tokens</code>. Agent: <strong>satu tugas, satu sesi, satu model</strong>.</li>
@@ -1282,7 +2090,9 @@ giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim</code></pre
 </figure>
 </div>
 </div><div class="column" style="width:55%;">
-<p><strong>platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026</strong></p>
+<div class="claim-url left">
+<p><span class="claim-host">platform.orvix.id/e/</span> <span class="claim-code">ROAD-TO-DEVFEST-JKT-2026</span></p>
+</div>
 <ul>
 <li>100 juta token, sampai 1 Nov 2026 23:59 WIB</li>
 <li><code>/v1</code> untuk aplikasi, <code>/coding/v1</code> untuk agent</li>

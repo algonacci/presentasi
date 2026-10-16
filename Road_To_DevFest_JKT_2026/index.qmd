@@ -96,31 +96,63 @@ format:
 # Sprint Enablement {#enablement background-color="#2c3e50"}
 Token Cloud Credits dari Orvix
 
-## Yang Anda Dapat {#jatah}
+## Yang Anda Dapat {#jatah .smaller}
 
 :::: {.columns}
-::: {.column width="55%"}
+::: {.column width="62%"}
 
 | | |
 |:---|:---|
-| **Kuota** | 100 juta token per orang |
-| **Batas harian** | 30 juta token per hari |
+| **Kuota** | 100 juta token per orang<br>[≈ 8.000+ giliran agent dengan model default]{style="font-size: 0.8em; color: #666;"} |
+| **Batas harian** | 30 juta token per hari<br>[rem darurat, bukan target]{style="font-size: 0.8em; color: #666;"} |
 | **Berlaku** | sampai **1 November 2026, 23:59 WIB** |
 | **Kecepatan** | 20 request/menit, 3 request bersamaan |
 | **Endpoint** | `/v1` untuk aplikasi, `/coding/v1` untuk coding agent |
-| **Model default** | DeepSeek V4.1 Flash |
+| **Model default** | DeepSeek V4.1 Flash<br>[+ 7 model lain, lihat slide berikutnya]{style="font-size: 0.8em; color: #666;"} |
 
 :::
-::: {.column width="45%"}
+::: {.column width="38%"}
 
-![](images/devfest.png){width=320 fig-align="center"}
-
-:::
-::::
+![](images/devfest.png){width=260 fig-align="center"}
 
 ::: {.callout-note}
 ### Gratis, tanpa kartu
 Kuota ini disponsori Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
+:::
+
+:::
+::::
+
+## Model yang Tersedia {#model}
+
+Satu API key, ganti model cukup ubah parameter `model`. Dikelompokkan dari yang paling hemat kuota:
+
+:::: {.columns}
+::: {.column width="33%"}
+### Hemat
+
+- ![](images/model-logos/meta-color.png){.model-logo} Muse Spark 1.3
+- ![](images/model-logos/qwen-color.png){.model-logo} Qwen 3.8 Flash
+- ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Luna
+:::
+::: {.column width="33%"}
+### Menengah
+
+- ![](images/model-logos/deepseek-color.png){.model-logo} **DeepSeek V4.1 Flash** (default)
+- ![](images/model-logos/hunyuan.png){.model-logo} Hy3
+- ![](images/model-logos/gemini-color.png){.model-logo} Gemini 3.8 Flash
+:::
+::: {.column width="33%"}
+### Premium
+
+- ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Terra
+- ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Sol
+:::
+::::
+
+::: {.callout-tip}
+### Pilih sesuai tugas
+Mulai dari model hemat atau default. Naik ke premium hanya untuk tugas yang memang butuh.
 :::
 
 ## Klaim dalam 3 Langkah {#klaim}
@@ -130,8 +162,9 @@ Kuota ini disponsori Orvix untuk sprint. Tidak perlu top-up untuk memakainya.
 
 ![](images/qr-join.png){width=300 fig-align="center"}
 
-<div style="text-align: center; font-size: 0.9em;">
-**platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026**
+<div class="claim-url">
+<span class="claim-host">platform.orvix.id/e/</span>
+<span class="claim-code">ROAD-TO-DEVFEST-JKT-2026</span>
 </div>
 
 :::
@@ -174,40 +207,51 @@ print(reply.choices[0].message.content)
 
 Pasang plugin Orvix di harness favorit Anda:
 
-```bash
-opencode plugin add @orvix-id/opencode     # OpenCode
-pi install npm:@orvix-id/pi                # Pi
-omp plugin install @orvix-id/omp           # omp
-```
+<div class="harness-grid">
+<div class="harness-card" style="--accent: #4285F4;">
+<div class="harness-logo"><img src="images/harness-logos/opencode.svg" alt="OpenCode"></div>
+<div class="harness-name">OpenCode</div>
+<code>opencode plugin add @orvix-id/opencode</code>
+</div>
+<div class="harness-card" style="--accent: #EA4335;">
+<div class="harness-logo"><img src="images/harness-logos/pi.svg" alt="Pi"></div>
+<div class="harness-name">Pi</div>
+<code>pi install npm:@orvix-id/pi</code>
+</div>
+<div class="harness-card" style="--accent: #FBBC04;">
+<div class="harness-logo"><img src="images/harness-logos/omp.svg" alt="omp"></div>
+<div class="harness-name">omp</div>
+<code>omp plugin install @orvix-id/omp</code>
+</div>
+</div>
 
 ```bash
 export ORVIX_CODING_API_KEY="orv-sk_live_..."   # key dengan scope coding:invoke
 ```
 
-Endpoint-nya `https://api.orvix.id/coding/v1`. Plugin yang mengurus sisanya, termasuk hal yang akan kita bahas setelah ini: **session id untuk cache**.
+<div class="harness-note">
+Endpoint: <code>https://api.orvix.id/coding/v1</code>. Plugin yang mengurus sisanya, termasuk yang kita bahas setelah ini: <strong>session id untuk cache</strong>.
+</div>
 
-## Kuota Dihitung Setara Gemini {#bobot .smaller}
+## Kuota Dihitung Setara Gemini {#bobot .smaller .dense}
 
-Tiap model punya bobot: **1 token di model berbobot 2 = 2 token kuota.** Token dari cache dihitung **10%**.
+Tiap model memotong kuota dengan laju berbeda. Token dari cache hanya dihitung **10%**.
 
-| Model | Bobot | Kuota per giliran agent* | Giliran per hari (batas 30 jt) |
-|:---|---:|---:|---:|
-| Atria Dawn Preview | 0,01 | 253 | 118.577 |
-| Muse Spark 1.3 | 0,11 | 2.777 | 10.803 |
-| Qwen 3.8 Flash | 0,20 | 5.049 | 5.941 |
-| GPT-5.6 Luna | 0,28 | 7.068 | 4.244 |
-| **DeepSeek V4.1 Flash** | **0,48** | **12.116** | **2.476** |
-| Hy3 | 0,58 | 14.640 | 2.049 |
-| Hy4 Preview | 0,78 | 19.688 | 1.523 |
-| Gemini 3.8 Flash | 1,00 | 25.241 | 1.188 |
-| GPT-5.6 Terra | 2,73 | 68.908 | 435 |
-| GPT-5.6 Sol | 6,82 | 172.144 | 174 |
+| Model | Kuota per giliran agent* | Giliran per hari (batas 30 jt) |
+|:---|---:|---:|
+| ![](images/model-logos/meta-color.png){.model-logo} Muse Spark 1.3 | 2.777 | 10.803 |
+| ![](images/model-logos/qwen-color.png){.model-logo} Qwen 3.8 Flash | 5.049 | 5.941 |
+| ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Luna | 7.068 | 4.244 |
+| ![](images/model-logos/deepseek-color.png){.model-logo} **DeepSeek V4.1 Flash** | **12.116** | **2.476** |
+| ![](images/model-logos/hunyuan.png){.model-logo} Hy3 | 14.640 | 2.049 |
+| ![](images/model-logos/gemini-color.png){.model-logo} Gemini 3.8 Flash | 25.241 | 1.188 |
+| ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Terra | 68.908 | 435 |
+| ![](images/model-logos/openai.png){.model-logo} GPT-5.6 Sol | 172.144 | 174 |
 
 [* giliran agent rata-rata di Orvix: 142.750 token input (92% dari cache) + 688 token output, data 30 hari Oktober 2026. Tanpa cache, angkanya ±5,7× lebih besar.]{style="font-size: 0.8em; color: #666;"}
 
-::: {.callout-tip}
-### Cache yang bagus = kuota lebih awet
-Dua hal yang paling menentukan: **model yang Anda pilih** dan **seberapa sering prompt Anda kena cache**. Keduanya kita bahas di talk berikutnya.
+::: {.notes}
+Cache yang bagus = kuota lebih awet. Dua hal yang paling menentukan: model yang dipilih dan seberapa sering prompt kena cache. Keduanya dibahas di talk berikutnya.
 :::
 
 # Tech Talk {#talk background-color="#2c3e50"}
@@ -216,7 +260,7 @@ Token Efficiency
 ## Sesi Ini {#agenda}
 
 1. Dasar: token itu apa
-2. Tiga tuas token efficiency
+2. Tiga cheat code token efficiency
 3. Prompt caching: cara kerja dan aturan mainnya
 4. **Level aplikasi**: AI-native apps
 5. **Level agentic coding workflow**: OpenCode, Pi, omp, dan pelajaran dari Orvix Coding
@@ -246,11 +290,11 @@ token ID jawaban  →  detokenize  →  teks jawaban
 
 Semua batasan dihitung dalam token:
 
-- **Harga**: per 1 juta token input dan output
+- **Harga**: dijual per 1 juta token (**MTok**), seperti listrik per kWh.<br>Contoh Gemini 3.8 Flash: **$0,75/MTok** input, **$3,75/MTok** output
 - **Context window**: berapa token yang muat sekali kirim
 - **Rate limit dan kuota**: termasuk kuota sprint Anda
 
-## Token Bukan Kata {#token-bukan-kata .smaller}
+## Token Bukan Kata {#token-bukan-kata .smaller .dense}
 
 Diukur dengan tokenizer `o200k_base`:
 
@@ -275,6 +319,14 @@ Kalimat yang sama, permintaan bikin fungsi + unit test:
 Tapi untuk **system prompt yang dikirim ribuan kali**, 27% itu terasa.
 :::
 
+## Coba Sendiri {#demo-tokenizer .center}
+
+<div class="demo-link">
+<a href="https://tiktokenizer.vercel.app" target="_blank">tiktokenizer.vercel.app</a>
+</div>
+
+Ketik kalimat yang sama dalam English dan Indonesia, lalu bandingkan jumlah tokennya.
+
 ## Format Data Juga Token {#format .smaller}
 
 20 baris produk yang sama:
@@ -288,6 +340,73 @@ Tapi untuk **system prompt yang dikirim ribuan kali**, 27% itu terasa.
 ::: {.callout-tip}
 ### Untuk konteks yang hanya dibaca model
 Kirim tabel sebagai CSV, bukan JSON rapi. **3,2× lebih hemat** dan model tetap paham.
+:::
+
+## Coba Sendiri: Format Data {#demo-format .smaller}
+
+Copy ketiganya ke **tiktokenizer.vercel.app**, bandingkan jumlah tokennya. Datanya sama persis.
+
+::: {.panel-tabset}
+
+### JSON rapi
+
+```json
+[
+  {
+    "id": 1,
+    "nama": "Kopi Susu Gula Aren",
+    "kategori": "Minuman",
+    "harga": 18000,
+    "stok": 42
+  },
+  {
+    "id": 2,
+    "nama": "Nasi Goreng Kampung",
+    "kategori": "Makanan",
+    "harga": 25000,
+    "stok": 15
+  },
+  {
+    "id": 3,
+    "nama": "Teh Tarik",
+    "kategori": "Minuman",
+    "harga": 12000,
+    "stok": 30
+  },
+  {
+    "id": 4,
+    "nama": "Mie Ayam Bakso",
+    "kategori": "Makanan",
+    "harga": 22000,
+    "stok": 8
+  },
+  {
+    "id": 5,
+    "nama": "Pisang Goreng",
+    "kategori": "Camilan",
+    "harga": 10000,
+    "stok": 25
+  }
+]
+```
+
+### JSON minified
+
+```json
+[{"id":1,"nama":"Kopi Susu Gula Aren","kategori":"Minuman","harga":18000,"stok":42},{"id":2,"nama":"Nasi Goreng Kampung","kategori":"Makanan","harga":25000,"stok":15},{"id":3,"nama":"Teh Tarik","kategori":"Minuman","harga":12000,"stok":30},{"id":4,"nama":"Mie Ayam Bakso","kategori":"Makanan","harga":22000,"stok":8},{"id":5,"nama":"Pisang Goreng","kategori":"Camilan","harga":10000,"stok":25}]
+```
+
+### CSV
+
+```csv
+id,nama,kategori,harga,stok
+1,Kopi Susu Gula Aren,Minuman,18000,42
+2,Nasi Goreng Kampung,Makanan,25000,15
+3,Teh Tarik,Minuman,12000,30
+4,Mie Ayam Bakso,Makanan,22000,8
+5,Pisang Goreng,Camilan,10000,25
+```
+
 :::
 
 ## Habisnya di Input, Bukan Output {#habis-di-input}
@@ -305,17 +424,71 @@ Data nyata traffic Orvix, 30 hari terakhir:
 Yang Anda bayar adalah **konteks yang dikirim ulang setiap giliran**. Di situ caching bekerja.
 :::
 
-## Tiga Tuas Token Efficiency {#tiga-tuas}
+## Contoh: Agent Benerin Bug Login {#contoh-agent}
 
-| Tuas | Pertanyaannya | Contoh |
+Input **menumpuk** tiap giliran. Output-nya? **Cuma satu tool call.**
+
+<div class="turns">
+
+<div class="tcol">
+<div class="tname">Giliran 1</div>
+<div class="tstack">
+<div class="tb new">System prompt + 8 definisi tool</div>
+<div class="tb new">User: "benerin bug login"</div>
+</div>
+<div class="tdown">↓ model jawab</div>
+<div class="tcall">read_file("auth.ts")</div>
+</div>
+
+<div class="tarrow">isi file<br>masuk<br>input<br>➜</div>
+
+<div class="tcol">
+<div class="tname">Giliran 2</div>
+<div class="tstack">
+<div class="tb old">System prompt + 8 definisi tool</div>
+<div class="tb old">User: "benerin bug login"</div>
+<div class="tb old">read_file("auth.ts")</div>
+<div class="tb new big">Isi auth.ts (300 baris)</div>
+</div>
+<div class="tdown">↓ model jawab</div>
+<div class="tcall">run_command("npm test")</div>
+</div>
+
+<div class="tarrow">hasil test<br>masuk<br>input<br>➜</div>
+
+<div class="tcol">
+<div class="tname">Giliran 3</div>
+<div class="tstack">
+<div class="tb old">System prompt + 8 definisi tool</div>
+<div class="tb old">User: "benerin bug login"</div>
+<div class="tb old">read_file("auth.ts")</div>
+<div class="tb old big">Isi auth.ts (300 baris)</div>
+<div class="tb old">run_command("npm test")</div>
+<div class="tb new big">Output test (200 baris)</div>
+</div>
+<div class="tdown">↓ model jawab</div>
+<div class="tcall">edit_file("auth.ts", ...)</div>
+</div>
+
+</div>
+
+<div class="tlegend">
+<span><i class="sw sw-old"></i> sudah pernah dikirim, dikirim lagi</span>
+<span><i class="sw sw-new"></i> baru di giliran ini</span>
+<span><i class="sw sw-call"></i> output model: cuma tool call</span>
+</div>
+
+## 3 Cheat Code Hemat Token {#tiga-tuas}
+
+| Cheat code | Pertanyaannya | Contoh |
 |:---|:---|:---|
 | **1. Kirim lebih sedikit** | token apa yang sebenarnya tidak perlu? | CSV bukan JSON rapi, riwayat dipangkas, RAG hanya chunk relevan, `max_tokens` |
 | **2. Jangan bayar dua kali** | token apa yang dikirim ulang terus? | **prompt caching**, response cache |
 | **3. Bayar lebih murah per token** | model sebesar apa yang benar-benar perlu? | model kecil untuk tugas kecil, model besar saat perlu |
 
 ::: {.callout-important}
-### Untuk agent, tuas 2 paling besar
-92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas tuas 2, tanpa melupakan 1 dan 3.
+### Untuk agent, cheat code 2 paling ngefek
+92% input agent adalah token yang sudah pernah dikirim. Sisa sesi ini banyak membahas cheat code 2, tanpa melupakan 1 dan 3.
 :::
 
 # Prompt Caching {#sec-cache background-color="#2c3e50"}
@@ -323,20 +496,132 @@ Cara kerja dan aturan main
 
 ## Cara Kerjanya {#cara-kerja}
 
-Model memproses prompt dari depan. Kalau **awal prompt** sama persis dengan request sebelumnya, provider tidak perlu menghitung ulang bagian itu.
+Kalau **awal prompt** sama persis dengan request sebelumnya, bagian itu tidak dihitung ulang.
 
+<div class="pc">
+<div class="pc-row"><div class="pc-name">Request 1</div><div class="pc-bar">
+<div class="seg fresh" style="flex:3">system</div><div class="seg fresh" style="flex:3">tools</div><div class="seg fresh" style="flex:2">pesan 1</div>
+<div class="seg empty" style="flex:6"></div></div><div class="pc-tag cold">❄️ cache miss<small>cache masih cold, request ini jadi warm-up</small></div></div>
+<div class="pc-row"><div class="pc-name">Request 2</div><div class="pc-bar">
+<div class="seg cached" style="flex:3">system</div><div class="seg cached" style="flex:3">tools</div><div class="seg cached" style="flex:2">pesan 1</div>
+<div class="seg fresh" style="flex:2">jawaban 1</div><div class="seg fresh" style="flex:2">pesan 2</div>
+<div class="seg empty" style="flex:2"></div></div><div class="pc-tag hot">🔥 cache hit<small>cache sudah warm</small></div></div>
+<div class="pc-row"><div class="pc-name">Request 3</div><div class="pc-bar">
+<div class="seg cached" style="flex:3">system</div><div class="seg cached" style="flex:3">tools</div><div class="seg cached" style="flex:2">pesan 1</div>
+<div class="seg cached" style="flex:2">jawaban 1</div><div class="seg cached" style="flex:2">pesan 2</div>
+<div class="seg fresh" style="flex:2">pesan 3</div></div><div class="pc-tag hot">🔥 cache hit<small>bagian yang hit makin panjang</small></div></div>
+</div>
+
+<div class="pc-legend">
+<span><i class="sw sw-cached"></i> dari cache: murah dan cepat</span>
+<span><i class="sw sw-fresh"></i> dihitung baru: harga penuh</span>
+</div>
+
+<div class="pc-price">
+<div class="pp fresh-p">Input baru<br><b>$0,30</b><br><span>per MTok</span></div>
+<div class="pp-vs">vs</div>
+<div class="pp cached-p">Input dari cache<br><b>$0,006</b><br><span>per MTok</span></div>
+<div class="pp-res">= <b>50× lebih murah</b><br><span>DeepSeek V4.1 Flash, jam sibuk</span></div>
+</div>
+
+## Cache Bertahan Berapa Lama? {#umur-cache}
+
+Chat dengan agent, lalu ditinggal ngopi sejam:
+
+<div class="tl tl-big">
+<div class="tl-ev cold"><b>Request 1</b><br>jam 10:00<br><span>❄️ cache miss (cold)</span></div>
+<div class="tl-gap">30 detik</div>
+<div class="tl-ev hot"><b>Request 2</b><br>jam 10:00:30<br><span>🔥 cache hit (warm)</span></div>
+<div class="tl-gap">1 jam</div>
+<div class="tl-ev ask"><b>Request 3</b><br>jam 11:00<br><span>❓ masih hit?</span></div>
+</div>
+
+Request 3 masih dapat harga cache, atau bayar penuh lagi?
+
+## Jawabannya: Tergantung Provider {#umur-cache-jawaban .smaller}
+
+Cache punya **umur**, tiap provider beda:
+
+| Provider | Umur cache | Request 3 (1 jam kemudian) |
+|:-----------------|:----------------------------------|:----------------------|
+| Claude (default) | **5 menit**, timer di-reset tiap cache hit | ❄️ cold lagi |
+| Claude (TTL 1 jam) | **1 jam**, tapi biaya tulis cache 2× | ⚠️ pas di batas, anggap cold |
+| Gemini (explicit) | TTL atur sendiri (**default 1 jam**), bayar simpan per jam | ✅ kalau TTL dibuat > 1 jam |
+| Gemini (implicit) | otomatis, **umurnya tidak dijamin** | 🤷 bisa ya, bisa tidak |
+| DeepSeek | otomatis, dibuang kalau nganggur (**biasanya jam–hari**) | ✅ kemungkinan besar masih |
+
+::: {.callout-tip}
+### Cache itu seperti makanan di meja prasmanan
+Selama ada yang ambil, tetap disajikan. Nganggur kelamaan, dibereskan. Jeda panjang = mulai dari nol.
+:::
+
+[Sumber: dokumentasi caching Anthropic, Gemini API, DeepSeek (Okt 2026). Semua best-effort, tidak dijamin 100% hit.]{style="font-size: 0.75em; color: #666;"}
+
+## Atur TTL di Kode {#ttl-kode .smaller}
+
+::: {.panel-tabset}
+
+### Claude
+
+```python
+response = client.messages.create(
+    model="claude-opus-5-5",
+    max_tokens=1024,
+    system=[{
+        "type": "text",
+        "text": SYSTEM_PROMPT_PANJANG,
+        "cache_control": {"type": "ephemeral"},                # TTL 5 menit (default)
+        # "cache_control": {"type": "ephemeral", "ttl": "1h"}  # TTL 1 jam, tulis cache 2×
+    }],
+    messages=[{"role": "user", "content": "Halo!"}],
+)
+
+print(response.usage.cache_creation_input_tokens)  # warm-up: ditulis ke cache
+print(response.usage.cache_read_input_tokens)      # cache hit
 ```
-Request 1:  [system][tools][pesan 1]                          → hitung semua
-Request 2:  [system][tools][pesan 1][jawaban 1][pesan 2]      → bagian awal = cache hit
-Request 3:  [system][tools][pesan 1][jawaban 1][pesan 2][...] → cache hit makin panjang
+
+### Gemini
+
+```python
+cache = client.caches.create(
+    model="gemini-3.8-flash",
+    config=types.CreateCachedContentConfig(
+        system_instruction=SYSTEM_PROMPT_PANJANG,
+        ttl="3600s",                     # default 1 jam kalau tidak diisi
+    ),
+)
+
+response = client.models.generate_content(
+    model="gemini-3.8-flash",
+    contents="Halo!",
+    config=types.GenerateContentConfig(cached_content=cache.name),
+)
+
+client.caches.update(                    # perpanjang sebelum habis
+    name=cache.name,
+    config=types.UpdateCachedContentConfig(ttl="7200s"),
+)
 ```
 
-| DeepSeek V4 Flash | Harga per 1 jt token |
-|:---|---:|
-| Input baru | $0,44 |
-| Input dari cache | **$0,014** |
+### DeepSeek
 
-**31× lebih murah**, dan biasanya lebih cepat karena tidak dihitung ulang.
+```python
+response = client.chat.completions.create(   # base_url="https://api.deepseek.com"
+    model="deepseek-flash",
+    messages=[
+        {"role": "system", "content": SYSTEM_PROMPT_PANJANG},
+        {"role": "user", "content": "Halo!"},
+    ],
+)
+# Tidak ada parameter TTL: cache otomatis, dibuang kalau nganggur
+
+print(response.usage.prompt_cache_hit_tokens)   # cache hit
+print(response.usage.prompt_cache_miss_tokens)  # dihitung baru
+```
+
+:::
+
+[Kode diambil dari dokumentasi resmi Anthropic, Google Gemini API, dan DeepSeek (Okt 2026).]{style="font-size: 0.75em; color: #666;"}
 
 ## Aturan #1: Prefix Harus Identik {#aturan-prefix}
 
@@ -373,13 +658,42 @@ Yang berubah ditaruh **paling belakang**
 
 Cache disimpan di **server provider yang melayani request Anda**, untuk **model itu**, dalam **jangka waktu terbatas**.
 
-- Ganti model di tengah sesi → cache mulai dari nol
+- Ganti model di tengah sesi → cache mulai dari nol (**mahal**, lihat slide berikut)
 - Load balancer yang melempar request acak ke banyak upstream → hit rate jatuh
 - Sesi diam terlalu lama → cache kedaluwarsa
 
 ::: {.callout-note}
 ### Ini masalah gateway, bukan cuma masalah prompt
 Di Orvix, request yang satu sesi **ditempel ke route yang sama** (sticky routing). Detailnya di bagian agentic coding workflow.
+:::
+
+## Ganti ke Model Frontier 💸 {#ganti-model .smaller}
+
+Di tengah sesi agent (giliran 30, konteks 142 rb token): *"Pakai model paling jago aja deh."*
+
+<div class="sw-flow">
+<div class="sw-card cheap"><div class="sw-t">Giliran 30</div><div class="sw-m">DeepSeek V4.1 Flash<br>cache warm</div><div class="sw-p">$0,004</div></div>
+<div class="sw-arrow">ganti<br>model<br>➜</div>
+<div class="sw-card pricey"><div class="sw-t">Giliran 31</div><div class="sw-m">Claude Fable 5.1<br>cache kosong</div><div class="sw-p">$1,43</div></div>
+<div class="sw-result">≈ <b>340×</b><br>lebih mahal<br><span>untuk satu giliran</span></div>
+</div>
+
+Kenapa mahalnya dobel:
+
+1. **Cache milik model lama, tidak ikut pindah** → 142 rb token dihitung ulang dari nol
+2. **Harga per token frontier jauh lebih tinggi** → $10 vs $0,30 per MTok, **33×**
+
+::: {.callout-tip}
+### Butuh model jago? Jangan pindahkan sesi yang sudah gemuk
+Pilih model di awal sesi. Untuk sub-tugas yang butuh model frontier, buka sesi baru dengan konteks kecil, atau ringkas dulu sebelum ganti.
+:::
+
+[Input saja. DeepSeek jam sibuk; Claude Fable 5.1 input $10/MTok.]{style="font-size: 0.75em; color: #666;"}
+
+::: {.notes}
+Setelah cache Fable warm pun, tiap giliran masih $0,147, kira-kira 35x lebih mahal dari DeepSeek yang cache-nya warm.
+Kalau giliran 31 sekaligus menulis cache 5 menit (biaya tulis 1,25x), biayanya jadi $1,78.
+Claude Fable 5.1 cache read $0,25/MTok.
 :::
 
 ## Cara Mengukur {#ukur}
@@ -410,32 +724,39 @@ Kalau **cache hit rate** tidak pernah Anda lihat, Anda tidak tahu sedang membaya
 # Level Aplikasi {#sec-app background-color="#2c3e50"}
 AI-native apps: chatbot, asisten, RAG
 
-## Anatomi Request Aplikasi {#anatomi-app .smaller}
+## Anatomi Request Aplikasi {#anatomi-app}
 
-| Bagian | Seberapa sering berubah | Taruh di |
-|:---|:---|:---|
-| Instruksi produk, persona, aturan | hampir tidak pernah | **paling depan** |
-| Definisi tools / schema output | per rilis | depan |
-| Profil user (nama, preferensi) | per user | tengah |
-| Riwayat percakapan | bertambah tiap giliran | belakang |
-| Dokumen hasil retrieval (RAG) | per pertanyaan | belakang |
-| Waktu sekarang, pertanyaan baru | tiap request | **paling belakang** |
+Urutkan dari yang **paling stabil** ke yang **paling sering berubah**:
 
-**Urutkan dari yang paling stabil ke yang paling sering berubah.**
+<div class="anat">
+<div class="anat-axis"><span>🧊 stabil</span><div class="anat-line"></div><span>🔥 berubah terus</span></div>
+<div class="anat-stack">
+<div class="ab" style="--c:#1a73e8"><b>Instruksi produk, persona, aturan</b><i>hampir tidak pernah</i></div>
+<div class="ab" style="--c:#4285F4"><b>Definisi tools / schema output</b><i>per rilis</i></div>
+<div class="ab" style="--c:#8e7cc3"><b>Profil user (nama, preferensi)</b><i>per user</i></div>
+<div class="ab" style="--c:#e37400"><b>Riwayat percakapan</b><i>bertambah tiap giliran</i></div>
+<div class="ab" style="--c:#EA4335"><b>Dokumen hasil retrieval (RAG)</b><i>per pertanyaan</i></div>
+<div class="ab" style="--c:#c5221f"><b>Waktu sekarang, pertanyaan baru</b><i>tiap request</i></div>
+</div>
+<div class="anat-zones">
+<div class="az hit" style="flex:3">✅ hampir selalu<br>cache hit</div>
+<div class="az part" style="flex:1">◐ sebagian hit</div>
+<div class="az miss" style="flex:2">❌ dihitung baru</div>
+</div>
+</div>
 
-## Pembunuh Cache yang Sering Tidak Sadar {#pembunuh-app}
+## Pembunuh Cache Diam-Diam 🔪 {#pembunuh-app}
 
-1. **Timestamp atau request id di system prompt**
-2. **Nama user di kalimat pertama** ("Halo Budi, kamu adalah asisten…") → tiap user punya prefix sendiri
-3. **Urutan tools atau key JSON acak** (dict yang tidak terurut, tools dari plugin yang dimuat paralel)
-4. **Dokumen RAG diselipkan sebelum instruksi**
-5. **A/B test prompt per request**, bukan per user/sesi
-6. **Riwayat diringkas ulang tiap giliran** → seluruh tengah prompt berubah
+<div class="killers">
+<div class="kc"><div class="kc-ico">⏰</div><div class="kc-t">Timestamp di system prompt</div><div class="kc-bad">❌ "Hari ini 17 Okt 10:31:07"</div><div class="kc-good">✅ taruh di pesan terakhir</div></div>
+<div class="kc"><div class="kc-ico">👋</div><div class="kc-t">Nama user di kalimat pertama</div><div class="kc-bad">❌ "Halo Budi, kamu adalah…"</div><div class="kc-good">✅ profil user setelah instruksi</div></div>
+<div class="kc"><div class="kc-ico">🔀</div><div class="kc-t">Urutan tools / key JSON acak</div><div class="kc-bad">❌ dict tak terurut, plugin paralel</div><div class="kc-good">✅ urutkan tools, <code>sort_keys=True</code></div></div>
+<div class="kc"><div class="kc-ico">📄</div><div class="kc-t">Dokumen RAG sebelum instruksi</div><div class="kc-bad">❌ [dokumen][instruksi]</div><div class="kc-good">✅ [instruksi][dokumen]</div></div>
+<div class="kc"><div class="kc-ico">🎲</div><div class="kc-t">A/B test per request</div><div class="kc-bad">❌ prompt diacak tiap request</div><div class="kc-good">✅ acak per user atau sesi</div></div>
+<div class="kc"><div class="kc-ico">📝</div><div class="kc-t">Riwayat diringkas tiap giliran</div><div class="kc-bad">❌ tengah prompt berubah total</div><div class="kc-good">✅ jarang diringkas, cukup append</div></div>
+</div>
 
-::: {.callout-warning}
-### Gejalanya
-`cached_tokens` selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.
-:::
+<div class="symptom">🩺 <b>Gejalanya:</b> <code>cached_tokens</code> selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.</div>
 
 ## Sebelum vs Sesudah {#before-after}
 
@@ -468,93 +789,148 @@ messages = [
 
 Isi informasinya **sama**. Yang berubah cuma urutannya.
 
-## Tuas 1 di Aplikasi: Kirim Lebih Sedikit {#kirim-sedikit .smaller}
+## Cheat Code 1: Kirim Lebih Sedikit {#kirim-sedikit}
 
-| Sumber token | Optimasi |
-|:---|:---|
-| Riwayat chat | jendela N giliran terakhir + ringkasan di **batas topik**, bukan tiap giliran |
-| Dokumen RAG | top-k yang benar-benar relevan; potong boilerplate (header, footer, navigasi) |
-| Data tabel | CSV atau daftar ringkas, bukan JSON rapi |
-| Definisi tools | hanya tools yang relevan untuk alur itu; deskripsi singkat dan jelas |
-| Output | `max_tokens` sesuai kebutuhan; structured output untuk jawaban yang diproses mesin |
+<div class="killers savers">
+<div class="kc"><div class="kc-ico">🪵</div><div class="kc-t">Output tool</div><div class="kc-bad">❌ 5.000 baris log test masuk konteks</div><div class="kc-good">✅ error + 50 baris terakhir (<code>| tail -50</code>)</div></div>
+<div class="kc"><div class="kc-ico">📂</div><div class="kc-t">Baca file</div><div class="kc-bad">❌ seluruh file 2.000 baris</div><div class="kc-good">✅ baris yang perlu saja (<code>read_file(path, offset, limit)</code>)</div></div>
+<div class="kc"><div class="kc-ico">🧰</div><div class="kc-t">Definisi tools</div><div class="kc-bad">❌ 40 tools dimuat di semua request</div><div class="kc-good">✅ hanya tools untuk alur itu</div></div>
+<div class="kc"><div class="kc-ico">🖼️</div><div class="kc-t">Gambar</div><div class="kc-bad">❌ screenshot resolusi penuh</div><div class="kc-good">✅ perkecil dulu, token gambar ikut resolusi</div></div>
+<div class="kc"><div class="kc-ico">🧠</div><div class="kc-t">Thinking</div><div class="kc-bad">❌ effort tinggi untuk semua tugas</div><div class="kc-good">✅ effort rendah untuk tugas ringan, thinking dibayar sebagai output</div></div>
+<div class="kc"><div class="kc-ico">📄</div><div class="kc-t">Dokumen RAG</div><div class="kc-bad">❌ dokumen utuh + header, footer, navigasi</div><div class="kc-good">✅ chunk yang relevan saja</div></div>
+</div>
 
-::: {.callout-warning}
-### Jangan bentrok dengan tuas 2
-Memangkas riwayat **setiap giliran** mengubah prefix → cache hilang. Pangkas jarang, di batas yang jelas.
-:::
+<div class="principle">💡 Yang masuk konteks: <b>yang dibutuhkan untuk langkah berikutnya</b>, bukan semua yang tersedia.</div>
 
-## Selain Prompt Cache {#cache-lain .smaller}
+## Selain Prompt Cache {#cache-lain}
 
-| Jenis | Kapan berguna | Hati-hati |
-|:---|:---|:---|
-| **Prompt cache** (provider) | hampir selalu; otomatis di banyak provider asal prefix stabil | prefix harus identik |
-| **Response cache** (Redis, hash request) | pertanyaan identik: FAQ, klasifikasi, ekstraksi ulang | jangan untuk jawaban personal atau yang bergantung waktu |
-| **Embedding cache** | dokumen yang sama di-embed berulang | invalidasi saat dokumen berubah |
-| **Hasil tool** | API eksternal yang lambat atau berbayar | TTL sesuai seberapa cepat datanya basi |
+Satu request lewat beberapa titik. Tiap titik bisa punya cache sendiri:
 
-::: {.callout-tip}
-### Urutan prioritas
-Bereskan **prompt cache** dulu. Tidak butuh infrastruktur baru, cukup disiplin urutan.
-:::
+<div class="route">
+<div class="route-end">🙋<br>request</div>
+<div class="stop"><div class="stop-ico">💬</div><div class="stop-t">Response cache</div><div class="stop-d">Pertanyaan sama persis? Kembalikan jawaban lama. <b>0 token.</b></div><div class="stop-ok">Cocok: FAQ, klasifikasi</div><div class="stop-w">⚠️ jangan untuk jawaban personal atau berbasis waktu</div></div>
+<div class="route-arrow">➜</div>
+<div class="stop"><div class="stop-ico">🧮</div><div class="stop-t">Embedding cache</div><div class="stop-d">Dokumen yang sama tidak di-embed ulang.</div><div class="stop-ok">Cocok: RAG</div><div class="stop-w">⚠️ hapus saat dokumennya berubah</div></div>
+<div class="route-arrow">➜</div>
+<div class="stop"><div class="stop-ico">🔧</div><div class="stop-t">Tool cache</div><div class="stop-d">Hasil API eksternal disimpan dulu.</div><div class="stop-ok">Cocok: API lambat atau berbayar</div><div class="stop-w">⚠️ TTL sesuai seberapa cepat datanya basi</div></div>
+<div class="route-arrow">➜</div>
+<div class="stop star"><div class="stop-ico">⚡</div><div class="stop-t">Prompt cache</div><div class="stop-d">Prefix sama? Input jauh lebih murah.</div><div class="stop-ok">Otomatis di provider</div><div class="stop-w">⚠️ prefix harus identik</div></div>
+<div class="route-arrow">➜</div>
+<div class="route-end">🤖<br>model</div>
+</div>
+
+<div class="principle">⭐ <b>Mulai dari prompt cache.</b> Tidak butuh infrastruktur baru, cukup disiplin urutan prompt.</div>
 
 # Level Agentic Coding Workflow {#sec-agent background-color="#2c3e50"}
 OpenCode, Pi, omp
 
-## Kenapa Agent Sangat Bergantung pada Cache {#agent-loop}
+## Agent Hidup dari Cache {#agent-loop}
 
-Setiap giliran, agent mengirim **seluruh** percakapan lagi: system prompt, definisi tools, semua file yang sudah dibaca, semua hasil command.
+Tiap giliran, agent mengirim **seluruh** percakapan lagi. Makin lama sesi, makin besar yang dikirim ulang:
 
-```
-giliran 1:   12 rb token
-giliran 10:  80 rb token
-giliran 30: 140 rb token   ← 92% di antaranya sudah pernah dikirim
-```
-[Pertumbuhan per giliran adalah ilustrasi; 140 rb dan 92% adalah rata-rata nyata request agent di Orvix.]{style="font-size: 0.75em; color: #666;"}
+<div class="grow">
+<div class="grow-row"><div class="grow-name">Giliran 1</div><div class="grow-track"><div class="grow-bar" style="width:8.6%"><div class="g-new" style="flex:1"></div></div></div><div class="grow-val">12 rb</div></div>
+<div class="grow-row"><div class="grow-name">Giliran 10</div><div class="grow-track"><div class="grow-bar" style="width:57%"><div class="g-cached" style="flex:9"></div><div class="g-new" style="flex:1"></div></div></div><div class="grow-val">80 rb</div></div>
+<div class="grow-row"><div class="grow-name">Giliran 30</div><div class="grow-track"><div class="grow-bar" style="width:100%"><div class="g-cached" style="flex:92"><span>92% sudah pernah dikirim → cache</span></div><div class="g-new" style="flex:8"></div></div></div><div class="grow-val">140 rb</div></div>
+</div>
 
-Satu giliran agent di DeepSeek V4 Flash (input saja):
+<div class="grow-legend"><span><i class="sw sw-cached"></i> dari cache</span><span><i class="sw sw-fresh"></i> baru</span><span class="grow-note">Pertumbuhan per giliran ilustrasi; 140 rb dan 92% rata-rata nyata agent di Orvix.</span></div>
 
-| | Biaya |
-|:---|---:|
-| Tanpa cache | $0,063 |
-| Dengan 92% cache | **$0,007** |
+<div class="pc-price">
+<div class="pp fresh-p">Tanpa cache<br><b>$0,043</b><br><span>per giliran</span></div>
+<div class="pp-vs">vs</div>
+<div class="pp cached-p">Dengan cache 92%<br><b>$0,004</b><br><span>per giliran</span></div>
+<div class="pp-res">= <b>≈ 10× lebih murah</b><br><span>pekerjaan sama persis<br>DeepSeek V4.1 Flash, jam sibuk, input saja</span></div>
+</div>
 
-**≈ 9× lebih murah**, untuk pekerjaan yang sama persis.
+## Satu Sesi, Satu Server {#orvix-1}
 
-## Yang Kami Lakukan di Orvix Coding (1) {#orvix-1}
+Cache tinggal di server yang melayani request. Dilempar acak = cache tidak ketemu.
 
-### Sticky routing per sesi
+<div class="lb">
+<div class="lb-row bad">
+<div class="lb-tag">❌ Load balancer acak</div>
+<div class="lb-req">req 1 → <b>A</b> <span class="m">miss</span></div>
+<div class="lb-req">req 2 → <b>C</b> <span class="m">miss</span></div>
+<div class="lb-req">req 3 → <b>B</b> <span class="m">miss</span></div>
+</div>
+<div class="lb-row good">
+<div class="lb-tag">✅ Sticky per sesi</div>
+<div class="lb-req">req 1 → <b>A</b> <span class="m">miss</span></div>
+<div class="lb-req">req 2 → <b>A</b> <span class="h">hit</span></div>
+<div class="lb-req">req 3 → <b>A</b> <span class="h">hit</span></div>
+</div>
+</div>
 
-Request dari satu sesi agent harus mendarat di **upstream yang sama**, supaya cache-nya ketemu.
+Caranya:
 
-- Plugin Orvix menyisipkan **`session_id` ke body request**
-  - OpenCode: hook `http.request`
-  - Pi dan omp: hook `before_provider_request`
-- Gateway memetakan `session → route` di Redis, dipakai bersama oleh semua node
-- Saat failover, sesi pindah ke route baru **sekali**, lalu menempel lagi di situ
+- Harness mengirim **session id** di setiap request
+- Gateway memakai session id itu untuk **memilih upstream yang sama**
+- Kalau upstream mati, sesi pindah **sekali**, lalu menempel di tempat baru
 
 ::: {.callout-note}
-### Pelajaran
-OpenCode sebenarnya sudah mengirim session id, tapi lewat **header**. Kalau gateway Anda tidak membacanya, cache affinity mati diam-diam. Respons kami memberi tanda: `x-orvix-cache-affinity`.
+### Jebakan
+Session id bisa dikirim lewat **header** atau **body**, tergantung harness. Kalau gateway membaca dari tempat yang salah, sticky routing mati **diam-diam**.
 :::
 
-## Yang Kami Lakukan di Orvix Coding (2) {#orvix-2 .smaller}
+## Tagihan & Kuota Harus Sadar Cache {#orvix-2}
 
-### Hitung tagihan dengan tarif cache
+<div class="aware">
+<div class="aw-card">
+<div class="aw-t">🧾 Tagihan</div>
+<div class="aw-d">Token dari cache harus dihitung dengan <b>tarif cache</b>, bukan tarif input penuh.</div>
+<div class="aw-ex">Contoh: prompt 56 rb token, 95% dari cache</div>
+<div class="aw-cmp"><span class="bad">tarif penuh $0,017</span> vs <span class="good">tarif cache $0,0012</span></div>
+<div class="aw-big">≈ 14× selisihnya</div>
+</div>
+<div class="aw-card">
+<div class="aw-t">🚦 Kuota & rate limit</div>
+<div class="aw-d">Estimasi sebelum request biasanya menganggap <b>semua prompt input baru</b>.</div>
+<div class="aw-ex">Di sesi agent yang 90%+ cache, estimasi bisa meleset <b>puluhan kali lipat</b></div>
+<div class="aw-cmp"><span class="bad">user ditolak "kuota habis"</span> padahal masih banyak sisa</div>
+<div class="aw-big">Pakai pemakaian nyata dari <code>usage</code></div>
+</div>
+</div>
 
-Agustus lalu, semua prompt token sempat dihitung pada tarif input penuh, termasuk yang sebenarnya kena cache. Selisihnya bisa **8–10×**.
+[Harga contoh: DeepSeek V4.1 Flash, jam sibuk, input saja.]{style="font-size: 0.75em; color: #666;"}
 
-Satu request nyata: prompt 56.545 token, **53.504 di antaranya dari cache**.
+## Kuota Tinggal 8%, Masih Bisa? {#kuota-bar}
 
-| Dihitung dengan | Biaya |
-|:---|---:|
-| Tarif input penuh (cara lama) | $0,026 |
-| Tarif cache (cara sekarang) | **$0,003** |
+Kuota **10 jt**, sudah terpakai **92%**. Request berikutnya: sesi agent panjang, konteks **1 jt token**, 92% dari cache.
 
-### Estimasi kuota juga harus sadar cache
+<div class="qb">
+<div class="qb-axis"><span style="left:0">🔍 80% (diperbesar)</span><span style="left:48.00%">92%</span><span class="lim" style="left:80.00%">100% = 10 jt</span></div>
+<div class="qb-row">
+<div class="qb-label">Estimasi naif<br><span>semua dihitung baru</span></div>
+<div class="qb-track">
+<div class="qb-over" style="left:80.00%"></div>
+<div class="qb-used" style="width:48.00%">terpakai</div>
+<div class="qb-next bad" style="left:48.00%; width:40.00%">+10%</div>
+<div class="qb-limit" style="left:80.00%"></div>
+</div>
+<div class="qb-verdict bad">❌ ditolak<br><span>"kuota habis"</span></div>
+</div>
+<div class="qb-row">
+<div class="qb-label">Sadar cache<br><span>cache dihitung 10%</span></div>
+<div class="qb-track">
+<div class="qb-over" style="left:80.00%"></div>
+<div class="qb-used" style="width:48.00%">terpakai</div>
+<div class="qb-next good" style="left:48.00%; width:6.88%">+1,7%</div>
+<div class="qb-ghost" style="left:54.88%; width:6.88%">2</div>
+<div class="qb-ghost" style="left:61.76%; width:6.88%">3</div>
+<div class="qb-ghost" style="left:68.64%; width:6.88%">4</div>
+<div class="qb-limit" style="left:80.00%"></div>
+</div>
+<div class="qb-verdict good">✅ lolos<br><span>masih muat ±4 request lagi</span></div>
+</div>
+</div>
 
-Oktober: user ditolak "kuota habis" padahal pemakaian baru **7,7 jt dari 10 jt**. Estimasi menganggap seluruh prompt itu input baru, jadi meleset **22×** dari biaya sebenarnya. Sekarang yang dipakai untuk menolak adalah **pemakaian nyata**, bukan estimasi.
+<div class="qb-math">
+<div><b>Naif:</b> 1 jt token = <b>1 jt</b> kuota (10%) &gt; sisa 800 rb</div>
+<div><b>Sadar cache:</b> 80 rb baru + 920 rb cache × 10% = <b>172 rb</b> kuota (1,7%)</div>
+</div>
 
-## Yang Kami Lakukan di Orvix Coding (3) {#orvix-3 .smaller}
+## Yang Kami Lakukan di Orvix Coding {#orvix-3 .smaller}
 
 ### Request kecil jangan merebut jalur agent
 
@@ -568,19 +944,16 @@ Harness mengirim request pembantu (judul sesi, ringkasan) **paralel** dengan req
 
 Dulu request kecil ini menghabiskan slot concurrency, jadi agent-nya sendiri kena 429. Sekarang ada **dua jalur**: jalur kecil (tanpa tools, ≤ 4.096 token) dan jalur agent.
 
-## Jebakan Harness yang Mengubah Prefix {#jebakan .smaller}
+## Jebakan Harness yang Mengubah Prefix {#jebakan}
 
-| Harness | Perilaku | Efek ke cache |
-|:---|:---|:---|
-| **Pi** | system message di tengah percakapan dilebur ke system message pertama, kecuali `supportsMidConvoSystemMessages` di-set | **awal prompt berubah** → cache dari nol |
-| **omp** | hasil `read` lama ditulis ulang jadi `[Superseded by a newer read of this file]` (kalau sisa percakapan ≤ 8 rb token atau sesi diam ≥ 30 menit) | sengaja: tukar cache dengan konteks lebih pendek |
-| **omp** | deskripsi skill diringkas LLM, sekali per skill baru | system prompt berubah sekali |
-| **OpenCode** | session id dikirim lewat header | gateway harus membacanya (atau pakai plugin) |
+<div class="traps">
+<div class="trap"><div class="trap-logo"><img src="images/harness-logos/pi.svg" alt="Pi"></div><div class="trap-body"><div class="trap-n">Pi</div><div class="trap-d">System message di tengah percakapan <b>dilebur</b> ke system message pertama.</div><div class="trap-e red">🔴 awal prompt berubah → cache dari nol</div></div></div>
+<div class="trap"><div class="trap-logo"><img src="images/harness-logos/omp.svg" alt="omp"></div><div class="trap-body"><div class="trap-n">omp</div><div class="trap-d">Hasil baca file lama <b>diganti catatan pendek</b> saat konteks menipis atau sesi lama diam.</div><div class="trap-e green">🟢 sengaja: tukar cache dengan konteks lebih pendek</div></div></div>
+<div class="trap"><div class="trap-logo"><img src="images/harness-logos/omp.svg" alt="omp"></div><div class="trap-body"><div class="trap-n">omp</div><div class="trap-d">Deskripsi skill baru <b>diringkas</b> sekali oleh LLM.</div><div class="trap-e yellow">🟡 system prompt berubah sekali</div></div></div>
+<div class="trap"><div class="trap-logo"><img src="images/harness-logos/opencode.svg" alt="OpenCode"></div><div class="trap-body"><div class="trap-n">OpenCode</div><div class="trap-d">Session id dikirim lewat <b>header</b>, bukan body.</div><div class="trap-e blue">🔵 gateway harus membaca header itu</div></div></div>
+</div>
 
-::: {.callout-note}
-### Tidak ada yang salah di sini
-Ini pilihan desain. Tapi Anda perlu tahu supaya tidak heran saat tagihan melonjak.
-:::
+<div class="principle">🤷 <b>Bukan bug, ini pilihan desain.</b> Yang penting tahu, biar tidak kaget lihat tagihan.</div>
 
 ## Kebiasaan Ramah Cache Saat Ngoding dengan Agent {#kebiasaan}
 
@@ -610,7 +983,7 @@ Dan begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, angka y
 ## Ringkasan {#ringkasan}
 
 1. Model membaca **token**, bukan huruf. Bahasa, angka, dan format menentukan jumlahnya.
-2. Tiga tuas: **kirim lebih sedikit**, **jangan bayar dua kali**, **bayar lebih murah per token**.
+2. Tiga cheat code: **kirim lebih sedikit**, **jangan bayar dua kali**, **bayar lebih murah per token**.
 3. Token habis di **input**, terutama pada agent: 92% cache, output cuma 0,5%.
 4. Cache cocok **dari depan** dan tinggal **di satu tempat**. Yang stabil di depan; butuh sticky routing.
 5. **Ukur** `cached_tokens`. Agent: **satu tugas, satu sesi, satu model**.
@@ -628,7 +1001,10 @@ Dan begitu aplikasi Anda dipakai orang dan tagihan datang dari provider, angka y
 ![](images/qr-join.png){width=300 fig-align="center"}
 :::
 ::: {.column width="55%"}
-**platform.orvix.id/e/ROAD-TO-DEVFEST-JKT-2026**
+<div class="claim-url left">
+<span class="claim-host">platform.orvix.id/e/</span>
+<span class="claim-code">ROAD-TO-DEVFEST-JKT-2026</span>
+</div>
 
 - 100 juta token, sampai 1 Nov 2026 23:59 WIB
 - `/v1` untuk aplikasi, `/coding/v1` untuk agent
