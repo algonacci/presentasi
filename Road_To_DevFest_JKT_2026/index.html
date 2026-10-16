@@ -816,6 +816,164 @@ token ID jawaban  →  detokenize  →  teks jawaban</code></pre>
 </div>
 </div>
 </section>
+<section id="harness" class="slide level2">
+<h2>Isi Basic Harness</h2>
+<div class="hgrid">
+<div class="hcol">
+<div class="hcol-t basic">
+Basic
+</div>
+<div class="hx">
+<div class="hx-n">
+1
+</div>
+<div class="hx-e">
+📄
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">read_file</span><span class="hx-args">(path)</span></code>
+<div class="hx-d">
+baca isi file
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+2
+</div>
+<div class="hx-e">
+📁
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">list_directory</span><span class="hx-args">(path)</span></code>
+<div class="hx-d">
+lihat isi folder
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+3
+</div>
+<div class="hx-e">
+🔁
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">agent loop</span></code><span class="hx-tag">mesinnya, bukan tool</span>
+<div class="hx-d">
+kirim → model minta tool → jalankan → hasil masuk input → ulangi
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+4
+</div>
+<div class="hx-e">
+✏️
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">edit_file</span><span class="hx-args">(path, old_text, new_text)</span></code><span class="hx-tag">output kecil</span>
+<div class="hx-d">
+ganti potongan teks, bukan tulis ulang file
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+5
+</div>
+<div class="hx-e">
+▶️
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">run_command</span><span class="hx-args">(command)</span></code>
+<div class="hx-d">
+jalankan test, build, git
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+6
+</div>
+<div class="hx-e">
+🔎
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">grep</span><span class="hx-args">(pattern, path)</span></code><span class="hx-tag">daripada baca semua</span>
+<div class="hx-d">
+cari teks di banyak file
+</div>
+</div>
+</div>
+</div>
+<div class="hcol">
+<div class="hcol-t inter">
+Intermediate
+</div>
+<div class="hx">
+<div class="hx-n">
+7
+</div>
+<div class="hx-e">
+🗂️
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">glob</span><span class="hx-args">(pattern)</span></code>
+<div class="hx-d">
+cari file dari pola nama
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+8
+</div>
+<div class="hx-e">
+📑
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">read_file</span><span class="hx-args">(path, offset, limit)</span></code><span class="hx-tag">hemat input</span>
+<div class="hx-d">
+baca sebagian file saja
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+9
+</div>
+<div class="hx-e">
+✅
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">update_plan</span><span class="hx-args">(steps)</span></code>
+<div class="hx-d">
+daftar langkah biar agent tidak tersesat
+</div>
+</div>
+</div>
+<div class="hx">
+<div class="hx-n">
+10
+</div>
+<div class="hx-e">
+🙋
+</div>
+<div class="hx-b">
+<code><span class="hx-fn">ask_user</span><span class="hx-args">(question)</span></code><span class="hx-tag">hemat giliran</span>
+<div class="hx-d">
+tanya user saat ragu
+</div>
+</div>
+</div>
+<div class="hx-note">
+Semua definisi tool ikut dikirim di <b>setiap request</b>. Urutannya harus tetap, karena itu bagian dari prefix yang di-cache.
+</div>
+</div>
+</div>
+</section>
 <section id="contoh-agent" class="slide level2">
 <h2>Contoh: Agent Benerin Bug Login</h2>
 <p>Input <strong>menumpuk</strong> tiap giliran. Output-nya? <strong>Cuma satu tool call.</strong></p>

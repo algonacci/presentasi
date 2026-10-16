@@ -1307,3 +1307,109 @@
 .reveal .trap-e.yellow { background: #fef7e0; color: #b06000; }
 .reveal .trap-e.blue   { background: #e8f0fe; color: #1a73e8; }
 
+
+/* Basic harness tool list */
+.reveal .hgrid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 26px;
+    margin-top: 0.3em;
+}
+
+.reveal .hgrid p {
+    display: contents;
+}
+
+.reveal .hcol {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.reveal .hcol-t {
+    font-weight: bold;
+    font-size: 0.85em;
+    padding: 4px 14px;
+    border-radius: 8px;
+    color: #fff;
+    align-self: flex-start;
+}
+
+.reveal .hcol-t.basic { background: #4285F4; }
+.reveal .hcol-t.inter { background: #a142f4; }
+
+.reveal .hx {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    font-size: 0.74em;
+    line-height: 1.3;
+}
+
+.reveal .hx-n {
+    flex: 0 0 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #dadce0;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal .hx-e {
+    font-size: 1.3em;
+    line-height: 1;
+}
+
+.reveal .hx-b code {
+    font-size: 1em;
+    font-weight: bold;
+    color: #202124;
+    background: none;
+}
+
+.reveal .hx-tag {
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: #e6f4ea;
+    color: #188038;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+.reveal .hx-d {
+    color: #5f6368;
+}
+
+.reveal .hx-note {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #e8f0fe;
+    border-left: 5px solid #4285F4;
+    font-size: 0.72em;
+    line-height: 1.35;
+}
+
+.reveal .hcol:first-child .hx-fn { color: #1a73e8; }
+.reveal .hcol:last-child .hx-fn  { color: #a142f4; }
+
+.reveal .hx-fn,
+.reveal .hx-args {
+    font-weight: bold;
+}
+
+.reveal .hx-args {
+    color: #e37400;
+}
+
+.reveal .hx-b code {
+    font-family: ui-monospace, "SF Mono", Consolas, "Courier New", monospace;
+    letter-spacing: 0;
+}
