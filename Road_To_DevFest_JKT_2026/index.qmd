@@ -349,7 +349,11 @@ Kalimat yang sama, permintaan bikin fungsi + unit test:
 Tapi untuk **system prompt yang dikirim ribuan kali**, 27% itu terasa.
 :::
 
-## Coba Sendiri {#demo-tokenizer .center}
+## Waktunya Demo {#demo-tokenizer .center}
+
+![](./memes/demo.jpg){.nostretch width=480 style="margin: 0 auto; display: block;"}
+
+**Coba sendiri:**
 
 <div class="demo-link">
 <a href="https://tiktokenizer.vercel.app" target="_blank">tiktokenizer.vercel.app</a>
