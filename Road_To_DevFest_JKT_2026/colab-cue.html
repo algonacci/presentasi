@@ -1,0 +1,21 @@
+<div id="colab-cue"></div>
+<script>
+(function () {
+  function setup() {
+    var cue = document.getElementById("colab-cue");
+    document.querySelector(".reveal").appendChild(cue);
+    function update() {
+      var slide = Reveal.getCurrentSlide();
+      var marker = slide && slide.querySelector(".to-colab");
+      cue.textContent = marker ? marker.textContent : "";
+      cue.style.display = marker ? "block" : "none";
+    }
+    Reveal.on("slidechanged", update);
+    update();
+  }
+  if (window.Reveal && Reveal.isReady && Reveal.isReady()) setup();
+  else window.addEventListener("load", function () {
+    if (Reveal.isReady()) setup(); else Reveal.on("ready", setup);
+  });
+})();
+</script>

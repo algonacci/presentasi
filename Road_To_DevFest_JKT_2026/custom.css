@@ -1420,18 +1420,25 @@
     margin-bottom: 0.4em;
 }
 
-/* Presenter cue: switch to the Colab notebook after this slide */
+/* Presenter cue: switch to the Colab notebook after this slide.
+   The per-slide marker stays hidden; colab-cue.html copies its text into one
+   badge outside the moving slides, so it never travels with the transition. */
 .reveal .slides section .to-colab {
+    display: none;
+}
+
+#colab-cue {
+    display: none;
     position: fixed;
-    right: 24px;
+    right: 72px;
     bottom: 14px;
     padding: 6px 16px;
     border-radius: 999px;
     background: #F9AB00;
     color: #202124;
     font-family: "Google Sans", "Segoe UI", sans-serif;
-    font-size: 0.5em;
+    font-size: 15px;
     font-weight: bold;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-    z-index: 10;
+    z-index: 30;
 }

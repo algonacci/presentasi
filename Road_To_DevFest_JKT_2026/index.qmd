@@ -9,6 +9,7 @@ format:
         width: 1280
         height: 720
         css: custom.css
+        include-after-body: colab-cue.html
         slide-number: c/t
         chalkboard:
             buttons: true
