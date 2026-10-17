@@ -356,6 +356,8 @@ Tapi untuk **system prompt yang dikirim ribuan kali**, 27% itu terasa.
 
 Ketik kalimat yang sama dalam English dan Indonesia, lalu bandingkan jumlah tokennya.
 
+<div class="to-colab">🧪 Ke Colab · §1 Dasar: token</div>
+
 ## Format Data Juga Token {#format .smaller}
 
 20 baris produk yang sama:
@@ -438,6 +440,8 @@ id,nama,kategori,harga,stok
 
 :::
 
+<div class="to-colab">🧪 Ke Colab · §1 Format data</div>
+
 ## Habisnya di Input, Bukan Output {#habis-di-input}
 
 Data nyata traffic Orvix, 30 hari terakhir:
@@ -452,6 +456,8 @@ Data nyata traffic Orvix, 30 hari terakhir:
 ### Pada agent, output cuma 0,5% dari total token
 Yang Anda bayar adalah **konteks yang dikirim ulang setiap giliran**. Di situ caching bekerja.
 :::
+
+<div class="to-colab">🧪 Ke Colab · §2 Habisnya di input</div>
 
 ## Isi Basic Harness {#harness}
 
@@ -703,6 +709,8 @@ Yang berubah ditaruh **paling belakang**
 :::
 ::::
 
+<div class="to-colab">🧪 Ke Colab · §3 Prompt caching + Aturan #1</div>
+
 ## Aturan #2: Cache Tinggal di Satu Tempat {#aturan-lokasi}
 
 Cache disimpan di **server provider yang melayani request Anda**, untuk **model itu**, dalam **jangka waktu terbatas**.
@@ -744,6 +752,8 @@ Setelah cache Fable warm pun, tiap giliran masih $0,147, kira-kira 35x lebih mah
 Kalau giliran 31 sekaligus menulis cache 5 menit (biaya tulis 1,25x), biayanya jadi $1,78.
 Claude Fable 5.1 cache read $0,25/MTok.
 :::
+
+<div class="to-colab">🧪 Ke Colab · §4 Biaya ganti model</div>
 
 ## Cara Mengukur {#ukur}
 
@@ -807,6 +817,8 @@ Urutkan dari yang **paling stabil** ke yang **paling sering berubah**:
 
 <div class="symptom">🩺 <b>Gejalanya:</b> <code>cached_tokens</code> selalu 0 atau naik-turun tidak jelas, padahal user-nya sama.</div>
 
+<div class="to-colab">🧪 Ke Colab · §5 Anatomi + pembunuh cache</div>
+
 ## Sebelum vs Sesudah {#before-after}
 
 :::: {.columns}
@@ -851,6 +863,8 @@ Isi informasinya **sama**. Yang berubah cuma urutannya.
 
 <div class="principle">💡 Yang masuk konteks: <b>yang dibutuhkan untuk langkah berikutnya</b>, bukan semua yang tersedia.</div>
 
+<div class="to-colab">🧪 Ke Colab · §5 Cheat code 1</div>
+
 ## Selain Prompt Cache {#cache-lain}
 
 Satu request lewat beberapa titik. Tiap titik bisa punya cache sendiri:
@@ -892,6 +906,8 @@ Tiap giliran, agent mengirim **seluruh** percakapan lagi. Makin lama sesi, makin
 <div class="pp-res">= <b>≈ 10× lebih murah</b><br><span>pekerjaan sama persis<br>DeepSeek V4.1 Flash, jam sibuk, input saja</span></div>
 </div>
 
+<div class="to-colab">🧪 Ke Colab · §6 Agent loop</div>
+
 ## Satu Sesi, Satu Server {#orvix-1}
 
 Cache tinggal di server yang melayani request. Dilempar acak = cache tidak ketemu.
@@ -921,6 +937,8 @@ Caranya:
 ### Jebakan
 Session id bisa dikirim lewat **header** atau **body**, tergantung harness. Kalau gateway membaca dari tempat yang salah, sticky routing mati **diam-diam**.
 :::
+
+<div class="to-colab">🧪 Ke Colab · §3 Banding /v1 vs /coding/v1</div>
 
 ## Tagihan & Kuota Harus Sadar Cache {#orvix-2}
 
@@ -978,6 +996,8 @@ Kuota **10 jt**, sudah terpakai **92%**. Request berikutnya: sesi agent panjang,
 <div><b>Naif:</b> 1 jt token = <b>1 jt</b> kuota (10%) &gt; sisa 800 rb</div>
 <div><b>Sadar cache:</b> 80 rb baru + 920 rb cache × 10% = <b>172 rb</b> kuota (1,7%)</div>
 </div>
+
+<div class="to-colab">🧪 Ke Colab · §7 Kuota sadar cache</div>
 
 ## Yang Kami Lakukan di Orvix Coding {#orvix-3 .smaller}
 

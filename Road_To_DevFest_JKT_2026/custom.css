@@ -1419,3 +1419,19 @@
     font-size: 1.4em;
     margin-bottom: 0.4em;
 }
+
+/* Presenter cue: switch to the Colab notebook after this slide */
+.reveal .slides section .to-colab {
+    position: fixed;
+    right: 24px;
+    bottom: 14px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: #F9AB00;
+    color: #202124;
+    font-family: "Google Sans", "Segoe UI", sans-serif;
+    font-size: 0.5em;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    z-index: 10;
+}
