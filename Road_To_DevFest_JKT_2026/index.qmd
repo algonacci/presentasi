@@ -282,8 +282,8 @@ Token Efficiency
 ::: {.column width="60%"}
 
 <div class="claim-url left">
-<span class="claim-host">s.id/</span>
-<span class="claim-code">Colab-Token-Efficiency</span>
+<span class="claim-host">go.braincore.id/</span>
+<span class="claim-code">colab-token-efficiency</span>
 </div>
 
 Semua demo di sesi ini ada di notebook. Kita bolak-balik slide ↔ Colab.
