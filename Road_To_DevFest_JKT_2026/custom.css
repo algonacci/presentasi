@@ -1413,3 +1413,9 @@
     font-family: ui-monospace, "SF Mono", Consolas, "Courier New", monospace;
     letter-spacing: 0;
 }
+
+/* Colab link reads from the back row */
+#colab .claim-url {
+    font-size: 1.4em;
+    margin-bottom: 0.4em;
+}

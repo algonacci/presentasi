@@ -270,6 +270,35 @@ Token Efficiency
 **Isi prompt sama persis, tagihan bisa beda 9×.** Bedanya: cache kena atau tidak.
 :::
 
+## Buka Colab-nya Sekarang {#colab}
+
+:::: {.columns}
+::: {.column width="40%"}
+
+![](images/qr-colab.png){width=320 fig-align="center"}
+
+:::
+::: {.column width="60%"}
+
+<div class="claim-url left">
+<span class="claim-host">s.id/</span>
+<span class="claim-code">Colab-Token-Efficiency</span>
+</div>
+
+Semua demo di sesi ini ada di notebook. Kita bolak-balik slide ↔ Colab.
+
+1. **Scan QR** atau buka link di atas
+2. **File → Save a copy in Drive** biar bisa diedit
+3. **Runtime → Run all**, isi API key saat diminta
+
+::: {.callout-tip}
+### Belum punya API key?
+Klaim dulu di slide **Klaim dalam 3 Langkah**. Bagian tokenizer, biaya ganti model, dan kuota bisa jalan tanpa key.
+:::
+
+:::
+::::
+
 # Dasar: Token {#sec-token background-color="#2c3e50"}
 Model tidak membaca huruf
 
